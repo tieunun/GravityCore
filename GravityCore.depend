@@ -1,0 +1,86 @@
+# depslib dependency file v1.0
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/circle.cxx
+	"circle.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/circle.hxx
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
+	"contactlistener.hxx"
+	"player.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
+	<Box2D/Box2D.h>
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/player.hxx
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+	"core.hxx"
+	"state.hxx"
+	"splashstate.hxx"
+	"mainmenustate.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/core.hxx
+	<sstream>
+	<vector>
+	<SFML/Graphics.hpp>
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/state.hxx
+	"core.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
+	"core.hxx"
+	"state.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+	"core.hxx"
+	"state.hxx"
+
+1320706400 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
+	"core.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+	<iostream>
+	"maingamestate.hxx"
+	"pausemenustate.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+	<vector>
+	<Box2D/Box2D.h>
+	"core.hxx"
+	"state.hxx"
+	"circle.hxx"
+	"player.hxx"
+	"rectangle.hxx"
+	"contactlistener.hxx"
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/rectangle.hxx
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+
+1320706279 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
+	"core.hxx"
+	"state.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+	"mainmenustate.hxx"
+	"maingamestate.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
+	"pausemenustate.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+	<iostream>
+	"player.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
+	"rectangle.hxx"
+
+1320706279 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
+	<iostream>
+	"mainmenustate.hxx"
+	"splashstate.hxx"
+

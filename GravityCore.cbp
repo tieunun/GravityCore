@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GravityCore" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/GravityCore" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-l sfml-system" />
+					<Add option="-l sfml-window" />
+					<Add option="-l sfml-graphics" />
+					<Add option="-l Box2D" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/GravityCore" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-l sfml-system" />
+					<Add option="-l sfml-window" />
+					<Add option="-l sfml-graphics" />
+					<Add option="-l Box2D" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="circle.cxx" />
+		<Unit filename="circle.hxx" />
+		<Unit filename="contactlistener.cxx" />
+		<Unit filename="contactlistener.hxx" />
+		<Unit filename="core.cxx" />
+		<Unit filename="core.hxx" />
+		<Unit filename="main.cxx" />
+		<Unit filename="maingamestate.cxx" />
+		<Unit filename="maingamestate.hxx" />
+		<Unit filename="mainmenustate.cxx" />
+		<Unit filename="mainmenustate.hxx" />
+		<Unit filename="pausemenustate.cxx" />
+		<Unit filename="pausemenustate.hxx" />
+		<Unit filename="player.cxx" />
+		<Unit filename="player.hxx" />
+		<Unit filename="rectangle.cxx" />
+		<Unit filename="rectangle.hxx" />
+		<Unit filename="splashstate.cxx" />
+		<Unit filename="splashstate.hxx" />
+		<Unit filename="state.hxx" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
