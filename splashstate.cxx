@@ -17,7 +17,7 @@ SplashState::SplashState(Core* game)
 void SplashState::Initiate()
 {
     splashItems.push_back(sf::Text("Ax5 Productions", sf::Font::GetDefaultFont(), 30));
-    splashItems.push_back(sf::Text("Programmer:\tTaylor C. Richberger\nWriter:\tJohn J. Ulanowski", sf::Font::GetDefaultFont(), 30));
+    splashItems.push_back(sf::Text("Programmer:\tTaylor C. Richberger", sf::Font::GetDefaultFont(), 30));
 
     for (int i = 0; i < splashItems.size(); i++)
     {

@@ -78,7 +78,7 @@
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
 	"rectangle.hxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
+1320712617 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
 	<iostream>
 	"mainmenustate.hxx"
 	"splashstate.hxx"
@@ -86,4 +86,7 @@
 1320710032 /home/taylor/Projects/cxx/GravityCore/shape.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
+
+1320710267 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
+	"shape.hxx"
 
