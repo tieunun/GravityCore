@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="circle.cxx" open="1" top="1" tabpos="2">
-		<Cursor position="111" topLine="0" />
+	<File name="main.cxx" open="1" top="1" tabpos="1">
+		<Cursor position="92" topLine="0" />
 	</File>
-	<File name="main.cxx" open="1" top="0" tabpos="1">
-		<Cursor position="314" topLine="0" />
+	<File name="maingamestate.cxx" open="1" top="0" tabpos="3">
+		<Cursor position="3608" topLine="118" />
+	</File>
+	<File name="maingamestate.hxx" open="1" top="0" tabpos="2">
+		<Cursor position="572" topLine="15" />
+	</File>
+	<File name="shape.cxx" open="1" top="0" tabpos="5">
+		<Cursor position="940" topLine="51" />
+	</File>
+	<File name="shape.hxx" open="1" top="0" tabpos="4">
+		<Cursor position="375" topLine="18" />
 	</File>
 </CodeBlocks_layout_file>

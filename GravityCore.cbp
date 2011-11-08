@@ -41,8 +41,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="circle.cxx" />
-		<Unit filename="circle.hxx" />
 		<Unit filename="contactlistener.cxx" />
 		<Unit filename="contactlistener.hxx" />
 		<Unit filename="core.cxx" />
@@ -56,8 +54,8 @@
 		<Unit filename="pausemenustate.hxx" />
 		<Unit filename="player.cxx" />
 		<Unit filename="player.hxx" />
-		<Unit filename="rectangle.cxx" />
-		<Unit filename="rectangle.hxx" />
+		<Unit filename="shape.cxx" />
+		<Unit filename="shape.hxx" />
 		<Unit filename="splashstate.cxx" />
 		<Unit filename="splashstate.hxx" />
 		<Unit filename="state.hxx" />
