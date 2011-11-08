@@ -31,8 +31,8 @@ void MainGameState::Initiate()
     player->Create(7.0f, 5.0f, 0.4f, 0.9f, true, world);
 
     //-Update Rectangle for Create function like Player-
-    ground = new Rectangle();
-    ground->Initiate(11.0f, 15.0f, 10.0f, 1.0f, false, world);
+    ground = new Shape();
+    ground->InitiateAsRectangle(11.0f, 15.0f, 10.0f, 1.0f, false, world);
 
     scaleFactor = 30.0f;
 }
@@ -84,17 +84,17 @@ void MainGameState::HandleEvents(sf::Event* event)
                 case sf::Keyboard::Up:
                     if (player->GetGrounded())
                     {
-                        player->Impulse(0, -10);
+                        player->Impulse(0, -5);
                     }
                     break;
                 case sf::Keyboard::Down:
-                    player->Impulse(0, 10);
+                    player->Impulse(0, 5);
                     break;
                 case sf::Keyboard::Left:
-                    player->Impulse(-10, 0);
+                    player->Impulse(-5, 0);
                     break;
                 case sf::Keyboard::Right:
-                    player->Impulse(10, 0);
+                    player->Impulse(5, 0);
                     break;
                 case sf::Keyboard::Space:
                     break;
@@ -125,12 +125,12 @@ void MainGameState::HandleEvents(sf::Event* event)
             switch (event->MouseButton.Button)
             {
                 case sf::Mouse::Left:
-                    circles.push_back(new Circle());
-                    circles.back()->Initiate(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 0.5f, true, world);
+                    circles.push_back(new Shape());
+                    circles.back()->InitiateAsCircle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 0.5f, true, world);
                     break;
                 case sf::Mouse::Right:
-                    circles.push_back(new Circle());
-                    circles.back()->Initiate(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 2.0f, false, world);
+                    circles.push_back(new Shape());
+                    circles.back()->InitiateAsRectangle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 1.0f, false, world);
                     break;
                 default:
                     break;

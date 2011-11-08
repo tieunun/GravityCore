@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/circle.cxx
+1320709371 source:/home/taylor/Projects/cxx/GravityCore/circle.cxx
 	"circle.hxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/circle.hxx
+1320709519 /home/taylor/Projects/cxx/GravityCore/circle.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
@@ -42,22 +42,21 @@
 1320706400 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"core.hxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1320710159 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	<iostream>
 	"maingamestate.hxx"
 	"pausemenustate.hxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1320710096 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
 	<Box2D/Box2D.h>
 	"core.hxx"
 	"state.hxx"
-	"circle.hxx"
+	"shape.hxx"
 	"player.hxx"
-	"rectangle.hxx"
 	"contactlistener.hxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/rectangle.hxx
+1320709594 /home/taylor/Projects/cxx/GravityCore/rectangle.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
@@ -76,11 +75,15 @@
 	<iostream>
 	"player.hxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
+1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
 	"rectangle.hxx"
 
 1320706279 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
 	<iostream>
 	"mainmenustate.hxx"
 	"splashstate.hxx"
+
+1320710032 /home/taylor/Projects/cxx/GravityCore/shape.hxx
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
 

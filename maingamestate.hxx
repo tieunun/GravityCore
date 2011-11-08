@@ -11,9 +11,8 @@
 
 #include "core.hxx"
 #include "state.hxx"
-#include "circle.hxx"
+#include "shape.hxx"
 #include "player.hxx"
-#include "rectangle.hxx"
 #include "contactlistener.hxx"
 
 class MainGameState : public State
@@ -26,9 +25,9 @@ class MainGameState : public State
         int32 positionIterations;
 
         Player* player;
-        Rectangle* ground;
-        Rectangle* ground2;
-        std::vector<Circle*> circles;
+        Shape* ground;
+        Shape* ground2;
+        std::vector<Shape*> circles;
 
         b2Vec2 gravity;
         bool doSleep;
