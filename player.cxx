@@ -37,7 +37,7 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dy
     bodyShape->SetAsBox(halfWidth, halfHeight);
 
     b2PolygonShape* footboxShape = new b2PolygonShape();
-    footboxShape->SetAsBox(halfWidth, (halfHeight / 5.0f), b2Vec2(0, halfHeight), 0);
+    footboxShape->SetAsBox(halfWidth, (halfHeight / 10.0f), b2Vec2(0, halfHeight), 0);
 
     b2FixtureDef* bodyFixtureDef = new b2FixtureDef();
     bodyFixtureDef->shape = bodyShape;
@@ -75,8 +75,8 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dy
     renderBody.SetOrigin(halfWidth, halfHeight);
     renderBody.EnableOutline(false);
 
-    renderFootbox = sf::Shape::Rectangle(0.0f, 0.0, halfWidth * 2.0f, (halfHeight / 5.0f) * 2.0f, sf::Color(0, 255, 0, 255), 2.0f, sf::Color(0, 255, 0, 255));
-    renderFootbox.SetOrigin(halfWidth, (halfHeight / 5.0f));
+    renderFootbox = sf::Shape::Rectangle(0.0f, 0.0, halfWidth * 2.0f, (halfHeight / 10.0f) * 2.0f, sf::Color(0, 255, 0, 255), 2.0f, sf::Color(0, 255, 0, 255));
+    renderFootbox.SetOrigin(halfWidth, (halfHeight / 10.0f));
     renderFootbox.EnableOutline(true);
     renderFootbox.EnableFill(false);
 

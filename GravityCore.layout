@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="contactlistener.cxx" open="1" top="1" tabpos="8">
-		<Cursor position="0" topLine="6" />
+	<File name="contactlistener.cxx" open="1" top="0" tabpos="8">
+		<Cursor position="324" topLine="0" />
 	</File>
 	<File name="contactlistener.hxx" open="1" top="0" tabpos="7">
+		<Cursor position="132" topLine="0" />
+	</File>
+	<File name="fixturetype.cxx" open="1" top="0" tabpos="12">
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="main.cxx" open="1" top="0" tabpos="1">
 		<Cursor position="92" topLine="0" />
 	</File>
-	<File name="maingamestate.cxx" open="1" top="0" tabpos="3">
-		<Cursor position="3608" topLine="118" />
+	<File name="maingamestate.cxx" open="1" top="1" tabpos="3">
+		<Cursor position="1889" topLine="66" />
 	</File>
 	<File name="maingamestate.hxx" open="1" top="0" tabpos="2">
-		<Cursor position="572" topLine="15" />
+		<Cursor position="572" topLine="0" />
+	</File>
+	<File name="mainmenustate.cxx" open="1" top="0" tabpos="11">
+		<Cursor position="1526" topLine="50" />
+	</File>
+	<File name="mainmenustate.hxx" open="1" top="0" tabpos="13">
+		<Cursor position="263" topLine="0" />
+	</File>
+	<File name="player.cxx" open="1" top="0" tabpos="10">
+		<Cursor position="1348" topLine="45" />
+	</File>
+	<File name="player.hxx" open="1" top="0" tabpos="9">
+		<Cursor position="160" topLine="0" />
 	</File>
 	<File name="shape.cxx" open="1" top="0" tabpos="5">
 		<Cursor position="940" topLine="51" />
 	</File>
 	<File name="shape.hxx" open="1" top="0" tabpos="4">
-		<Cursor position="375" topLine="18" />
+		<Cursor position="375" topLine="0" />
 	</File>
 	<File name="splashstate.cxx" open="1" top="0" tabpos="6">
 		<Cursor position="430" topLine="6" />

@@ -45,6 +45,7 @@
 		<Unit filename="contactlistener.hxx" />
 		<Unit filename="core.cxx" />
 		<Unit filename="core.hxx" />
+		<Unit filename="fixturetype.cxx" />
 		<Unit filename="main.cxx" />
 		<Unit filename="maingamestate.cxx" />
 		<Unit filename="maingamestate.hxx" />
