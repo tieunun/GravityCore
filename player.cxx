@@ -19,6 +19,7 @@ Player::~Player()
 
 bool Player::Initiate()
 {
+    return (true);
 }
 
 void Player::Cleanup()
@@ -60,8 +61,9 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dy
         body->SetFixedRotation(true);
         body->SetUserData((void*)this);
         bodyFixture = body->CreateFixture(bodyFixtureDef);
+        bodyFixture->SetUserData((void*)playerBody);
         footboxFixture = body->CreateFixture(footboxFixtureDef);
-        footboxFixture->SetUserData((void*)2);
+        footboxFixture->SetUserData((void*)footboxSensor);
     } else
     {
         bodyDef->type = b2_staticBody;

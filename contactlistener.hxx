@@ -7,6 +7,9 @@
 
 #include <Box2D/Box2D.h>
 
+#include "player.hxx"
+#include "fixturetype.cxx"
+
 class ContactListener : public b2ContactListener
 {
     public:

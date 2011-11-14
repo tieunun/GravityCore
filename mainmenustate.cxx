@@ -24,7 +24,7 @@ void MainMenuState::Initiate()
     menuItems.push_back("Credits");
     menuItems.push_back("Exit");
 
-    for (int i = 0; i < menuItems.size(); i++)
+    for (unsigned int i = 0; i < menuItems.size(); i++)
     {
         displayItems.push_back(sf::Text());
         displayItems.back().SetString(menuItems[i]);
@@ -71,7 +71,7 @@ void MainMenuState::HandleEvents(sf::Event* event)
 
 void MainMenuState::Process(float frameTime)
 {
-    for (int i = 0; i < displayItems.size(); i++)
+    for (unsigned int i = 0; i < displayItems.size(); i++)
     {
         if (i == current)
         {
@@ -85,7 +85,7 @@ void MainMenuState::Process(float frameTime)
 
 void MainMenuState::Render(sf::RenderWindow* window)
 {
-    for (int i = 0; i < displayItems.size(); i++)
+    for (unsigned int i = 0; i < displayItems.size(); i++)
     {
         window->Draw(displayItems[i]);
     }

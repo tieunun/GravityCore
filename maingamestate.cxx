@@ -58,7 +58,7 @@ void MainGameState::Pause()
 {
     player->Pause();
     ground->Pause();
-    for (int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < circles.size(); i++)
     {
         circles[i]->Pause();
     }
@@ -68,7 +68,7 @@ void MainGameState::Resume()
 {
     player->Resume();
     ground->Resume();
-    for (int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < circles.size(); i++)
     {
         circles[i]->Resume();
     }
@@ -146,7 +146,7 @@ void MainGameState::Process(float frameTime)
     world->Step(frameTime, velocityIterations, positionIterations);
     player->Process(scaleFactor);
     ground->Process(scaleFactor);
-    for (int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < circles.size(); i++)
     {
         circles[i]->Process(scaleFactor);
     }
@@ -156,7 +156,7 @@ void MainGameState::Render(sf::RenderWindow* window)
 {
     player->Render(window);
     ground->Render(window);
-    for (int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < circles.size(); i++)
     {
         circles[i]->Render(window);
     }

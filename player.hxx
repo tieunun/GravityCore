@@ -8,12 +8,16 @@
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
 
+#include "fixturetype.cxx"
+
 class Player
 {
     private:
         b2Body* body;
         b2Fixture* bodyFixture;
         b2Fixture* footboxFixture;
+
+
 
         bool dynamic;
         char floors;

@@ -6,16 +6,18 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
+1321308979 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
 	"contactlistener.hxx"
-	"player.hxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
+1321308705 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
 	<Box2D/Box2D.h>
+	"player.hxx"
+	"fixturetype.cxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1321308575 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
+	"fixturetype.cxx"
 
 1320706279 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
 	"core.hxx"
@@ -35,14 +37,14 @@
 	"core.hxx"
 	"state.hxx"
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+1321308625 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
 	"core.hxx"
 	"state.hxx"
 
 1320706400 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"core.hxx"
 
-1320710159 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1321307692 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	<iostream>
 	"maingamestate.hxx"
 	"pausemenustate.hxx"
@@ -64,14 +66,14 @@
 	"core.hxx"
 	"state.hxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+1321307678 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
 	"maingamestate.hxx"
 
 1320706279 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+1321308987 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	<iostream>
 	"player.hxx"
 
@@ -89,4 +91,12 @@
 
 1320710267 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
 	"shape.hxx"
+
+1321308242 /home/taylor/Projects/cxx/GravityCore/bodytype.cxx
+
+1321308145 source:/home/taylor/Projects/cxx/GravityCore/bodytype.cxx
+
+1321308242 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+
+1321308242 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 

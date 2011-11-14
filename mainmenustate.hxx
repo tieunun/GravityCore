@@ -12,7 +12,7 @@ class MainMenuState : public State
 {
     private:
         std::vector<sf::Text> displayItems;
-        int current;
+        unsigned short int current;
 
     public:
         MainMenuState(Core* game);

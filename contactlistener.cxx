@@ -6,16 +6,15 @@
 #define CONTACTLISTENER_CXX
 
 #include "contactlistener.hxx"
-#include "player.hxx"
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
     if (contact->GetFixtureA()->GetBody()->GetUserData() &&
-        contact->GetFixtureA()->GetUserData() == (void*)((int)2))
+        contact->GetFixtureA()->GetUserData() == (void*)footboxSensor)
     {
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(true);
     } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
-                contact->GetFixtureB()->GetUserData() == (void*)((int)2))
+                contact->GetFixtureB()->GetUserData() == (void*)footboxSensor)
     {
         ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->ChangeFloors(true);
     }
@@ -25,11 +24,11 @@ void ContactListener::BeginContact(b2Contact* contact)
 void ContactListener::EndContact(b2Contact* contact)
 {
     if (contact->GetFixtureA()->GetBody()->GetUserData() &&
-        contact->GetFixtureA()->GetUserData() == (void*)((int)2))
+        contact->GetFixtureA()->GetUserData() == (void*)(footboxSensor))
     {
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(false);
     } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
-                contact->GetFixtureB()->GetUserData() == (void*)((int)2))
+                contact->GetFixtureB()->GetUserData() == (void*)(footboxSensor))
     {
         ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->ChangeFloors(false);
     }
