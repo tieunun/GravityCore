@@ -5,8 +5,12 @@
 #ifndef SPLASH_STATE_HXX
 #define SPLASH_STATE_HXX
 
-#include "core.hxx"
+#include <vector>
+#include <SFML/Graphics.hpp>
+
+#include "gamecore.hxx"
 #include "state.hxx"
+#include "mainmenustate.hxx"
 
 class SplashState : public State
 {
@@ -17,7 +21,7 @@ class SplashState : public State
         const unsigned int length;
 
     public:
-        SplashState(Core* game);
+        SplashState(GameCore* game);
 
         void Initiate();
         void Cleanup();

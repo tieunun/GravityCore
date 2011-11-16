@@ -14,75 +14,71 @@
 	"player.hxx"
 	"fixturetype.cxx"
 
-1321476507 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1321484506 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	"fixturetype.cxx"
 
-1320706279 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
-	"core.hxx"
-	"state.hxx"
-	"splashstate.hxx"
-	"mainmenustate.hxx"
+1321483842 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/core.hxx
-	<sstream>
+1321483842 /home/taylor/Projects/cxx/GravityCore/core.hxx
+
+1321483853 /home/taylor/Projects/cxx/GravityCore/state.hxx
+	"gamecore.hxx"
+
+1321484601 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
-
-1320706279 /home/taylor/Projects/cxx/GravityCore/state.hxx
-	"core.hxx"
-
-1321476788 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
-	"core.hxx"
+	"gamecore.hxx"
 	"state.hxx"
+	"mainmenustate.hxx"
 
-1321308625 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
-	"core.hxx"
+1321484453 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+	<SFML/Graphics.hpp>
+	"gamecore.hxx"
 	"state.hxx"
-
-1320706400 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
-	"core.hxx"
-
-1321476559 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
-	<iostream>
 	"maingamestate.hxx"
-	"pausemenustate.hxx"
 
-1320710096 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1321483882 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
+	"gamecore.hxx"
+
+1321484370 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+	"maingamestate.hxx"
+
+1321484378 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
+	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
-	"core.hxx"
+	"gamecore.hxx"
 	"state.hxx"
 	"shape.hxx"
 	"player.hxx"
 	"contactlistener.hxx"
+	"pausemenustate.hxx"
 
 1320709594 /home/taylor/Projects/cxx/GravityCore/rectangle.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1320706279 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
-	"core.hxx"
+1321484094 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
+	<vector>
+	<SFML/Graphics.hpp>
+	"gamecore.hxx"
 	"state.hxx"
 
-1321307678 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+1321484454 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
-	"maingamestate.hxx"
 
-1321476633 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
+1321483940 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1321476543 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
-	<iostream>
+1321484507 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	"player.hxx"
 
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
 	"rectangle.hxx"
 
-1321476788 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
-	<iostream>
-	"mainmenustate.hxx"
+1321484042 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
 	"splashstate.hxx"
 
 1321476248 /home/taylor/Projects/cxx/GravityCore/shape.hxx
@@ -99,4 +95,13 @@
 1321308242 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
 1321308242 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+
+1321484556 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
+	<vector>
+	<SFML/Graphics.hpp>
+
+1321484303 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
+	"gamecore.hxx"
+	"splashstate.hxx"
+	"mainmenustate.hxx"
 

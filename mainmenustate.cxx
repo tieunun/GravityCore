@@ -6,9 +6,8 @@
 #define MAINMENU_STATE_CXX
 
 #include "mainmenustate.hxx"
-#include "maingamestate.hxx"
 
-MainMenuState::MainMenuState(Core* game)
+MainMenuState::MainMenuState(GameCore* game)
 {
     this->game = game;
 }

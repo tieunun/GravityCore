@@ -7,10 +7,10 @@
  *  To Do:          Develop game, lol
  */
 
-#include "core.hxx"
+#include "gamecore.hxx"
 
 int main()
 {
-    Core game("Gravity Core (Built on " + std::string(__DATE__) + ")");
+    GameCore game("Gravity Core (Built on " + std::string(__DATE__) + ")");
     return (game.Run());
 }

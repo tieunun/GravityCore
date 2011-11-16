@@ -6,14 +6,15 @@
 #define MAINGAME_STATE_HXX
 
 #include <vector>
-
+#include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 
-#include "core.hxx"
+#include "gamecore.hxx"
 #include "state.hxx"
 #include "shape.hxx"
 #include "player.hxx"
 #include "contactlistener.hxx"
+#include "pausemenustate.hxx"
 
 class MainGameState : public State
 {
@@ -34,7 +35,7 @@ class MainGameState : public State
         float scaleFactor;
 
     public:
-        MainGameState(Core* game);
+        MainGameState(GameCore* game);
 
         void Initiate();
         void Cleanup();

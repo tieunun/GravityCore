@@ -5,8 +5,11 @@
 #ifndef MAINMENU_STATE_HXX
 #define MAINMENU_STATE_HXX
 
-#include "core.hxx"
+#include <SFML/Graphics.hpp>
+
+#include "gamecore.hxx"
 #include "state.hxx"
+#include "maingamestate.hxx"
 
 class MainMenuState : public State
 {
@@ -15,7 +18,7 @@ class MainMenuState : public State
         unsigned short int current;
 
     public:
-        MainMenuState(Core* game);
+        MainMenuState(GameCore* game);
         //~MainMenuState();
 
         void Initiate();

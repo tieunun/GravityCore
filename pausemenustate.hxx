@@ -5,7 +5,10 @@
 #ifndef PAUSEMENU_STATE_HXX
 #define PAUSEMENU_STATE_HXX
 
-#include "core.hxx"
+#include <vector>
+#include <SFML/Graphics.hpp>
+
+#include "gamecore.hxx"
 #include "state.hxx"
 
 class PauseMenuState : public State
@@ -15,7 +18,7 @@ class PauseMenuState : public State
         int current;
 
     public:
-        PauseMenuState(Core* game);
+        PauseMenuState(GameCore* game);
 
         void Initiate();
         void Cleanup();

@@ -5,8 +5,6 @@
 #ifndef PLAYER_CXX
 #define PLAYER_CXX
 
-#include <iostream>
-
 #include "player.hxx"
 
 Player::Player()

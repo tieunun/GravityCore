@@ -46,6 +46,8 @@
 		<Unit filename="core.cxx" />
 		<Unit filename="core.hxx" />
 		<Unit filename="fixturetype.cxx" />
+		<Unit filename="gamecore.cxx" />
+		<Unit filename="gamecore.hxx" />
 		<Unit filename="main.cxx" />
 		<Unit filename="maingamestate.cxx" />
 		<Unit filename="maingamestate.hxx" />

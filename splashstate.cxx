@@ -4,12 +4,10 @@
 
 #ifndef SPLASH_STATE_CXX
 #define SPLASH_STATE_CXX
-#include <iostream>
 
-#include "mainmenustate.hxx"
 #include "splashstate.hxx"
 
-SplashState::SplashState(Core* game)  : length(2000)
+SplashState::SplashState(GameCore* game)  : length(2000)
 {
     this->game = game;
 }

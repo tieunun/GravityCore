@@ -5,7 +5,7 @@
 #ifndef STATE_HXX
 #define STATE_HXX
 
-#include "core.hxx"
+#include "gamecore.hxx"
 
 class State
 {
@@ -14,7 +14,7 @@ class State
         {
         }
 
-        Core* game;
+        GameCore* game;
     public:
 
         virtual void Initiate() = 0;

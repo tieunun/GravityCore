@@ -7,7 +7,7 @@
 
 #include "pausemenustate.hxx"
 
-PauseMenuState::PauseMenuState(Core* game)
+PauseMenuState::PauseMenuState(GameCore* game)
 {
     this->game = game;
 }

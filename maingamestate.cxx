@@ -5,12 +5,9 @@
 #ifndef MAINGAME_STATE_CXX
 #define MAINGAME_STATE_CXX
 
-#include <iostream>
-
 #include "maingamestate.hxx"
-#include "pausemenustate.hxx"
 
-MainGameState::MainGameState(Core* game)
+MainGameState::MainGameState(GameCore* game)
 {
     this->game = game;
 }
