@@ -9,7 +9,7 @@
 #include "mainmenustate.hxx"
 #include "splashstate.hxx"
 
-SplashState::SplashState(Core* game)
+SplashState::SplashState(Core* game)  : length(2000)
 {
     this->game = game;
 }
@@ -19,14 +19,13 @@ void SplashState::Initiate()
     splashItems.push_back(sf::Text("Ax5 Productions", sf::Font::GetDefaultFont(), 30));
     splashItems.push_back(sf::Text("Programmer:\tTaylor C. Richberger", sf::Font::GetDefaultFont(), 30));
 
-    for (int i = 0; i < splashItems.size(); i++)
+    for (unsigned short int i = 0; i < splashItems.size(); i++)
     {
         splashItems[i].SetPosition(30, game->GetHeight() / 2 - 15);
         splashItems[i].SetColor(sf::Color(255, 255, 255, 0));
     }
 
     current = 0;
-    length = 2000;
 
     timer.Reset();
 }

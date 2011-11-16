@@ -11,10 +11,8 @@
 class Shape
 {
     private:
-        b2BodyDef* bodyDef;
         b2Body* body;
-        b2Shape* shape;
-        b2FixtureDef* fixtureDef;
+        b2Fixture* fixture;
 
         bool dynamic;
 
@@ -24,11 +22,14 @@ class Shape
         Shape();
         ~Shape();
 
-        bool InitiateAsCircle(float x, float y, float radius, bool dynamic, b2World* world);
-        bool InitiateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world);
+        bool CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world);
+        bool CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world);
+        static Shape* CreateCircle(float x, float y, float radius, bool dynamic, b2World* world);
+        static Shape* CreateRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world);
+
         void Cleanup();
-        void Process(float scaleFactor);
-        void Render(sf::RenderWindow* window);
+        void Process();
+        void Render(float scaleFactor, sf::RenderWindow* window);
 
         void Pause();
         void Resume();

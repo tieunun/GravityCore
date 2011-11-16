@@ -32,7 +32,7 @@ void MainGameState::Initiate()
 
     //-Update Rectangle for Create function like Player-
     ground = new Shape();
-    ground->InitiateAsRectangle(11.0f, 15.0f, 10.0f, 1.0f, false, world);
+    ground->CreateAsRectangle(11.0f, 15.0f, 10.0f, 1.0f, false, world);
 
     scaleFactor = 30.0f;
 }
@@ -125,12 +125,10 @@ void MainGameState::HandleEvents(sf::Event* event)
             switch (event->MouseButton.Button)
             {
                 case sf::Mouse::Left:
-                    circles.push_back(new Shape());
-                    circles.back()->InitiateAsCircle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 0.5f, true, world);
+                    circles.push_back(Shape::CreateCircle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 0.5f, true, world));
                     break;
                 case sf::Mouse::Right:
-                    circles.push_back(new Shape());
-                    circles.back()->InitiateAsRectangle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 1.0f, false, world);
+                    circles.push_back(Shape::CreateRectangle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 1.0f, false, world));
                     break;
                 default:
                     break;
@@ -144,21 +142,21 @@ void MainGameState::HandleEvents(sf::Event* event)
 void MainGameState::Process(float frameTime)
 {
     world->Step(frameTime, velocityIterations, positionIterations);
-    player->Process(scaleFactor);
-    ground->Process(scaleFactor);
+    player->Process();
+    ground->Process();
     for (unsigned int i = 0; i < circles.size(); i++)
     {
-        circles[i]->Process(scaleFactor);
+        circles[i]->Process();
     }
 }
 
 void MainGameState::Render(sf::RenderWindow* window)
 {
-    player->Render(window);
-    ground->Render(window);
+    player->Render(scaleFactor, window);
+    ground->Render(scaleFactor, window);
     for (unsigned int i = 0; i < circles.size(); i++)
     {
-        circles[i]->Render(window);
+        circles[i]->Render(scaleFactor, window);
     }
 }
 

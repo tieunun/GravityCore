@@ -13,8 +13,8 @@ class SplashState : public State
     private:
         std::vector<sf::Text> splashItems;
         sf::Clock timer;
-        int current;
-        int length;
+        unsigned int current;
+        const unsigned int length;
 
     public:
         SplashState(Core* game);

@@ -93,7 +93,12 @@ void Player::Destroy(b2World* world)
     world->DestroyBody(body);
 }
 
-void Player::Process(float scaleFactor)
+void Player::Process()
+{
+
+}
+
+void Player::Render(float scaleFactor, sf::RenderWindow* window)
 {
     renderBody.SetScale(scaleFactor, scaleFactor);
     renderBody.SetOutlineThickness(2 / scaleFactor);
@@ -110,10 +115,6 @@ void Player::Process(float scaleFactor)
         body->GetWorldPoint(((b2PolygonShape*)footboxFixture->GetShape())->m_centroid).x * scaleFactor,
         body->GetWorldPoint(((b2PolygonShape*)footboxFixture->GetShape())->m_centroid).y * scaleFactor);
     renderFootbox.SetRotation(body->GetAngle() * 180.0f / 3.1415926535);
-}
-
-void Player::Render(sf::RenderWindow* window)
-{
     window->Draw(renderBody);
     window->Draw(renderFootbox);
 }

@@ -35,8 +35,8 @@ class Player
         bool Create(float x, float y, float width, float height, bool dynamic, b2World* world);
         void Destroy(b2World* world);
 
-        void Process(float scaleFactor);
-        void Render(sf::RenderWindow* window);
+        void Process();
+        void Render(float timeLapse, sf::RenderWindow* window);
 
         void Pause();
         void Resume();

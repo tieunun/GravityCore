@@ -21,7 +21,7 @@ void PauseMenuState::Initiate()
     menuItems.push_back("Back to Game");
     menuItems.push_back("Quit to Title");
 
-    for (int i = 0; i < menuItems.size(); i++)
+    for (unsigned short int i = 0; i < menuItems.size(); i++)
     {
         displayItems.push_back(sf::Text());
         displayItems.back().SetString(menuItems[i]);
@@ -68,7 +68,7 @@ void PauseMenuState::HandleEvents(sf::Event* event)
 
 void PauseMenuState::Process(float frameTime)
 {
-    for (int i = 0; i < displayItems.size(); i++)
+    for (unsigned short int i = 0; i < displayItems.size(); i++)
     {
         if (i == current)
         {
@@ -82,7 +82,7 @@ void PauseMenuState::Process(float frameTime)
 
 void PauseMenuState::Render(sf::RenderWindow* window)
 {
-    for (int i = 0; i < displayItems.size(); i++)
+    for (unsigned short int i = 0; i < displayItems.size(); i++)
     {
         window->Draw(displayItems[i]);
     }

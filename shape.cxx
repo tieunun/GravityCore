@@ -15,16 +15,16 @@ Shape::~Shape()
 {
 }
 
-bool Shape::InitiateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
+bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
 {
     this->dynamic = dynamic;
-    bodyDef = new b2BodyDef;
+    b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
 
-    shape = new b2CircleShape();
-    ((b2CircleShape*)shape)->m_radius = radius;
+    b2CircleShape* shape = new b2CircleShape();
+    shape->m_radius = radius;
 
-    fixtureDef = new b2FixtureDef();
+    b2FixtureDef* fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
 
     fixtureDef->density = 1.0f;
@@ -34,30 +34,32 @@ bool Shape::InitiateAsCircle(float x, float y, float radius, bool dynamic, b2Wor
     if (dynamic)
     {
         bodyDef->type = b2_dynamicBody;
-        body = world->CreateBody(bodyDef);
-        body->CreateFixture(fixtureDef);
     } else
     {
         bodyDef->type = b2_staticBody;
-        body = world->CreateBody(bodyDef);
-        body->CreateFixture(shape, 0.0f);
     }
+    body = world->CreateBody(bodyDef);
+    fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color(255, 0, 0, 100), 2.0f, sf::Color::Red);
+    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Red, 2.0f, sf::Color::Red);
     renderShape.EnableOutline(false);
+
+    delete (bodyDef);
+    delete (fixtureDef);
+    delete (shape);
     return (true);
 }
 
-bool Shape::InitiateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
+bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
 {
     this->dynamic = dynamic;
-    bodyDef = new b2BodyDef;
+    b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
 
-    shape = new b2PolygonShape();
-    ((b2PolygonShape*)shape)->SetAsBox(halfWidth, halfHeight);
+    b2PolygonShape* shape = new b2PolygonShape();
+    shape->SetAsBox(halfWidth, halfHeight);
 
-    fixtureDef = new b2FixtureDef();
+    b2FixtureDef* fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
 
     fixtureDef->density = 1.0f;
@@ -66,19 +68,35 @@ bool Shape::InitiateAsRectangle(float x, float y, float halfWidth, float halfHei
     if (dynamic)
     {
         bodyDef->type = b2_dynamicBody;
-        body = world->CreateBody(bodyDef);
-        body->CreateFixture(fixtureDef);
     } else
     {
         bodyDef->type = b2_staticBody;
-        body = world->CreateBody(bodyDef);
-        body->CreateFixture(shape, 0.0f);
     }
+    body = world->CreateBody(bodyDef);
+    fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Rectangle(0, 0, 2.0f * halfWidth, 2.0f * halfHeight, sf::Color(0, 255, 0, 100), 2.0, sf::Color::Green);
+    renderShape = sf::Shape::Rectangle(0, 0, 2.0f * halfWidth, 2.0f * halfHeight, sf::Color::Red, 2.0, sf::Color::Red);
     renderShape.SetOrigin(halfWidth, halfHeight);
     renderShape.EnableOutline(false);
+
+    delete (bodyDef);
+    delete (fixtureDef);
+    delete (shape);
     return (true);
+}
+
+Shape* Shape::CreateCircle(float x, float y, float radius, bool dynamic, b2World* world)
+{
+    Shape* output = new Shape();
+    output->CreateAsCircle(x, y, radius, dynamic, world);
+    return (output);
+}
+
+Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
+{
+    Shape* output = new Shape();
+    output->CreateAsRectangle(x, y, halfWidth, halfHeight, dynamic, world);
+    return (output);
 }
 
 void Shape::Cleanup()
@@ -86,15 +104,15 @@ void Shape::Cleanup()
 
 }
 
-void Shape::Process(float scaleFactor)
+void Shape::Process()
+{
+}
+
+void Shape::Render(float scaleFactor, sf::RenderWindow* window)
 {
     renderShape.SetScale(scaleFactor, scaleFactor);
     renderShape.SetOutlineThickness(2 / scaleFactor);
     renderShape.SetPosition(body->GetPosition().x * scaleFactor, body->GetPosition().y * scaleFactor);
-}
-
-void Shape::Render(sf::RenderWindow* window)
-{
     window->Draw(renderShape);
 }
 
