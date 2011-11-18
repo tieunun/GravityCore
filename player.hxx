@@ -13,14 +13,14 @@
 class Player
 {
     private:
+        const float PI;
         b2Body* body;
         b2Fixture* bodyFixture;
         b2Fixture* footboxFixture;
 
-
-
-        bool dynamic;
+        // The number of floors contacted by the footbox, used to determine jumping.
         char floors;
+        b2Vec2 gravitationalForce;
 
         sf::Shape renderBody;
         sf::Shape renderFootbox;
@@ -32,7 +32,7 @@ class Player
         static bool Initiate();
         static void Cleanup();
 
-        bool Create(float x, float y, float width, float height, bool dynamic, b2World* world);
+        bool Create(float x, float y, float halfWidth, float halfHeight, float mass, b2World* world);
         void Destroy(b2World* world);
 
         void Process();
@@ -43,9 +43,12 @@ class Player
 
         void Impulse(float x, float y);
 
-        bool GetGrounded();
+        bool IsGrounded();
         // if true, increase the number of floors, if false, decrease.
         void ChangeFloors(bool increment);
+
+        void ClearGravitation();
+        void AddGravitation(b2Vec2 distance, float mass);
 };
 
 #endif

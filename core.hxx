@@ -1,2 +1,34 @@
-// This will be the class header for the Core class (being the Gravity Core objects,
-// not the core of the game engine, which is now represented by the class GameCore.
+/*
+ *  Lead Coder:     Taylor C. Richberger
+ */
+
+#ifndef CORE_HXX
+#define CORE_HXX
+
+#include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
+
+class Core
+{
+    private:
+        const float PI;
+        b2Body* body;
+        b2Fixture* fixture;
+
+        sf::Shape renderShape;
+
+    public:
+        Core();
+        ~Core();
+
+        bool Create(float x, float y, float radius, float mass, b2World* world);
+        static Core* CreateCore(float x, float y, float radius, float mass, b2World* world);
+
+        void Cleanup();
+        void Process();
+        void Render(float scaleFactor, sf::RenderWindow* window);
+
+        void Pause();
+        void Resume();};
+
+#endif

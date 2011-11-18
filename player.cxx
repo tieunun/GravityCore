@@ -7,7 +7,7 @@
 
 #include "player.hxx"
 
-Player::Player()
+Player::Player() : PI(3.1415926535)
 {
 }
 
@@ -24,11 +24,13 @@ void Player::Cleanup()
 {
 }
 
-bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
+bool Player::Create(float x, float y, float halfWidth, float halfHeight, float mass, b2World* world)
 {
+    gravitationalForce.x = 0;
+    gravitationalForce.y = 0;
+
     floors = 0;
 
-    this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
     b2PolygonShape* bodyShape = new b2PolygonShape();
@@ -40,9 +42,9 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dy
     b2FixtureDef* bodyFixtureDef = new b2FixtureDef();
     bodyFixtureDef->shape = bodyShape;
 
-    bodyFixtureDef->density = 1.0f;
+    bodyFixtureDef->density = mass / (halfWidth * halfHeight * 4.0f);
     bodyFixtureDef->friction = 5.0f;
-    bodyFixtureDef->restitution = 0.025f;
+    bodyFixtureDef->restitution = 0.05f;
 
     b2FixtureDef* footboxFixtureDef = new b2FixtureDef();
     footboxFixtureDef->shape = footboxShape;
@@ -52,22 +54,14 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, bool dy
     footboxFixtureDef->friction = 0.0f;
     footboxFixtureDef->restitution = 0.0f;
 
-    if (dynamic)
-    {
-        bodyDef->type = b2_dynamicBody;
-        body = world->CreateBody(bodyDef);
-        body->SetFixedRotation(true);
-        body->SetUserData((void*)this);
-        bodyFixture = body->CreateFixture(bodyFixtureDef);
-        bodyFixture->SetUserData((void*)playerBody);
-        footboxFixture = body->CreateFixture(footboxFixtureDef);
-        footboxFixture->SetUserData((void*)footboxSensor);
-    } else
-    {
-        bodyDef->type = b2_staticBody;
-        body = world->CreateBody(bodyDef);
-        bodyFixture = body->CreateFixture(bodyShape, 0.0f);
-    }
+    bodyDef->type = b2_dynamicBody;
+    body = world->CreateBody(bodyDef);
+    body->SetFixedRotation(true);
+    body->SetUserData((void*)this);
+    bodyFixture = body->CreateFixture(bodyFixtureDef);
+    bodyFixture->SetUserData((void*)playerBody);
+    footboxFixture = body->CreateFixture(footboxFixtureDef);
+    footboxFixture->SetUserData((void*)footboxSensor);
 
     renderBody = sf::Shape::Rectangle(0.0f, 0.0f, halfWidth * 2.0f, halfHeight * 2.0f, sf::Color(255, 0, 0, 100), 2.0f, sf::Color::Red);
     renderBody.SetOrigin(halfWidth, halfHeight);
@@ -131,7 +125,7 @@ void Player::Impulse(float x, float y)
     body->SetLinearVelocity(b2Vec2(x, y) + body->GetLinearVelocity());
 }
 
-bool Player::GetGrounded()
+bool Player::IsGrounded()
 {
     return ((bool)floors);
 }
@@ -150,4 +144,16 @@ void Player::ChangeFloors(bool increment)
         floors = 0;
     }
 }
+void ClearGravitation()
+{
+    gravitationalForce.x = 0;
+    gravitationalForce.y = 0;
+}
+
+void AddGravitation(b2Vec2 distance, float mass)
+{
+    gravitationalForce.x += ((mass * (bodyFixture->GetDensity())) / distance.x);
+    gravitationalForce.y += ((mass * (bodyFixture->GetDensity())) / distance.y);
+}
+
 #endif

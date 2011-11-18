@@ -16,7 +16,7 @@ void MainGameState::Initiate()
 {
     velocityIterations = 6;
     positionIterations = 2;
-    gravity = b2Vec2(0.0f, 9.8f);
+    gravity = b2Vec2(0.0f, 0.0f);
     doSleep = true;
     world = new b2World(gravity);
     world->SetAllowSleeping(doSleep);
@@ -25,25 +25,23 @@ void MainGameState::Initiate()
     Player::Initiate();
 
     player = new Player();
-    player->Create(7.0f, 5.0f, 0.4f, 0.9f, true, world);
+    player->Create(7.0f, 5.0f, 0.4f, 0.9f, 60.0f, world);
 
     //-Update Rectangle for Create function like Player-
-    ground = new Shape();
-    ground->CreateAsRectangle(11.0f, 15.0f, 10.0f, 1.0f, false, world);
 
     scaleFactor = 30.0f;
+    cores.push_back(Core::CreateCore(10, 10, 2, 1000, world));
 }
 
 void MainGameState::Cleanup()
 {
-    while (circles.size() > 0)
+    while (cores.size() > 0)
     {
-        circles.back()->Cleanup();
-        circles.pop_back();
+        cores.back()->Cleanup();
+        cores.pop_back();
     }
     //-Update Rectangle for Destroy function like Player-
     player->Destroy(world);
-    ground->Cleanup();
 
     Player::Cleanup();
     delete player;
@@ -54,20 +52,18 @@ void MainGameState::Cleanup()
 void MainGameState::Pause()
 {
     player->Pause();
-    ground->Pause();
-    for (unsigned int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < cores.size(); i++)
     {
-        circles[i]->Pause();
+        cores[i]->Pause();
     }
 }
 
 void MainGameState::Resume()
 {
     player->Resume();
-    ground->Resume();
-    for (unsigned int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < cores.size(); i++)
     {
-        circles[i]->Resume();
+        cores[i]->Resume();
     }
 }
 
@@ -79,7 +75,7 @@ void MainGameState::HandleEvents(sf::Event* event)
             switch (event->Key.Code)
             {
                 case sf::Keyboard::Up:
-                    if (player->GetGrounded())
+                    if (player->IsGrounded())
                     {
                         player->Impulse(0, -5);
                     }
@@ -122,10 +118,10 @@ void MainGameState::HandleEvents(sf::Event* event)
             switch (event->MouseButton.Button)
             {
                 case sf::Mouse::Left:
-                    circles.push_back(Shape::CreateCircle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 0.5f, true, world));
+                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 2.0f, 1000, world));
                     break;
                 case sf::Mouse::Right:
-                    circles.push_back(Shape::CreateRectangle(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 1.0f, false, world));
+                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 4.0f, 1000, world));
                     break;
                 default:
                     break;
@@ -139,21 +135,24 @@ void MainGameState::HandleEvents(sf::Event* event)
 void MainGameState::Process(float frameTime)
 {
     world->Step(frameTime, velocityIterations, positionIterations);
-    player->Process();
-    ground->Process();
-    for (unsigned int i = 0; i < circles.size(); i++)
+    player->ClearGravitation();
+    for (unsigned int i = 0; i < cores.size(); i++)
     {
-        circles[i]->Process();
+        cores[i]->Process();
     }
+    for (unsigned int i = 0; i < cores.size(); i++)
+    {
+        player->AddGravitation(cores[i]->GetLocation() - player->GetLocation(), cores[i]->GetMass());
+    }
+    player->Process();
 }
 
 void MainGameState::Render(sf::RenderWindow* window)
 {
     player->Render(scaleFactor, window);
-    ground->Render(scaleFactor, window);
-    for (unsigned int i = 0; i < circles.size(); i++)
+    for (unsigned int i = 0; i < cores.size(); i++)
     {
-        circles[i]->Render(scaleFactor, window);
+        cores[i]->Render(scaleFactor, window);
     }
 }
 

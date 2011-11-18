@@ -14,14 +14,17 @@
 	"player.hxx"
 	"fixturetype.cxx"
 
-1321484506 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1321591785 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	"fixturetype.cxx"
 
-1321483842 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+1321590928 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+	"core.hxx"
 
-1321483842 /home/taylor/Projects/cxx/GravityCore/core.hxx
+1321590632 /home/taylor/Projects/cxx/GravityCore/core.hxx
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
 
 1321483853 /home/taylor/Projects/cxx/GravityCore/state.hxx
 	"gamecore.hxx"
@@ -42,17 +45,17 @@
 1321483882 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"gamecore.hxx"
 
-1321484370 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1321591863 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	"maingamestate.hxx"
 
-1321484378 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1321590114 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
 	"gamecore.hxx"
 	"state.hxx"
-	"shape.hxx"
 	"player.hxx"
+	"core.hxx"
 	"contactlistener.hxx"
 	"pausemenustate.hxx"
 
@@ -72,7 +75,7 @@
 1321483940 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1321484507 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+1321591913 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	"player.hxx"
 
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx

@@ -11,8 +11,8 @@
 
 #include "gamecore.hxx"
 #include "state.hxx"
-#include "shape.hxx"
 #include "player.hxx"
+#include "core.hxx"
 #include "contactlistener.hxx"
 #include "pausemenustate.hxx"
 
@@ -26,9 +26,7 @@ class MainGameState : public State
         int32 positionIterations;
 
         Player* player;
-        Shape* ground;
-        Shape* ground2;
-        std::vector<Shape*> circles;
+        std::vector<Core*> cores;
 
         b2Vec2 gravity;
         bool doSleep;
