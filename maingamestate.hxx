@@ -19,11 +19,15 @@
 class MainGameState : public State
 {
     private:
+        const float PI;
         b2World* world;
         ContactListener* contactListener;
         float32 timeStep;
         int32 velocityIterations;
         int32 positionIterations;
+
+        sf::View* playerView;
+        sf::View* minimapView;
 
         Player* player;
         std::vector<Core*> cores;
@@ -31,6 +35,7 @@ class MainGameState : public State
         b2Vec2 gravity;
         bool doSleep;
         float scaleFactor;
+        float minimapScaleFactor;
 
     public:
         MainGameState(GameCore* game);

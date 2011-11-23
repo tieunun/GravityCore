@@ -7,6 +7,7 @@
 
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "fixturetype.cxx"
 
@@ -42,6 +43,7 @@ class Player
         void Resume();
 
         void Impulse(float x, float y);
+        void StopVelocity();
 
         bool IsGrounded();
         // if true, increase the number of floors, if false, decrease.
@@ -49,6 +51,9 @@ class Player
 
         void ClearGravitation();
         void AddGravitation(b2Vec2 distance, float mass);
+        float GetAngle();
+        b2Vec2 GetPosition();
+        float GetMass();
 };
 
 #endif

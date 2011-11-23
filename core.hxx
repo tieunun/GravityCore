@@ -11,6 +11,7 @@
 class Core
 {
     private:
+        float mass;
         const float PI;
         b2Body* body;
         b2Fixture* fixture;
@@ -29,6 +30,10 @@ class Core
         void Render(float scaleFactor, sf::RenderWindow* window);
 
         void Pause();
-        void Resume();};
+        void Resume();
+
+        b2Vec2 GetPosition();
+        float GetMass();
+};
 
 #endif

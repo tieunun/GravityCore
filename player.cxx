@@ -87,7 +87,8 @@ void Player::Destroy(b2World* world)
 
 void Player::Process()
 {
-
+    body->ApplyForceToCenter(gravitationalForce);
+    body->SetTransform(body->GetWorldCenter(), atan2(-gravitationalForce.x, gravitationalForce.y));
 }
 
 void Player::Render(float scaleFactor, sf::RenderWindow* window)
@@ -122,7 +123,12 @@ void Player::Resume()
 
 void Player::Impulse(float x, float y)
 {
-    body->SetLinearVelocity(b2Vec2(x, y) + body->GetLinearVelocity());
+    body->SetLinearVelocity(body->GetWorldVector(b2Vec2(x, y)) + body->GetLinearVelocity());
+}
+
+void Player::StopVelocity()
+{
+    body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 }
 
 bool Player::IsGrounded()
@@ -144,16 +150,29 @@ void Player::ChangeFloors(bool increment)
         floors = 0;
     }
 }
-void ClearGravitation()
+void Player::ClearGravitation()
 {
-    gravitationalForce.x = 0;
-    gravitationalForce.y = 0;
+    gravitationalForce.SetZero();
 }
 
-void AddGravitation(b2Vec2 distance, float mass)
+void Player::AddGravitation(b2Vec2 distance, float mass)
 {
-    gravitationalForce.x += ((mass * (bodyFixture->GetDensity())) / distance.x);
-    gravitationalForce.y += ((mass * (bodyFixture->GetDensity())) / distance.y);
+    gravitationalForce += (mass * body->GetMass()) / (distance.LengthSquared() * distance.LengthSquared()) * distance;
+}
+
+float Player::GetAngle()
+{
+    return (body->GetAngle());
+}
+
+b2Vec2 Player::GetPosition()
+{
+    return (body->GetWorldCenter());
+}
+
+float Player::GetMass()
+{
+    return (body->GetMass());
 }
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "maingamestate.hxx"
 
-MainGameState::MainGameState(GameCore* game)
+MainGameState::MainGameState(GameCore* game) : PI(3.1415926535f)
 {
     this->game = game;
 }
@@ -27,9 +27,11 @@ void MainGameState::Initiate()
     player = new Player();
     player->Create(7.0f, 5.0f, 0.4f, 0.9f, 60.0f, world);
 
+    playerView = new sf::View();
+
     //-Update Rectangle for Create function like Player-
 
-    scaleFactor = 30.0f;
+    scaleFactor = 10.0f;
     cores.push_back(Core::CreateCore(10, 10, 2, 1000, world));
 }
 
@@ -77,7 +79,7 @@ void MainGameState::HandleEvents(sf::Event* event)
                 case sf::Keyboard::Up:
                     if (player->IsGrounded())
                     {
-                        player->Impulse(0, -5);
+                        player->Impulse(0, -10);
                     }
                     break;
                 case sf::Keyboard::Down:
@@ -90,6 +92,7 @@ void MainGameState::HandleEvents(sf::Event* event)
                     player->Impulse(5, 0);
                     break;
                 case sf::Keyboard::Space:
+                    player->StopVelocity();
                     break;
                 case sf::Keyboard::Escape:
                     game->PushState(new PauseMenuState(game));
@@ -121,7 +124,7 @@ void MainGameState::HandleEvents(sf::Event* event)
                     cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 2.0f, 1000, world));
                     break;
                 case sf::Mouse::Right:
-                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 4.0f, 1000, world));
+                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 600, world));
                     break;
                 default:
                     break;
@@ -138,22 +141,29 @@ void MainGameState::Process(float frameTime)
     player->ClearGravitation();
     for (unsigned int i = 0; i < cores.size(); i++)
     {
-        cores[i]->Process();
+        player->AddGravitation(cores[i]->GetPosition() - player->GetPosition(), cores[i]->GetMass());
     }
     for (unsigned int i = 0; i < cores.size(); i++)
     {
-        player->AddGravitation(cores[i]->GetLocation() - player->GetLocation(), cores[i]->GetMass());
+        cores[i]->Process();
     }
     player->Process();
+
 }
 
 void MainGameState::Render(sf::RenderWindow* window)
 {
+    playerView->SetSize(window->GetDefaultView().GetSize());
+    playerView->SetCenter(player->GetPosition().x * scaleFactor, player->GetPosition().y * scaleFactor);
+    playerView->SetRotation(player->GetAngle() * 180 / PI);
+    window->SetView(*playerView);
     player->Render(scaleFactor, window);
     for (unsigned int i = 0; i < cores.size(); i++)
     {
         cores[i]->Render(scaleFactor, window);
     }
+
+    window->SetView(window->GetDefaultView());
 }
 
 #endif

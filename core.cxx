@@ -17,6 +17,7 @@ Core::~Core()
 
 bool Core::Create(float x, float y, float radius, float mass, b2World* world)
 {
+    this->mass = mass;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
 
@@ -35,7 +36,6 @@ bool Core::Create(float x, float y, float radius, float mass, b2World* world)
 
     renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Red, 2.0f, sf::Color::Red);
     renderShape.EnableOutline(false);
-
 
     delete (bodyDef);
     delete (fixtureDef);
@@ -75,5 +75,16 @@ void Core::Resume()
 {
 
 }
+
+b2Vec2 Core::GetPosition()
+{
+    return (body->GetWorldCenter());
+}
+
+float Core::GetMass()
+{
+    return (mass);
+}
+
 
 #endif
