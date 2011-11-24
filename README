@@ -1,18 +1,50 @@
-TITLE:
+// TITLE:
 Gravity Core
 
-PREMISE:
-In the future, there is a space station in orbit about the sun, between Earth and Mars.
-This space station is very advanced, and even generates its own magnetic field and
-has a basic atmosphere around it, not robust enough to sustain life, but enough to
-deflect any dangerous solar radiation and particles.  This space station has artificial
-gravity, but it is still rather rudimentary, using an array of supermassive objects,
-called Gravity Cores (or just Cores for short) in  large compartment below the station.
-The negative aspect of this is that this compartment needs to be around 5 times the
-volume as the rest of the ship to maintain stability.  something happens to cause
-breakdown of the Cores, and the ship's gravity goes haywire, increasing in some areas,
-and becoming nonexistant in others.  One of the scientists, Al Hawking, is the lead
-maintainence of these Cores, and must venture into the large chambers below, which
-contain the Cores.  The cores have broken their hold, but seem mostly stable,
-keeping distant from eachother due to their magnetic fields.
+// PREMISE:
+In the near future (the next few hundred years), there is a large space station
+that orbits the sun, somewhere between Earth and Mars.  This is a very advanced
+space station, but has many experimental features (things that can only have
+been tested in a zero-gravity environment).  The space station has a magnetic
+field and a rudimentary atmosphere, both a positive side-effect of the Cores
+(to be explained later).  The atmosphere does not sustain life, but, along with
+the magnetic field, operates as a shield from solar radiation and particles.
+The most interesting part of this space station is that it has artificial
+gravity.  The gravity is maintained by a matrix of supermassive, spherical
+objects called Cores.  The unstable nature of these cores requires for the
+compartment which contains them to be several times larger than the rest of the
+ship.  Because of instability, as well as a jarring by a small, uncharted
+asteroid, the cores shift in position.  Certain portions of the ship suffer
+from extreme gravity, while others experience almost no direct gravity.  The
+chief maintenance and engineer of these cores, Al Hawking, can not remotely
+operate them due to damaged equipment, and must therefore venture underneath
+the ship and perform manual maintenance on the cores.
 
+The Cores are composed of a (comparatively) thin iron shell which has a lead
+layer.  This shell is wired to the ship and is normally remotely controllable.
+The shell is internally wired with electromagnets.  The iron shell contains a
+vacuum, and suspended in a powerful magnetic field in this vacuum is a smaller,
+solid iron sphere.  The sphere is rapidly rotated by these magnets by artificial
+tidal forces, and it is rotated quickly enough to, by relativity, increase in
+energy and mass enough to generate a gravitational pull and a strong magnetic
+field, which is partially dissipated by the lead layer.  This gravitational pull
+generates a small black hole in the center which helps to keep the floating
+sphere from destroying itself.
+
+// CONTROLS:
+Arrow keys:  Move left and right
+Space bar (ground):  Jump
+Space bar (air):  Neutralize velocity
+Left click:  Make large core
+Right click:  Make smaller, denser core
+
+// BUILDING:
+Needs:
+SFML2 (The beta version),
+Box2D
+
+When compiling, make sure you link to all the SFML2 and Box2D libraries
+and headers.
+Might create a makefile eventually, but it will only work on Linux/BSD systems;
+at this point, especially with the beta libraries needed, it is easier to compile
+and link yourself anyway.
