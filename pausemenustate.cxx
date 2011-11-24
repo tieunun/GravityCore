@@ -41,7 +41,7 @@ void PauseMenuState::Resume()
 {
 }
 
-void PauseMenuState::HandleEvents(sf::Event* event)
+void PauseMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 {
     switch (event->Type)
     {
@@ -70,6 +70,7 @@ void PauseMenuState::Process(float frameTime)
 {
     for (unsigned short int i = 0; i < displayItems.size(); i++)
     {
+        //Hilight the current item as green, and all others as white
         if (i == current)
         {
             displayItems[i].SetColor(sf::Color::Green);

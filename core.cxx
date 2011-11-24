@@ -15,11 +15,23 @@ Core::~Core()
 {
 }
 
+bool Core::Initiate()
+{
+    return (true);
+}
+
+void Core::Cleanup()
+{
+
+}
+
 bool Core::Create(float x, float y, float radius, float mass, b2World* world)
 {
     this->mass = mass;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
+    bodyDef->type = b2_staticBody;
+    bodyDef->userData = (void*)this;
 
     b2CircleShape* shape = new b2CircleShape();
     shape->m_radius = radius;
@@ -29,8 +41,8 @@ bool Core::Create(float x, float y, float radius, float mass, b2World* world)
     fixtureDef->density = mass / (radius * radius * PI);
     fixtureDef->friction = 1.0f;
     fixtureDef->restitution = 0.0f;
+    fixtureDef->userData = (void*)massiveFixture;
 
-    bodyDef->type = b2_staticBody;
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
@@ -50,9 +62,9 @@ Core* Core::CreateCore(float x, float y, float radius, float mass, b2World* worl
     return (output);
 }
 
-void Core::Cleanup()
+void Core::Destroy(b2World* world)
 {
-
+    world->DestroyBody(body);
 }
 
 void Core::Process()

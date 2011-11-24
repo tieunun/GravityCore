@@ -14,8 +14,10 @@
 class PauseMenuState : public State
 {
     private:
+        // Items to be displayed
         std::vector<sf::Text> displayItems;
-        int current;
+        // Currently highlighted item
+        unsigned short int current;
 
     public:
         PauseMenuState(GameCore* game);
@@ -26,7 +28,7 @@ class PauseMenuState : public State
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event);
+        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
         void Process(float frameTime);
         void Render(sf::RenderWindow* window);
 

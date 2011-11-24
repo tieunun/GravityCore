@@ -37,14 +37,16 @@ void MainGameState::Initiate()
 
 void MainGameState::Cleanup()
 {
+    // Destroy all instances of everything
     while (cores.size() > 0)
     {
-        cores.back()->Cleanup();
+        cores.back()->Destroy(world);
         cores.pop_back();
     }
-    //-Update Rectangle for Destroy function like Player-
     player->Destroy(world);
 
+    // Clean up classes
+    Core::Cleanup();
     Player::Cleanup();
     delete player;
     delete world;
@@ -69,7 +71,7 @@ void MainGameState::Resume()
     }
 }
 
-void MainGameState::HandleEvents(sf::Event* event)
+void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 {
     switch (event->Type)
     {
@@ -121,10 +123,10 @@ void MainGameState::HandleEvents(sf::Event* event)
             switch (event->MouseButton.Button)
             {
                 case sf::Mouse::Left:
-                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 2.0f, 1000, world));
+                    cores.push_back(Core::CreateCore(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 2.0f, 1000, world));
                     break;
                 case sf::Mouse::Right:
-                    cores.push_back(Core::CreateCore(event->MouseButton.X / scaleFactor, event->MouseButton.Y / scaleFactor, 1.0f, 600, world));
+                    cores.push_back(Core::CreateCore(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 1.0f, 700, world));
                     break;
                 default:
                     break;
@@ -137,8 +139,11 @@ void MainGameState::HandleEvents(sf::Event* event)
 
 void MainGameState::Process(float frameTime)
 {
+    // Run a step of simulation in the Box2D world
     world->Step(frameTime, velocityIterations, positionIterations);
+    // Reset the player's gravitation
     player->ClearGravitation();
+    // Combine the gravitation from all the cores on the player
     for (unsigned int i = 0; i < cores.size(); i++)
     {
         player->AddGravitation(cores[i]->GetPosition() - player->GetPosition(), cores[i]->GetMass());
@@ -147,12 +152,14 @@ void MainGameState::Process(float frameTime)
     {
         cores[i]->Process();
     }
+    // Apply gravitational force
     player->Process();
 
 }
 
 void MainGameState::Render(sf::RenderWindow* window)
 {
+    // Set and render the normal view
     playerView->SetSize(window->GetDefaultView().GetSize());
     playerView->SetCenter(player->GetPosition().x * scaleFactor, player->GetPosition().y * scaleFactor);
     playerView->SetRotation(player->GetAngle() * 180 / PI);
@@ -162,7 +169,7 @@ void MainGameState::Render(sf::RenderWindow* window)
     {
         cores[i]->Render(scaleFactor, window);
     }
-
+    // Reset the view to the default
     window->SetView(window->GetDefaultView());
 }
 

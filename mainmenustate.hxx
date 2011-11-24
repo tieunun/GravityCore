@@ -14,7 +14,9 @@
 class MainMenuState : public State
 {
     private:
+        // Items to be displayed
         std::vector<sf::Text> displayItems;
+        // Currently highlighted item
         unsigned short int current;
 
     public:
@@ -27,7 +29,7 @@ class MainMenuState : public State
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event);
+        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
         void Process(float frameTime);
         void Render(sf::RenderWindow* window);
 

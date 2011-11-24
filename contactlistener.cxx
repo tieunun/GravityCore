@@ -9,10 +9,12 @@
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
+    // If fixture A exists and is a footboxSensor
     if (contact->GetFixtureA()->GetBody()->GetUserData() &&
         contact->GetFixtureA()->GetUserData() == (void*)footboxSensor)
     {
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(true);
+    // If fixture B exists and is a footboxSensor
     } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
                 contact->GetFixtureB()->GetUserData() == (void*)footboxSensor)
     {
@@ -23,10 +25,12 @@ void ContactListener::BeginContact(b2Contact* contact)
 
 void ContactListener::EndContact(b2Contact* contact)
 {
+    // If fixture A exists and is a footboxSensor
     if (contact->GetFixtureA()->GetBody()->GetUserData() &&
         contact->GetFixtureA()->GetUserData() == (void*)(footboxSensor))
     {
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(false);
+    // If fixture B exists and is a footboxSensor
     } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
                 contact->GetFixtureB()->GetUserData() == (void*)(footboxSensor))
     {

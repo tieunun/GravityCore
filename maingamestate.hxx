@@ -19,21 +19,28 @@
 class MainGameState : public State
 {
     private:
+        // Duh, the constant Pi
         const float PI;
         b2World* world;
+        // Used for callback, mostly to manage the ability to jump
         ContactListener* contactListener;
-        float32 timeStep;
+
+        // Used to manage timesteps
         int32 velocityIterations;
         int32 positionIterations;
 
+        // The main view, used for main rendering
         sf::View* playerView;
+        // The minimap view, used to render the small map, which keeps orientation constant
         sf::View* minimapView;
 
         Player* player;
         std::vector<Core*> cores;
 
+        // The gravity is constantly (0, 0) here as it is handled manually
         b2Vec2 gravity;
         bool doSleep;
+        // These variables only influence rendering
         float scaleFactor;
         float minimapScaleFactor;
 
@@ -46,7 +53,7 @@ class MainGameState : public State
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event);
+        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
         void Process(float frameTime);
         void Render(sf::RenderWindow* window);
 };

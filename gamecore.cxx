@@ -84,7 +84,7 @@ void GameCore::HandleEvents()
 {
     while (window->PollEvent(*event))
     {
-        states.back()->HandleEvents(event);
+        states.back()->HandleEvents(event, window);
 
         // closes the window on an empty state stack or window close event
         if (states.empty() || (event->Type == sf::Event::Closed))

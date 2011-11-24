@@ -40,7 +40,7 @@ void SplashState::Resume()
 {
 }
 
-void SplashState::HandleEvents(sf::Event* event)
+void SplashState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 {
     switch (event->Type)
     {
@@ -76,26 +76,32 @@ void SplashState::HandleEvents(sf::Event* event)
 
 void SplashState::Process(float frameTime)
 {
+    // If the current item has been displayed for the desired length,
+    //+move on to the next.
     if (timer.GetElapsedTime() > length)
     {
         current++;
         timer.Reset();
     }
+    // If the items have exceeded the total amount, move on to the Main
+    //+Menu state.
     if (current >= splashItems.size())
     {
         game->PopState();
         game->PushState(new MainMenuState(game));
         return;
     }
-
+    // Fade in for half of the time
     if (timer.GetElapsedTime() < (length / 2))
     {
         splashItems[current].SetColor(sf::Color(255, 255, 255, (((float)timer.GetElapsedTime() / (float)(length / 2)) * 255)));
     } else
     {
+        // Display normally
         splashItems[current].SetColor(sf::Color(255, 255, 255, 255));
         if ((timer.GetElapsedTime() >= (length - 255)) && (timer.GetElapsedTime() <= length))
         {
+            // Fade out quickly for the last 255 miliseconds
             splashItems[current].SetColor(sf::Color(255, 255, 255, length - timer.GetElapsedTime()));
         }
     }

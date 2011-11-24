@@ -43,7 +43,7 @@ void MainMenuState::Resume()
 {
 }
 
-void MainMenuState::HandleEvents(sf::Event* event)
+void MainMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 {
     switch (event->Type)
     {
@@ -72,6 +72,7 @@ void MainMenuState::Process(float frameTime)
 {
     for (unsigned int i = 0; i < displayItems.size(); i++)
     {
+        // Hilight current item as green, and all others as white
         if (i == current)
         {
             displayItems[i].SetColor(sf::Color::Green);

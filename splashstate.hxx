@@ -15,10 +15,15 @@
 class SplashState : public State
 {
     private:
+        // The individual items to be splashed, in order
         std::vector<sf::Text> splashItems;
+        // The timer that manages splash length
         sf::Clock timer;
+        // The current item being splashed
         unsigned int current;
+
         const unsigned int length;
+        // The time, in miliseconds, for each item to be splashed
 
     public:
         SplashState(GameCore* game);
@@ -29,7 +34,7 @@ class SplashState : public State
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event);
+        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
         void Process(float frameTime);
         void Render(sf::RenderWindow* window);
 };

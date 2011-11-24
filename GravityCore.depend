@@ -6,50 +6,51 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1321308979 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
+1322098235 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
 	"contactlistener.hxx"
 
-1321308705 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
+1322096011 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
 	<Box2D/Box2D.h>
 	"player.hxx"
 	"fixturetype.cxx"
 
-1322090036 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1322096442 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<iostream>
 	"fixturetype.cxx"
 
-1322085325 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+1322098244 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
 	"core.hxx"
 
-1322085289 /home/taylor/Projects/cxx/GravityCore/core.hxx
+1322098244 /home/taylor/Projects/cxx/GravityCore/core.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
+	"fixturetype.cxx"
 
-1321483853 /home/taylor/Projects/cxx/GravityCore/state.hxx
+1322094448 /home/taylor/Projects/cxx/GravityCore/state.hxx
 	"gamecore.hxx"
 
-1321484601 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
+1322093907 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 	"mainmenustate.hxx"
 
-1321484453 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+1322095668 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 	"maingamestate.hxx"
 
-1321483882 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
+1322097288 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"gamecore.hxx"
 
-1322089400 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1322097264 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	"maingamestate.hxx"
 
-1322089990 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1322095483 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
@@ -64,47 +65,48 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1321484094 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
+1322095247 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 
-1321484454 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+1322096520 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
 
-1321483940 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
+1322096490 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1322090066 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+1322098244 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	"player.hxx"
 
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
 	"rectangle.hxx"
 
-1321484042 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
+1322096152 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
 	"splashstate.hxx"
 
-1321476248 /home/taylor/Projects/cxx/GravityCore/shape.hxx
+1322097913 /home/taylor/Projects/cxx/GravityCore/shape.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
+	"fixturetype.cxx"
 
-1321476242 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
+1322098396 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
 	"shape.hxx"
 
 1321308242 /home/taylor/Projects/cxx/GravityCore/bodytype.cxx
 
 1321308145 source:/home/taylor/Projects/cxx/GravityCore/bodytype.cxx
 
-1321308242 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+1322098244 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
-1321308242 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+1322098244 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
-1321484556 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
+1322097581 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 
-1321484303 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
+1322097436 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
 	"gamecore.hxx"
 	"splashstate.hxx"
 	"mainmenustate.hxx"

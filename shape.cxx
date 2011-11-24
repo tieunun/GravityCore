@@ -15,6 +15,15 @@ Shape::~Shape()
 {
 }
 
+bool Shape::Initiate()
+{
+    return (true);
+}
+
+void Shape::Cleanup()
+{
+}
+
 bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
 {
     this->dynamic = dynamic;
@@ -55,6 +64,8 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
     this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
+    // Set the dynamic / static type accordingly
+    bodyDef->type = (dynamic ? b2_dynamicBody : b2_staticBody);
 
     b2PolygonShape* shape = new b2PolygonShape();
     shape->SetAsBox(halfWidth, halfHeight);
@@ -64,14 +75,8 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
 
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 0.3f;
+    fixtureDef->userData = (void*)masslessFixture;
 
-    if (dynamic)
-    {
-        bodyDef->type = b2_dynamicBody;
-    } else
-    {
-        bodyDef->type = b2_staticBody;
-    }
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
@@ -99,9 +104,9 @@ Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeigh
     return (output);
 }
 
-void Shape::Cleanup()
+void Shape::Destroy(b2World* world)
 {
-
+    world->DestroyBody(body);
 }
 
 void Shape::Process()

@@ -10,6 +10,7 @@
 #include "player.hxx"
 #include "fixturetype.cxx"
 
+// This, for now, only handles the player's footbox for jumping
 class ContactListener : public b2ContactListener
 {
     public:

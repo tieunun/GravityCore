@@ -33,6 +33,10 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
 
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
+    // Used to prevent a player from spiraling out to space
+    bodyDef->linearDamping = 0.2f;
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->userData = (void*)this;
     b2PolygonShape* bodyShape = new b2PolygonShape();
     bodyShape->SetAsBox(halfWidth, halfHeight);
 
@@ -45,6 +49,7 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     bodyFixtureDef->density = mass / (halfWidth * halfHeight * 4.0f);
     bodyFixtureDef->friction = 5.0f;
     bodyFixtureDef->restitution = 0.05f;
+    bodyFixtureDef->userData = (void*)playerFixture;
 
     b2FixtureDef* footboxFixtureDef = new b2FixtureDef();
     footboxFixtureDef->shape = footboxShape;
@@ -53,17 +58,14 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     footboxFixtureDef->density = 0.0f;
     footboxFixtureDef->friction = 0.0f;
     footboxFixtureDef->restitution = 0.0f;
+    footboxFixtureDef->userData = (void*)footboxSensor;
 
-    bodyDef->type = b2_dynamicBody;
     body = world->CreateBody(bodyDef);
     body->SetFixedRotation(true);
-    body->SetUserData((void*)this);
     bodyFixture = body->CreateFixture(bodyFixtureDef);
-    bodyFixture->SetUserData((void*)playerBody);
     footboxFixture = body->CreateFixture(footboxFixtureDef);
-    footboxFixture->SetUserData((void*)footboxSensor);
 
-    renderBody = sf::Shape::Rectangle(0.0f, 0.0f, halfWidth * 2.0f, halfHeight * 2.0f, sf::Color(255, 0, 0, 100), 2.0f, sf::Color::Red);
+    renderBody = sf::Shape::Rectangle(0.0f, 0.0f, halfWidth * 2.0f, halfHeight * 2.0f, sf::Color::Blue, 2.0f, sf::Color::Red);
     renderBody.SetOrigin(halfWidth, halfHeight);
     renderBody.EnableOutline(false);
 
@@ -87,7 +89,9 @@ void Player::Destroy(b2World* world)
 
 void Player::Process()
 {
+    // Apply gravity
     body->ApplyForceToCenter(gravitationalForce);
+    // Set the body's angle, relative to local gravitation
     body->SetTransform(body->GetWorldCenter(), atan2(-gravitationalForce.x, gravitationalForce.y));
 }
 
@@ -123,6 +127,7 @@ void Player::Resume()
 
 void Player::Impulse(float x, float y)
 {
+    // Create an impluse, relative to the body's current angle
     body->SetLinearVelocity(body->GetWorldVector(b2Vec2(x, y)) + body->GetLinearVelocity());
 }
 
