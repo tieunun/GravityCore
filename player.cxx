@@ -34,7 +34,7 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
     // Used to prevent a player from spiraling out to space
-    bodyDef->linearDamping = 0.2f;
+    bodyDef->linearDamping = 0.1f;
     bodyDef->type = b2_dynamicBody;
     bodyDef->userData = (void*)this;
     b2PolygonShape* bodyShape = new b2PolygonShape();
@@ -69,10 +69,10 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     renderBody.SetOrigin(halfWidth, halfHeight);
     renderBody.EnableOutline(false);
 
-    renderFootbox = sf::Shape::Rectangle(0.0f, 0.0, halfWidth * 2.0f, (halfHeight / 10.0f) * 2.0f, sf::Color(0, 255, 0, 255), 2.0f, sf::Color(0, 255, 0, 255));
+    renderFootbox = sf::Shape::Rectangle(0.0f, 0.0, halfWidth * 2.0f, (halfHeight / 10.0f) * 2.0f, sf::Color(0, 255, 0, 127), 2.0f, sf::Color(0, 255, 0, 255));
     renderFootbox.SetOrigin(halfWidth, (halfHeight / 10.0f));
-    renderFootbox.EnableOutline(true);
-    renderFootbox.EnableFill(false);
+    renderFootbox.EnableOutline(false);
+    renderFootbox.EnableFill(true);
 
     delete bodyDef;
     delete bodyFixtureDef;

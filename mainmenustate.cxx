@@ -85,6 +85,7 @@ void MainMenuState::Process(float frameTime)
 
 void MainMenuState::Render(sf::RenderWindow* window)
 {
+    window->SetView(window->GetDefaultView());
     for (unsigned int i = 0; i < displayItems.size(); i++)
     {
         window->Draw(displayItems[i]);

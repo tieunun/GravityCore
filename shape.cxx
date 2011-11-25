@@ -7,7 +7,7 @@
 
 #include "shape.hxx"
 
-Shape::Shape()
+Shape::Shape() : PI(3.1415926535)
 {
 }
 
@@ -59,13 +59,14 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
     return (true);
 }
 
-bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
+bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world)
 {
     this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
     // Set the dynamic / static type accordingly
     bodyDef->type = (dynamic ? b2_dynamicBody : b2_staticBody);
+    bodyDef->angle = angle;
 
     b2PolygonShape* shape = new b2PolygonShape();
     shape->SetAsBox(halfWidth, halfHeight);
@@ -97,10 +98,10 @@ Shape* Shape::CreateCircle(float x, float y, float radius, bool dynamic, b2World
     return (output);
 }
 
-Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world)
+Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world)
 {
     Shape* output = new Shape();
-    output->CreateAsRectangle(x, y, halfWidth, halfHeight, dynamic, world);
+    output->CreateAsRectangle(x, y, halfWidth, halfHeight, angle, dynamic, world);
     return (output);
 }
 
@@ -118,6 +119,7 @@ void Shape::Render(float scaleFactor, sf::RenderWindow* window)
     renderShape.SetScale(scaleFactor, scaleFactor);
     renderShape.SetOutlineThickness(2 / scaleFactor);
     renderShape.SetPosition(body->GetPosition().x * scaleFactor, body->GetPosition().y * scaleFactor);
+    renderShape.SetRotation(body->GetAngle() * 180.0f / PI);
     window->Draw(renderShape);
 }
 

@@ -109,6 +109,7 @@ void SplashState::Process(float frameTime)
 
 void SplashState::Render(sf::RenderWindow* window)
 {
+    window->SetView(window->GetDefaultView());
     window->Draw(splashItems[current]);
 }
 

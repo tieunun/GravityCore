@@ -14,6 +14,7 @@
 class Shape
 {
     private:
+        const float PI;
         // The Box2D world constraints.
         //+If these are unclear, review the Box2D documentation.
         b2Body* body;
@@ -36,11 +37,11 @@ class Shape
         // Create this instance as the desired shape.  Should be called imediately after construction.
         //+Trouble happens if called more than once.
         bool CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world);
-        bool CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world);
+        bool CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world);
         // Create and return pointer to desired instance.  Call as desired, but only should be used
         //+with a container such as a std::vector or std::list.
         static Shape* CreateCircle(float x, float y, float radius, bool dynamic, b2World* world);
-        static Shape* CreateRectangle(float x, float y, float halfWidth, float halfHeight, bool dynamic, b2World* world);
+        static Shape* CreateRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world);
         // Destroy the obect from the world
         void Destroy(b2World* world);
 

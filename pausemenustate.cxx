@@ -83,6 +83,7 @@ void PauseMenuState::Process(float frameTime)
 
 void PauseMenuState::Render(sf::RenderWindow* window)
 {
+    window->SetView(window->GetDefaultView());
     for (unsigned short int i = 0; i < displayItems.size(); i++)
     {
         window->Draw(displayItems[i]);

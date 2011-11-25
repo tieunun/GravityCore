@@ -28,10 +28,20 @@ void MainGameState::Initiate()
     player->Create(7.0f, 5.0f, 0.4f, 0.9f, 60.0f, world);
 
     playerView = new sf::View();
+    minimapView = new sf::View();
 
-    //-Update Rectangle for Create function like Player-
+    playerView->SetSize(sf::Vector2f(game->GetWidth(), game->GetHeight()));
 
-    scaleFactor = 10.0f;
+    minimapView->SetViewport(sf::FloatRect(0.05f, 0.05f, 0.15f, 0.15f));
+    minimapView->SetSize(sf::Vector2f(game->GetWidth() * minimapView->GetViewport().Width, game->GetHeight() * minimapView->GetViewport().Height));
+
+    minimapBox = new sf::Shape();
+    *minimapBox = sf::Shape::Rectangle(game->GetWidth() * minimapView->GetViewport().Left, game->GetHeight() * minimapView->GetViewport().Top, game->GetWidth() * minimapView->GetViewport().Width, game->GetHeight() * minimapView->GetViewport().Height, sf::Color(0, 0, 0, 127), 2, sf::Color::Magenta);
+    minimapBox->EnableFill(true);
+    minimapBox->EnableOutline(true);
+
+    minimapScaleFactor = 2.0f;
+    scaleFactor = 20.0f;
     cores.push_back(Core::CreateCore(10, 10, 2, 1000, world));
 }
 
@@ -43,11 +53,19 @@ void MainGameState::Cleanup()
         cores.back()->Destroy(world);
         cores.pop_back();
     }
+    while (shapes.size() > 0)
+    {
+        shapes.back()->Destroy(world);
+        shapes.pop_back();
+    }
     player->Destroy(world);
 
     // Clean up classes
     Core::Cleanup();
     Player::Cleanup();
+    delete playerView;
+    delete minimapView;
+    delete minimapBox;
     delete player;
     delete world;
     delete contactListener;
@@ -60,7 +78,12 @@ void MainGameState::Pause()
     {
         cores[i]->Pause();
     }
+    for (unsigned int i = 0; i < shapes.size(); i++)
+    {
+        shapes[i]->Pause();
+    }
 }
+
 
 void MainGameState::Resume()
 {
@@ -68,6 +91,10 @@ void MainGameState::Resume()
     for (unsigned int i = 0; i < cores.size(); i++)
     {
         cores[i]->Resume();
+    }
+    for (unsigned int i = 0; i < shapes.size(); i++)
+    {
+        shapes[i]->Resume();
     }
 }
 
@@ -79,22 +106,30 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
             switch (event->Key.Code)
             {
                 case sf::Keyboard::Up:
+                    break;
+                case sf::Keyboard::Down:
+                    //player->Impulse(0, 5);
+                    break;
+                case sf::Keyboard::Left:
+                    if (player->IsGrounded())
+                    {
+                        player->Impulse(-5, 0);
+                    }
+                    break;
+                case sf::Keyboard::Right:
+                    if (player->IsGrounded())
+                    {
+                        player->Impulse(5, 0);
+                    }
+                    break;
+                case sf::Keyboard::Space:
                     if (player->IsGrounded())
                     {
                         player->Impulse(0, -10);
+                    } else
+                    {
+                        player->StopVelocity();
                     }
-                    break;
-                case sf::Keyboard::Down:
-                    player->Impulse(0, 5);
-                    break;
-                case sf::Keyboard::Left:
-                    player->Impulse(-5, 0);
-                    break;
-                case sf::Keyboard::Right:
-                    player->Impulse(5, 0);
-                    break;
-                case sf::Keyboard::Space:
-                    player->StopVelocity();
                     break;
                 case sf::Keyboard::Escape:
                     game->PushState(new PauseMenuState(game));
@@ -123,10 +158,12 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
             switch (event->MouseButton.Button)
             {
                 case sf::Mouse::Left:
+                    // Create a core on a left click at the point of the click
                     cores.push_back(Core::CreateCore(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 2.0f, 1000, world));
                     break;
                 case sf::Mouse::Right:
-                    cores.push_back(Core::CreateCore(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 1.0f, 700, world));
+                    // Create a massless shape at the point of the mouse click
+                    shapes.push_back(Shape::CreateCircle(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 1.0f, false, world));
                     break;
                 default:
                     break;
@@ -160,17 +197,35 @@ void MainGameState::Process(float frameTime)
 void MainGameState::Render(sf::RenderWindow* window)
 {
     // Set and render the normal view
-    playerView->SetSize(window->GetDefaultView().GetSize());
     playerView->SetCenter(player->GetPosition().x * scaleFactor, player->GetPosition().y * scaleFactor);
-    playerView->SetRotation(player->GetAngle() * 180 / PI);
+    playerView->SetRotation(player->GetAngle() * 180.0f / PI);
     window->SetView(*playerView);
     player->Render(scaleFactor, window);
     for (unsigned int i = 0; i < cores.size(); i++)
     {
         cores[i]->Render(scaleFactor, window);
     }
-    // Reset the view to the default
+    for (unsigned int i = 0; i < shapes.size(); i++)
+    {
+        shapes[i]->Render(scaleFactor, window);
+    }
+
+    // Set and render the minimap bounding box
     window->SetView(window->GetDefaultView());
+    window->Draw(*minimapBox);
+
+    // Set and render the minimap on the bounding box
+    minimapView->SetCenter(player->GetPosition().x * minimapScaleFactor, player->GetPosition().y * minimapScaleFactor);
+    window->SetView(*minimapView);
+    player->Render(minimapScaleFactor, window);
+    for (unsigned int i = 0; i < cores.size(); i++)
+    {
+        cores[i]->Render(minimapScaleFactor, window);
+    }
+    for (unsigned int i = 0; i < shapes.size(); i++)
+    {
+        shapes[i]->Render(minimapScaleFactor, window);
+    }
 }
 
 #endif

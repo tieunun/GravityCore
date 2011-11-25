@@ -13,6 +13,7 @@
 #include "state.hxx"
 #include "player.hxx"
 #include "core.hxx"
+#include "shape.hxx"
 #include "contactlistener.hxx"
 #include "pausemenustate.hxx"
 
@@ -33,9 +34,12 @@ class MainGameState : public State
         sf::View* playerView;
         // The minimap view, used to render the small map, which keeps orientation constant
         sf::View* minimapView;
+        // The box that the minimap sits in
+        sf::Shape* minimapBox;
 
         Player* player;
         std::vector<Core*> cores;
+        std::vector<Shape*> shapes;
 
         // The gravity is constantly (0, 0) here as it is handled manually
         b2Vec2 gravity;

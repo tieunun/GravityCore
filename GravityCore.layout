@@ -25,43 +25,43 @@
 	<File name="main.cxx" open="1" top="0" tabpos="19">
 		<Cursor position="461" topLine="0" />
 	</File>
-	<File name="maingamestate.cxx" open="1" top="0" tabpos="8">
-		<Cursor position="5082" topLine="156" />
+	<File name="maingamestate.cxx" open="1" top="1" tabpos="8">
+		<Cursor position="7208" topLine="189" />
 	</File>
 	<File name="maingamestate.hxx" open="1" top="0" tabpos="7">
-		<Cursor position="1096" topLine="41" />
+		<Cursor position="1064" topLine="0" />
 	</File>
 	<File name="mainmenustate.cxx" open="1" top="0" tabpos="12">
-		<Cursor position="1580" topLine="69" />
+		<Cursor position="1832" topLine="45" />
 	</File>
 	<File name="mainmenustate.hxx" open="1" top="0" tabpos="3">
-		<Cursor position="397" topLine="8" />
+		<Cursor position="397" topLine="3" />
 	</File>
 	<File name="pausemenustate.cxx" open="1" top="0" tabpos="13">
-		<Cursor position="1543" topLine="63" />
+		<Cursor position="1796" topLine="75" />
 	</File>
 	<File name="pausemenustate.hxx" open="1" top="0" tabpos="4">
 		<Cursor position="389" topLine="13" />
 	</File>
 	<File name="player.cxx" open="1" top="0" tabpos="11">
-		<Cursor position="1217" topLine="48" />
+		<Cursor position="599" topLine="162" />
 	</File>
 	<File name="player.hxx" open="1" top="0" tabpos="10">
 		<Cursor position="1352" topLine="35" />
 	</File>
-	<File name="shape.cxx" open="1" top="1" tabpos="17">
-		<Cursor position="1385" topLine="58" />
+	<File name="shape.cxx" open="1" top="0" tabpos="17">
+		<Cursor position="1509" topLine="54" />
 	</File>
 	<File name="shape.hxx" open="1" top="0" tabpos="16">
-		<Cursor position="140" topLine="24" />
+		<Cursor position="285" topLine="0" />
 	</File>
 	<File name="splashstate.cxx" open="1" top="0" tabpos="14">
-		<Cursor position="2716" topLine="31" />
+		<Cursor position="2902" topLine="94" />
 	</File>
 	<File name="splashstate.hxx" open="1" top="0" tabpos="5">
-		<Cursor position="318" topLine="21" />
+		<Cursor position="318" topLine="20" />
 	</File>
 	<File name="state.hxx" open="1" top="0" tabpos="6">
-		<Cursor position="1173" topLine="34" />
+		<Cursor position="1173" topLine="33" />
 	</File>
 </CodeBlocks_layout_file>
