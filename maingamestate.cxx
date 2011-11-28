@@ -40,6 +40,11 @@ void MainGameState::Initiate()
     minimapBox->EnableFill(true);
     minimapBox->EnableOutline(true);
 
+    bgm = new sf::Music();
+    bgm->OpenFromFile("audio/music/background.ogg");
+    bgm->SetLoop(true);
+    bgm->Play();
+
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
     cores.push_back(Core::CreateCore(10, 10, 2, 1000, world));
@@ -47,6 +52,7 @@ void MainGameState::Initiate()
 
 void MainGameState::Cleanup()
 {
+    bgm->Stop();
     // Destroy all instances of everything
     while (cores.size() > 0)
     {
@@ -63,6 +69,7 @@ void MainGameState::Cleanup()
     // Clean up classes
     Core::Cleanup();
     Player::Cleanup();
+    delete bgm;
     delete playerView;
     delete minimapView;
     delete minimapBox;
@@ -73,6 +80,7 @@ void MainGameState::Cleanup()
 
 void MainGameState::Pause()
 {
+    bgm->Pause();
     player->Pause();
     for (unsigned int i = 0; i < cores.size(); i++)
     {
@@ -87,6 +95,7 @@ void MainGameState::Pause()
 
 void MainGameState::Resume()
 {
+    bgm->Play();
     player->Resume();
     for (unsigned int i = 0; i < cores.size(); i++)
     {

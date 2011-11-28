@@ -10,6 +10,7 @@
 #include "gamecore.hxx"
 #include "state.hxx"
 #include "maingamestate.hxx"
+#include "creditsstate.hxx"
 
 class MainMenuState : public State
 {

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <Box2D/Box2D.h>
 
 #include "gamecore.hxx"
@@ -36,6 +37,7 @@ class MainGameState : public State
         sf::View* minimapView;
         // The box that the minimap sits in
         sf::Shape* minimapBox;
+        sf::Music* bgm;
 
         Player* player;
         std::vector<Core*> cores;

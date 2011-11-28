@@ -31,28 +31,30 @@
 1322094448 /home/taylor/Projects/cxx/GravityCore/state.hxx
 	"gamecore.hxx"
 
-1322093907 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
+1322509611 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 	"mainmenustate.hxx"
 
-1322095668 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+1322510016 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 	"maingamestate.hxx"
+	"creditsstate.hxx"
 
 1322097288 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"gamecore.hxx"
 
-1322179889 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1322511183 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	"maingamestate.hxx"
 
-1322178699 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1322511315 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	<Box2D/Box2D.h>
 	"gamecore.hxx"
 	"state.hxx"
@@ -72,7 +74,7 @@
 	"gamecore.hxx"
 	"state.hxx"
 
-1322178294 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+1322510078 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
 
 1322178287 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
@@ -111,4 +113,13 @@
 	"gamecore.hxx"
 	"splashstate.hxx"
 	"mainmenustate.hxx"
+
+1322509510 /home/taylor/Projects/cxx/GravityCore/creditsstate.hxx
+	<vector>
+	<SFML/Graphics.hpp>
+	"gamecore.hxx"
+	"state.hxx"
+
+1322510336 source:/home/taylor/Projects/cxx/GravityCore/creditsstate.cxx
+	"creditsstate.hxx"
 

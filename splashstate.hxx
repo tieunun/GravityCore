@@ -21,9 +21,8 @@ class SplashState : public State
         sf::Clock timer;
         // The current item being splashed
         unsigned int current;
-
-        const unsigned int length;
         // The time, in miliseconds, for each item to be splashed
+        const unsigned int length;
 
     public:
         SplashState(GameCore* game);

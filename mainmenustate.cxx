@@ -118,13 +118,18 @@ void MainMenuState::SelectCurrent()
 {
     switch (current)
     {
+        // Start Game
         case 0:
             game->PushState(new MainGameState(game));
             break;
+        // Options
         case 1:
             break;
+        // Credits
         case 2:
+            game->PushState(new CreditsState(game));
             break;
+        // Exit
         case 3:
             game->PopState();
             break;

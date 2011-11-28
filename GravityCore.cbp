@@ -18,6 +18,7 @@
 					<Add option="-l sfml-system" />
 					<Add option="-l sfml-window" />
 					<Add option="-l sfml-graphics" />
+					<Add option="-l sfml-audio" />
 					<Add option="-l Box2D" />
 				</Linker>
 			</Target>
@@ -45,6 +46,8 @@
 		<Unit filename="contactlistener.hxx" />
 		<Unit filename="core.cxx" />
 		<Unit filename="core.hxx" />
+		<Unit filename="creditsstate.cxx" />
+		<Unit filename="creditsstate.hxx" />
 		<Unit filename="fixturetype.cxx" />
 		<Unit filename="gamecore.cxx" />
 		<Unit filename="gamecore.hxx" />
