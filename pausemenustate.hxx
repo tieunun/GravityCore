@@ -19,6 +19,9 @@ class PauseMenuState : public State
         // Currently highlighted item
         unsigned short int current;
 
+        // The box that the pause menu sits on, to differentiate from gameplay
+        sf::Shape* menuBox;
+
     public:
         PauseMenuState(GameCore* game);
 

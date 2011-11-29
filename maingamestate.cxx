@@ -120,16 +120,10 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                     //player->Impulse(0, 5);
                     break;
                 case sf::Keyboard::Left:
-                    if (player->IsGrounded())
-                    {
-                        player->MoveLeft();
-                    }
+                    player->MoveLeft();
                     break;
                 case sf::Keyboard::Right:
-                    if (player->IsGrounded())
-                    {
-                        player->MoveRight();
-                    }
+                    player->MoveRight();
                     break;
                 case sf::Keyboard::Space:
                     if (player->IsGrounded())

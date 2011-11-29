@@ -130,6 +130,18 @@ void GameCore::PopState()
     }
 }
 
+State* GameCore::GetHiddenState()
+{
+    if (states.size() > 1)
+    {
+        return (states[states.size() - 2]);
+    } else
+    {
+        return (states[0]);
+    }
+}
+
+
 int GameCore::GetWidth()
 {
     return (WINDOWWIDTH);

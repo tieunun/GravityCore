@@ -26,7 +26,8 @@ void Player::Cleanup()
 
 bool Player::Create(float x, float y, float halfWidth, float halfHeight, float mass, b2World* world)
 {
-    movementStatus = standingRight;
+    movementStatus = none;
+    jumping = true;
 
     gravitationalForce.x = 0;
     gravitationalForce.y = 0;
@@ -108,46 +109,50 @@ void Player::Process()
 
     switch (movementStatus)
     {
-        case runningLeft:
-            ApplyRelativeHorizontalMotion(-5);
+        case left:
+            sprite.FlipX(true);
+            if (!jumping)
+            {
+                ApplyRelativeHorizontalMotion(-5);
+                sprite.SetTexture(runR);
+                if (spriteTimer.GetElapsedTime() > 700)
+                {
+                     spriteTimer.Reset();
+                }
+                subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
+            }
             break;
-        case runningRight:
-            ApplyRelativeHorizontalMotion(5);
+        case right:
+            sprite.FlipX(false);
+            if (!jumping)
+            {
+                ApplyRelativeHorizontalMotion(5);
+                sprite.SetTexture(runR);
+                if (spriteTimer.GetElapsedTime() > 700)
+                {
+                     spriteTimer.Reset();
+                }
+                subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
+            }
+            break;
+        case none:
+            if (!jumping)
+            {
+                subRect.Left = 0;
+                sprite.SetTexture(standR);
+            }
             break;
         default:
             break;
     }
 
-    sprite.FlipX(false);
-    switch (movementStatus)
+    if (jumping)
     {
-        case standingLeft:
-            sprite.FlipX(true);
-        case standingRight:
-            sprite.SetTexture(standR);
-            subRect.Left = 0;
-            break;
-        case runningLeft:
-            sprite.FlipX(true);
-        case runningRight:
-            sprite.SetTexture(runR);
-            if (spriteTimer.GetElapsedTime() > 700)
-            {
-                 spriteTimer.Reset();
-            }
+        sprite.SetTexture(jumpR);
+        if (spriteTimer.GetElapsedTime() < 600)
+        {
             subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
-            break;
-        case jumpingLeft:
-            sprite.FlipX(true);
-        case jumpingRight:
-            sprite.SetTexture(jumpR);
-            if (spriteTimer.GetElapsedTime() < 600)
-            {
-                subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
-            }
-            break;
-        default:
-            break;
+        }
     }
 }
 
@@ -215,47 +220,29 @@ void Player::StopVelocity()
 
 void Player::MoveLeft()
 {
-    movementStatus = runningLeft;
+    movementStatus = left;
 }
 
 void Player::MoveRight()
 {
-    movementStatus = runningRight;
+    movementStatus = right;
 }
 
 void Player::StopMoving()
 {
-    if (movementStatus == runningLeft)
-    {
-        movementStatus = standingLeft;
-    } else if (movementStatus == runningRight)
-    {
-        movementStatus = standingRight;
-    }
+    movementStatus = none;
 }
 
 void Player::Jump()
 {
     spriteTimer.Reset();
     ApplyRelativeImpulse(0, -10);
-    if ((movementStatus == runningLeft) || (movementStatus == standingLeft))
-    {
-        movementStatus = jumpingLeft;
-    } else if ((movementStatus == runningRight) || (movementStatus == standingRight))
-    {
-        movementStatus = jumpingRight;
-    }
+    jumping = true;
 }
 
 void Player::Land()
 {
-        if (movementStatus == jumpingLeft)
-        {
-            movementStatus = standingLeft;
-        } else if (movementStatus == jumpingRight)
-        {
-            movementStatus = standingRight;
-        }
+    jumping = false;
 }
 
 bool Player::IsGrounded()

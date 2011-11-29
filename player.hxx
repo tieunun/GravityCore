@@ -20,13 +20,12 @@ class Player
         //+If these are unclear, review the Box2D documentation.
         enum MovementStatus
         {
-            runningRight = 0,
-            runningLeft,
-            standingRight,
-            standingLeft,
-            jumpingRight,
-            jumpingLeft,
+            right = 0,
+            left,
+            none
         } movementStatus;
+
+        bool jumping;
 
         b2Body* body;
         b2Fixture* bodyFixture;

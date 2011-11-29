@@ -27,10 +27,15 @@ void PauseMenuState::Initiate()
         displayItems.back().SetString(menuItems[i]);
         displayItems.back().SetPosition(50, i * 50);
     }
+    menuBox = new sf::Shape();
+    *menuBox = sf::Shape::Rectangle(0, 0, 1, 1, sf::Color(0, 0, 0, 200), 3, sf::Color::White);
+    menuBox->EnableFill(true);
+    menuBox->EnableOutline(true);
 }
 
 void PauseMenuState::Cleanup()
 {
+    delete menuBox;
 }
 
 void PauseMenuState::Pause()
@@ -83,7 +88,11 @@ void PauseMenuState::Process(float frameTime)
 
 void PauseMenuState::Render(sf::RenderWindow* window)
 {
+    game->GetHiddenState()->Render(window);
     window->SetView(window->GetDefaultView());
+    menuBox->SetScaleX(window->GetWidth());
+    menuBox->SetScaleY(window->GetHeight());
+    window->Draw(*menuBox);
     for (unsigned short int i = 0; i < displayItems.size(); i++)
     {
         window->Draw(displayItems[i]);
