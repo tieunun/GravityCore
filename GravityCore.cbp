@@ -42,6 +42,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="audio/music/background.ogg" />
 		<Unit filename="contactlistener.cxx" />
 		<Unit filename="contactlistener.hxx" />
 		<Unit filename="core.cxx" />
@@ -51,6 +52,9 @@
 		<Unit filename="fixturetype.cxx" />
 		<Unit filename="gamecore.cxx" />
 		<Unit filename="gamecore.hxx" />
+		<Unit filename="img/player/jumpr.png" />
+		<Unit filename="img/player/runr.png" />
+		<Unit filename="img/player/standr.png" />
 		<Unit filename="main.cxx" />
 		<Unit filename="maingamestate.cxx" />
 		<Unit filename="maingamestate.hxx" />

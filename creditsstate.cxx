@@ -17,9 +17,9 @@ void CreditsState::Initiate()
     std::string tempString;
     creditsItems.push_back(sf::Text("Ax5 Productions", sf::Font::GetDefaultFont(), 30));
 
-    tempString =  "Programmer:\tTaylor C. Richberger\n";
-    tempString += "Art:\t\t OpenGameArt.org\n";
-    tempString += "Music: Detroid Thema A by Project Mahlen Goscht\n";
+    tempString =  "Programmer:\n\tTaylor C. Richberger\n";
+    tempString += "Art:\n\tOpenGameArt.org\n";
+    tempString += "Music:\n\tDetroid Thema A by Project Mahlen Goscht\n";
     creditsItems.push_back(sf::Text(tempString, sf::Font::GetDefaultFont(), 30));
     for (unsigned short int i = 0; i < creditsItems.size(); i++)
     {

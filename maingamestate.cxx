@@ -25,7 +25,7 @@ void MainGameState::Initiate()
     Player::Initiate();
 
     player = new Player();
-    player->Create(7.0f, 5.0f, 0.4f, 0.9f, 60.0f, world);
+    player->Create(7.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
 
     playerView = new sf::View();
     minimapView = new sf::View();
@@ -122,19 +122,19 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Keyboard::Left:
                     if (player->IsGrounded())
                     {
-                        player->Impulse(-5, 0);
+                        player->MoveLeft();
                     }
                     break;
                 case sf::Keyboard::Right:
                     if (player->IsGrounded())
                     {
-                        player->Impulse(5, 0);
+                        player->MoveRight();
                     }
                     break;
                 case sf::Keyboard::Space:
                     if (player->IsGrounded())
                     {
-                        player->Impulse(0, -10);
+                        player->Jump();
                     } else
                     {
                         player->StopVelocity();
@@ -154,8 +154,10 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Keyboard::Down:
                     break;
                 case sf::Keyboard::Left:
+                    player->StopMoving();
                     break;
                 case sf::Keyboard::Right:
+                    player->StopMoving();
                     break;
                 case sf::Keyboard::Space:
                     break;
@@ -185,6 +187,7 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 
 void MainGameState::Process(float frameTime)
 {
+
     // Run a step of simulation in the Box2D world
     world->Step(frameTime, velocityIterations, positionIterations);
     // Reset the player's gravitation
@@ -198,7 +201,7 @@ void MainGameState::Process(float frameTime)
     {
         cores[i]->Process();
     }
-    // Apply gravitational force
+    // Apply gravitational force and movement
     player->Process();
 
 }

@@ -39,7 +39,7 @@ bool Core::Create(float x, float y, float radius, float mass, b2World* world)
     b2FixtureDef* fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
     fixtureDef->density = mass / (radius * radius * PI);
-    fixtureDef->friction = 1.0f;
+    fixtureDef->friction = 0.1f;
     fixtureDef->restitution = 0.0f;
     fixtureDef->userData = (void*)massiveFixture;
 

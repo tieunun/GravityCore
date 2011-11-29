@@ -50,7 +50,7 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Red, 2.0f, sf::Color::Red);
+    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::White, 2.0f, sf::Color::White);
     renderShape.EnableOutline(false);
 
     delete (bodyDef);
@@ -81,7 +81,7 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Rectangle(0, 0, 2.0f * halfWidth, 2.0f * halfHeight, sf::Color::Red, 2.0, sf::Color::Red);
+    renderShape = sf::Shape::Rectangle(0, 0, 2.0f * halfWidth, 2.0f * halfHeight, sf::Color::White, 2.0, sf::Color::White);
     renderShape.SetOrigin(halfWidth, halfHeight);
     renderShape.EnableOutline(false);
 

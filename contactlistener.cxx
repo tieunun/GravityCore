@@ -14,11 +14,13 @@ void ContactListener::BeginContact(b2Contact* contact)
         contact->GetFixtureA()->GetUserData() == (void*)footboxSensor)
     {
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(true);
+        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->Land();
     // If fixture B exists and is a footboxSensor
     } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
                 contact->GetFixtureB()->GetUserData() == (void*)footboxSensor)
     {
         ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->ChangeFloors(true);
+        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->Land();
     }
 }
 

@@ -18,6 +18,16 @@ class Player
         const float PI;
         // The Box2D world constraints.
         //+If these are unclear, review the Box2D documentation.
+        enum MovementStatus
+        {
+            runningRight = 0,
+            runningLeft,
+            standingRight,
+            standingLeft,
+            jumpingRight,
+            jumpingLeft,
+        } movementStatus;
+
         b2Body* body;
         b2Fixture* bodyFixture;
         b2Fixture* footboxFixture;
@@ -30,6 +40,14 @@ class Player
         // The SFML constraints for rendering
         sf::Shape renderBody;
         sf::Shape renderFootbox;
+
+        sf::Sprite sprite;
+        sf::Texture standR;
+        sf::Texture runR;
+        sf::Texture jumpR;
+        sf::IntRect subRect;
+
+        sf::Clock spriteTimer;
 
     public:
         Player();
@@ -51,14 +69,22 @@ class Player
         void Pause();
         void Resume();
 
-        void Impulse(float x, float y);
+        // Transformations relative to player's angle
+        void ApplyRelativeImpulse(float x, float y);
+        void ApplyRelativeForce(float x, float y);
+        void ApplyRelativeHorizontalMotion(float vel);
         // Set the player's current velocity equal to 0, halting all motion temporarily.
         void StopVelocity();
+
+        void MoveLeft();
+        void MoveRight();
+        void StopMoving();
+        void Jump();
+        void Land();
 
         bool IsGrounded();
         // if true, increase the number of floors, if false, decrease.
         void ChangeFloors(bool increment);
-
         void ClearGravitation();
         void AddGravitation(b2Vec2 distance, float mass);
         float GetAngle();
