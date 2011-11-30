@@ -6,7 +6,7 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1322523829 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
 	"contactlistener.hxx"
 
 1322096011 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
@@ -14,13 +14,13 @@
 	"player.hxx"
 	"fixturetype.cxx"
 
-1322602962 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1322604140 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<iostream>
 	"fixturetype.cxx"
 
-1322520056 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
 	"core.hxx"
 
 1322098244 /home/taylor/Projects/cxx/GravityCore/core.hxx
@@ -48,7 +48,7 @@
 1322097288 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"gamecore.hxx"
 
-1322603332 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1322689871 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	"maingamestate.hxx"
 
 1322511315 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
@@ -68,7 +68,7 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1322601736 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
+1322604140 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
@@ -77,10 +77,10 @@
 1322510078 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
 
-1322602177 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1322603587 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	"player.hxx"
 
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
@@ -94,7 +94,7 @@
 	<SFML/Graphics.hpp>
 	"fixturetype.cxx"
 
-1322520419 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
 	"shape.hxx"
 
 1321308242 /home/taylor/Projects/cxx/GravityCore/bodytype.cxx
@@ -105,11 +105,11 @@
 
 1322098244 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
-1322600940 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
+1322604140 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 
-1322601585 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
+1322694246 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
 	"gamecore.hxx"
 	"splashstate.hxx"
 	"mainmenustate.hxx"
@@ -120,6 +120,496 @@
 	"gamecore.hxx"
 	"state.hxx"
 
-1322518204 source:/home/taylor/Projects/cxx/GravityCore/creditsstate.cxx
+1322604140 source:/home/taylor/Projects/cxx/GravityCore/creditsstate.cxx
 	"creditsstate.hxx"
+
+1315013940 /usr/include/Box2D/Box2D.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Common/b2Draw.h>
+	<Box2D/Common/b2Timer.h>
+	<Box2D/Collision/Shapes/b2CircleShape.h>
+	<Box2D/Collision/Shapes/b2EdgeShape.h>
+	<Box2D/Collision/Shapes/b2ChainShape.h>
+	<Box2D/Collision/Shapes/b2PolygonShape.h>
+	<Box2D/Collision/b2BroadPhase.h>
+	<Box2D/Collision/b2Distance.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<Box2D/Collision/b2TimeOfImpact.h>
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Dynamics/b2Fixture.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+	<Box2D/Dynamics/b2World.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/Joints/b2DistanceJoint.h>
+	<Box2D/Dynamics/Joints/b2FrictionJoint.h>
+	<Box2D/Dynamics/Joints/b2GearJoint.h>
+	<Box2D/Dynamics/Joints/b2WheelJoint.h>
+	<Box2D/Dynamics/Joints/b2MouseJoint.h>
+	<Box2D/Dynamics/Joints/b2PrismaticJoint.h>
+	<Box2D/Dynamics/Joints/b2PulleyJoint.h>
+	<Box2D/Dynamics/Joints/b2RevoluteJoint.h>
+	<Box2D/Dynamics/Joints/b2RopeJoint.h>
+	<Box2D/Dynamics/Joints/b2WeldJoint.h>
+
+1315018162 /usr/include/Box2D/Common/b2Settings.h
+	<cassert>
+	<cmath>
+
+1301225502 /usr/include/Box2D/Common/b2Draw.h
+	<Box2D/Common/b2Math.h>
+
+1315075682 /usr/include/Box2D/Common/b2Math.h
+	<Box2D/Common/b2Settings.h>
+	<cmath>
+	<cfloat>
+	<cstddef>
+	<limits>
+
+1315784796 /usr/include/Box2D/Common/b2Timer.h
+	<Box2D/Common/b2Settings.h>
+
+1300961820 /usr/include/Box2D/Collision/Shapes/b2CircleShape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1313956194 /usr/include/Box2D/Collision/Shapes/b2Shape.h
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+
+1300961820 /usr/include/Box2D/Common/b2BlockAllocator.h
+	<Box2D/Common/b2Settings.h>
+
+1307280162 /usr/include/Box2D/Collision/b2Collision.h
+	<Box2D/Common/b2Math.h>
+	<climits>
+
+1314834788 /usr/include/Box2D/Collision/Shapes/b2EdgeShape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1314834144 /usr/include/Box2D/Collision/Shapes/b2ChainShape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1300961820 /usr/include/Box2D/Collision/Shapes/b2PolygonShape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1301235804 /usr/include/Box2D/Collision/b2BroadPhase.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<algorithm>
+
+1308962790 /usr/include/Box2D/Collision/b2DynamicTree.h
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Common/b2GrowableStack.h>
+
+1300961820 /usr/include/Box2D/Common/b2GrowableStack.h
+	<Box2D/Common/b2Settings.h>
+	<cstring>
+
+1300961820 /usr/include/Box2D/Collision/b2Distance.h
+	<Box2D/Common/b2Math.h>
+
+1300961820 /usr/include/Box2D/Collision/b2TimeOfImpact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Distance.h>
+
+1315062744 /usr/include/Box2D/Dynamics/b2Body.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<memory>
+
+1315047142 /usr/include/Box2D/Dynamics/b2Fixture.h
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1314048402 /usr/include/Box2D/Dynamics/b2WorldCallbacks.h
+	<Box2D/Common/b2Settings.h>
+
+1315783932 /usr/include/Box2D/Dynamics/b2TimeStep.h
+	<Box2D/Common/b2Math.h>
+
+1315148798 /usr/include/Box2D/Dynamics/b2World.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2StackAllocator.h>
+	<Box2D/Dynamics/b2ContactManager.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+
+1300961820 /usr/include/Box2D/Common/b2StackAllocator.h
+	<Box2D/Common/b2Settings.h>
+
+1300961820 /usr/include/Box2D/Dynamics/b2ContactManager.h
+	<Box2D/Collision/b2BroadPhase.h>
+
+1305761620 /usr/include/Box2D/Dynamics/Contacts/b2Contact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<Box2D/Dynamics/b2Fixture.h>
+
+1315137784 /usr/include/Box2D/Dynamics/Joints/b2DistanceJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315150000 /usr/include/Box2D/Dynamics/Joints/b2Joint.h
+	<Box2D/Common/b2Math.h>
+
+1315149078 /usr/include/Box2D/Dynamics/Joints/b2FrictionJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315149334 /usr/include/Box2D/Dynamics/Joints/b2GearJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315149952 /usr/include/Box2D/Dynamics/Joints/b2WheelJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315150012 /usr/include/Box2D/Dynamics/Joints/b2MouseJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315340728 /usr/include/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315149720 /usr/include/Box2D/Dynamics/Joints/b2PulleyJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315147174 /usr/include/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315169014 /usr/include/Box2D/Dynamics/Joints/b2RopeJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1315145464 /usr/include/Box2D/Dynamics/Joints/b2WeldJoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1316219079 /usr/include/SFML/Graphics.hpp
+	<SFML/Window.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Renderer.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/View.hpp>
+
+1316219079 /usr/include/SFML/Window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1316219079 /usr/include/SFML/System.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1316219079 /usr/include/SFML/Config.hpp
+
+1316219079 /usr/include/SFML/System/Clock.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/System/Err.hpp
+	<SFML/Config.hpp>
+	<ostream>
+
+1316219079 /usr/include/SFML/System/InputStream.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/System/Lock.hpp
+	<SFML/System/NonCopyable.hpp>
+
+1316219079 /usr/include/SFML/System/NonCopyable.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/System/Mutex.hpp
+	<SFML/Config.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1316219079 /usr/include/SFML/System/Sleep.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/System/String.hpp
+	<SFML/Config.hpp>
+	<locale>
+	<string>
+
+1316219079 /usr/include/SFML/System/Thread.hpp
+	<SFML/Config.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1316219079 /usr/include/SFML/System/Thread.inl
+
+1316219079 /usr/include/SFML/System/ThreadLocal.hpp
+	<SFML/Config.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1316219079 /usr/include/SFML/System/ThreadLocalPtr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1316219079 /usr/include/SFML/System/ThreadLocalPtr.inl
+
+1316219079 /usr/include/SFML/System/Utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1316219079 /usr/include/SFML/System/Utf.inl
+
+1316219079 /usr/include/SFML/System/Vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1316219079 /usr/include/SFML/System/Vector2.inl
+
+1316219079 /usr/include/SFML/System/Vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1316219079 /usr/include/SFML/System/Vector3.inl
+
+1316219079 /usr/include/SFML/Window/Context.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1316219079 /usr/include/SFML/Window/GlResource.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/Window/ContextSettings.hpp
+
+1316219079 /usr/include/SFML/Window/Event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+
+1316219079 /usr/include/SFML/Window/Joystick.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/Window/Keyboard.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/Window/Mouse.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Vector2.hpp>
+
+1316219079 /usr/include/SFML/Window/VideoMode.hpp
+	<SFML/Config.hpp>
+	<vector>
+
+1316219079 /usr/include/SFML/Window/Window.hpp
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1316219079 /usr/include/SFML/Window/WindowHandle.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/Window/WindowStyle.hpp
+
+1316219079 /usr/include/SFML/Graphics/Color.hpp
+	<SFML/Config.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Font.hpp
+	<SFML/System/Resource.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/String.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<map>
+	<string>
+	<vector>
+
+1316219079 /usr/include/SFML/System/Resource.hpp
+	<SFML/System/Lock.hpp>
+	<SFML/System/Mutex.hpp>
+	<set>
+	<cstddef>
+	<SFML/System/Resource.inl>
+	<SFML/System/ResourcePtr.inl>
+
+1316219079 /usr/include/SFML/System/Resource.inl
+
+1316219079 /usr/include/SFML/System/ResourcePtr.inl
+
+1316219079 /usr/include/SFML/Graphics/Glyph.hpp
+	<SFML/Config.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Rect.hpp
+	<SFML/System/Vector2.hpp>
+	<algorithm>
+	<SFML/Graphics/Rect.inl>
+
+1316219079 /usr/include/SFML/Graphics/Rect.inl
+
+1316219079 /usr/include/SFML/Graphics/Texture.hpp
+	<SFML/System/Resource.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Graphics/Image.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Image.hpp
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+	<vector>
+
+1316219079 /usr/include/SFML/Graphics/Renderer.hpp
+	<SFML/Config.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Matrix3.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Drawable.hpp
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Matrix3.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Matrix3.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<cmath>
+	<SFML/Graphics/Matrix3.inl>
+
+1316219079 /usr/include/SFML/Graphics/Matrix3.inl
+
+1316219079 /usr/include/SFML/Graphics/RenderTexture.hpp
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+
+1316219079 /usr/include/SFML/Graphics/RenderTarget.hpp
+	<SFML/System/NonCopyable.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Renderer.hpp>
+	<SFML/Graphics/View.hpp>
+
+1316219079 /usr/include/SFML/Graphics/View.hpp
+	<SFML/Config.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Matrix3.hpp>
+	<SFML/System/Vector2.hpp>
+
+1316219079 /usr/include/SFML/Graphics/RenderWindow.hpp
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Window/Window.hpp>
+	<string>
+
+1316219079 /usr/include/SFML/Graphics/Shader.hpp
+	<SFML/Config.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<map>
+	<string>
+
+1316219079 /usr/include/SFML/Graphics/Shape.hpp
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/System/Vector2.hpp>
+	<vector>
+
+1316219079 /usr/include/SFML/Graphics/Sprite.hpp
+	<SFML/System/Resource.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1316219079 /usr/include/SFML/Graphics/Text.hpp
+	<SFML/System/Resource.hpp>
+	<SFML/System/String.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<string>
+
+1316219079 /usr/include/SFML/Audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1316219079 /usr/include/SFML/Audio/Listener.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Vector3.hpp>
+
+1316219079 /usr/include/SFML/Audio/Music.hpp
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<string>
+	<vector>
+
+1316219079 /usr/include/SFML/Audio/SoundStream.hpp
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<cstdlib>
+
+1316219079 /usr/include/SFML/Audio/SoundSource.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Vector3.hpp>
+
+1316219079 /usr/include/SFML/Audio/Sound.hpp
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Resource.hpp>
+	<cstdlib>
+
+1316219079 /usr/include/SFML/Audio/SoundBuffer.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Resource.hpp>
+	<string>
+	<vector>
+	<set>
+
+1316219079 /usr/include/SFML/Audio/SoundBufferRecorder.hpp
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1316219079 /usr/include/SFML/Audio/SoundRecorder.hpp
+	<SFML/System/Thread.hpp>
+	<vector>
 
