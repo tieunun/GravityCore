@@ -88,7 +88,7 @@ void CreditsState::Process(float frameTime)
     //+Menu state.
     if (current >= creditsItems.size())
     {
-        game->PopState();
+        PopState();
         return;
     }
 }

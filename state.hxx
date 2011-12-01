@@ -50,6 +50,11 @@ class State
         {
             game->PopState();
         }
+
+        void PopStates(int i)
+        {
+            game->PopStates(i);
+        }
 };
 
 #endif

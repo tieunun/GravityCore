@@ -131,6 +131,14 @@ void GameCore::PopState()
     }
 }
 
+void GameCore::PopStates(int i)
+{
+    for (int j = 0; j < i; j++)
+    {
+        PopState();
+    }
+}
+
 State* GameCore::GetHiddenState()
 {
     if (states.size() > 1)

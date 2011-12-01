@@ -126,11 +126,10 @@ void PauseMenuState::SelectCurrent()
     switch (current)
     {
         case 0:
-            game->PopState();
+            PopState();
             break;
         case 1:
-            game->PopState();
-            game->PopState();
+            PopStates(2);
             break;
         default:
             break;

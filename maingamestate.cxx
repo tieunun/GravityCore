@@ -135,7 +135,7 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                     }
                     break;
                 case sf::Keyboard::Escape:
-                    game->PushState(new PauseMenuState(game));
+                    PushState(new PauseMenuState(game));
                 default:
                     break;
             }

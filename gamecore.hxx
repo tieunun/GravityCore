@@ -46,6 +46,8 @@ class GameCore
         //+Only called from within a state
         void PopState();
 
+        void PopStates(int i);
+
         // Returns the second state from the top of the stack.
         //+Do not try to use in the members of a hidden state that will be accessed through this method
         //+(do not try to access past the second state from the top)
