@@ -63,7 +63,6 @@ void SplashState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                     break;
                 case sf::Keyboard::Escape:
                     game->PopState();
-                    game->PushState(new MainMenuState(game));
                     break;
                 default:
                     break;
@@ -88,7 +87,6 @@ void SplashState::Process(float frameTime)
     if (current >= splashItems.size())
     {
         game->PopState();
-        game->PushState(new MainMenuState(game));
         return;
     }
     // Fade in for half of the time

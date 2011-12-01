@@ -6,6 +6,7 @@
 #define MAINMENU_STATE_HXX
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 #include "gamecore.hxx"
 #include "state.hxx"

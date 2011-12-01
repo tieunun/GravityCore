@@ -64,6 +64,7 @@ bool GameCore::Initiate()
     window->EnableVerticalSync(true);
 
     // Initializes state stack with a main menu
+    PushState(new MainMenuState(this));
     PushState(new SplashState(this));
 
     return (true);

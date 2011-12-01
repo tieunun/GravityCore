@@ -38,8 +38,9 @@
 	"state.hxx"
 	"mainmenustate.hxx"
 
-1322510016 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+1322720887 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
 	<SFML/Graphics.hpp>
+	<vector>
 	"gamecore.hxx"
 	"state.hxx"
 	"maingamestate.hxx"
