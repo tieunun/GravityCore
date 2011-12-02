@@ -88,8 +88,6 @@ void MainGameState::ClearStage()
 
 void MainGameState::LoadStage(std::string fileName)
 {
-    ClearStage();
-
     struct PlayerData
     {
         float x;
@@ -121,6 +119,13 @@ void MainGameState::LoadStage(std::string fileName)
 
     std::ifstream input;
     input.open(fileName.c_str(), std::ios::in | std::ios::binary);
+
+    if (!input.is_open())
+    {
+        return;
+    }
+
+    ClearStage();
     // Input Player information
     input.read((char*)&playerData, sizeof(PlayerData));
 
@@ -285,18 +290,16 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Keyboard::Escape:
                     PushState(new PauseMenuState(game));
                     break;
-                case sf::Keyboard::L:
+                case sf::Keyboard::O:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
                         LoadStage("test.bin");
-                        std::cout << "LOADED!";
                     }
                     break;
                 case sf::Keyboard::S:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
                         SaveStage("test.bin");
-                        std::cout << "SAVED!";
                     }
                     break;
                 default:
@@ -332,6 +335,9 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Mouse::Right:
                     // Create a massless shape at the point of the mouse click
                     shapes.push_back(Shape::CreateRectangle(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 1.0f, 1.0f, 0.0f, false, world));
+                    break;
+                case sf::Mouse::Middle:
+                    scaleFactor = 30;
                     break;
                 default:
                     break;
