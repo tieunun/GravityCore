@@ -61,6 +61,8 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
 
 bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world)
 {
+    this->halfWidth = halfWidth;
+    this->halfHeight = halfHeight;
     this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
@@ -107,7 +109,12 @@ Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeigh
 
 void Shape::Destroy(b2World* world)
 {
-    world->DestroyBody(body);
+    if (body)
+    {
+        world->DestroyBody(body);
+        body = NULL;
+        fixture = NULL;
+    }
 }
 
 void Shape::Process()
@@ -135,6 +142,31 @@ void Shape::Resume()
 void Shape::Impulse(float x, float y)
 {
     body->SetLinearVelocity(b2Vec2(x, y) + body->GetLinearVelocity());
+}
+
+b2Vec2 Shape::GetPosition()
+{
+    return (body->GetPosition());
+}
+
+float Shape::GetHalfWidth()
+{
+    return (halfWidth);
+}
+
+float Shape::GetHalfHeight()
+{
+    return (halfHeight);
+}
+
+float Shape::GetAngle()
+{
+    return (body->GetAngle());
+}
+
+bool Shape::IsDynamic()
+{
+    return (dynamic);
 }
 
 #endif

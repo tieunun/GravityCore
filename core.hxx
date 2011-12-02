@@ -14,10 +14,12 @@
 class Core
 {
     private:
-        // the mass of the core, only used for gravitation
-        float mass;
         // Duh, the constant Pi
         const float PI;
+        // the mass of the core, only used for gravitation
+        float mass;
+        float radius;
+
         // The Box2D world constraints.
         //+If these are unclear, review the Box2D documentation.
         b2Body* body;
@@ -51,6 +53,7 @@ class Core
 
         b2Vec2 GetPosition();
         float GetMass();
+        float GetRadius();
 };
 
 #endif

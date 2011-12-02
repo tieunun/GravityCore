@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cmath>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Box2D/Box2D.h>
@@ -44,6 +45,9 @@ class MainGameState : public State
         std::vector<Core*> cores;
         std::vector<Shape*> shapes;
 
+        std::vector<std::string> stages;
+        unsigned short int currentStage;
+
         // The gravity is constantly (0, 0) here as it is handled manually
         b2Vec2 gravity;
         bool doSleep;
@@ -56,6 +60,12 @@ class MainGameState : public State
 
         void Initiate();
         void Cleanup();
+
+        void ClearStage();
+        void LoadStage(std::string fileName);
+        void LoadStage(int stageNumber);
+        void SaveStage(std::string fileName);
+        void LoadNextStage();
 
         void Pause();
         void Resume();

@@ -6,39 +6,39 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1322604140 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/contactlistener.cxx
 	"contactlistener.hxx"
 
-1322096011 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/contactlistener.hxx
 	<Box2D/Box2D.h>
 	"player.hxx"
 	"fixturetype.cxx"
 
-1322604140 /home/taylor/Projects/cxx/GravityCore/player.hxx
+1322801903 /home/taylor/Projects/cxx/GravityCore/player.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<iostream>
 	"fixturetype.cxx"
 
-1322604140 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
+1322803603 source:/home/taylor/Projects/cxx/GravityCore/core.cxx
 	"core.hxx"
 
-1322098244 /home/taylor/Projects/cxx/GravityCore/core.hxx
+1322803551 /home/taylor/Projects/cxx/GravityCore/core.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	"fixturetype.cxx"
 
-1322724217 /home/taylor/Projects/cxx/GravityCore/state.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/state.hxx
 	"gamecore.hxx"
 
-1322509611 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/splashstate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 	"mainmenustate.hxx"
 
-1322720887 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/mainmenustate.hxx
 	<SFML/Graphics.hpp>
 	<vector>
 	"gamecore.hxx"
@@ -46,14 +46,16 @@
 	"maingamestate.hxx"
 	"creditsstate.hxx"
 
-1322097288 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/main.cxx
 	"gamecore.hxx"
 
-1322724127 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
+1322805462 source:/home/taylor/Projects/cxx/GravityCore/maingamestate.cxx
 	"maingamestate.hxx"
 
-1322511315 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
+1322802080 /home/taylor/Projects/cxx/GravityCore/maingamestate.hxx
 	<vector>
+	<cmath>
+	<fstream>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	<Box2D/Box2D.h>
@@ -69,59 +71,59 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1322604140 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/pausemenustate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 
-1322724127 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/mainmenustate.cxx
 	"mainmenustate.hxx"
 
-1322724128 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/pausemenustate.cxx
 	"pausemenustate.hxx"
 
-1322604140 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
+1322802103 source:/home/taylor/Projects/cxx/GravityCore/player.cxx
 	"player.hxx"
 
 1320709627 source:/home/taylor/Projects/cxx/GravityCore/rectangle.cxx
 	"rectangle.hxx"
 
-1322724128 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/splashstate.cxx
 	"splashstate.hxx"
 
-1322179991 /home/taylor/Projects/cxx/GravityCore/shape.hxx
+1322805216 /home/taylor/Projects/cxx/GravityCore/shape.hxx
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	"fixturetype.cxx"
 
-1322604140 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
+1322805274 source:/home/taylor/Projects/cxx/GravityCore/shape.cxx
 	"shape.hxx"
 
 1321308242 /home/taylor/Projects/cxx/GravityCore/bodytype.cxx
 
 1321308145 source:/home/taylor/Projects/cxx/GravityCore/bodytype.cxx
 
-1322098244 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
-1322098244 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/fixturetype.cxx
 
-1322724231 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/gamecore.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 
-1322723792 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/gamecore.cxx
 	"gamecore.hxx"
 	"splashstate.hxx"
 	"mainmenustate.hxx"
 
-1322509510 /home/taylor/Projects/cxx/GravityCore/creditsstate.hxx
+1322790844 /home/taylor/Projects/cxx/GravityCore/creditsstate.hxx
 	<vector>
 	<SFML/Graphics.hpp>
 	"gamecore.hxx"
 	"state.hxx"
 
-1322724058 source:/home/taylor/Projects/cxx/GravityCore/creditsstate.cxx
+1322790844 source:/home/taylor/Projects/cxx/GravityCore/creditsstate.cxx
 	"creditsstate.hxx"
 
 1315013940 /usr/include/Box2D/Box2D.h

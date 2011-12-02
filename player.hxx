@@ -48,6 +48,9 @@ class Player
 
         sf::Clock spriteTimer;
 
+        float halfWidth;
+        float halfHeight;
+
     public:
         Player();
         ~Player();
@@ -89,6 +92,8 @@ class Player
         float GetAngle();
         b2Vec2 GetPosition();
         float GetMass();
+        float GetHalfWidth();
+        float GetHalfHeight();
 };
 
 #endif

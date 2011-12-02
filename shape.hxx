@@ -17,6 +17,10 @@ class Shape
         const float PI;
         // The Box2D world constraints.
         //+If these are unclear, review the Box2D documentation.
+
+        float halfWidth;
+        float halfHeight;
+
         b2Body* body;
         b2Fixture* fixture;
 
@@ -52,6 +56,12 @@ class Shape
         void Resume();
 
         void Impulse(float x, float y);
+
+        b2Vec2 GetPosition();
+        float GetHalfWidth();
+        float GetHalfHeight();
+        float GetAngle();
+        bool IsDynamic();
 };
 
 #endif

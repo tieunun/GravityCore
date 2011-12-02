@@ -26,6 +26,9 @@ void Player::Cleanup()
 
 bool Player::Create(float x, float y, float halfWidth, float halfHeight, float mass, b2World* world)
 {
+    this->halfWidth = halfWidth;
+    this->halfHeight = halfHeight;
+
     movementStatus = none;
     jumping = true;
 
@@ -97,7 +100,13 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
 
 void Player::Destroy(b2World* world)
 {
-    world->DestroyBody(body);
+    if (body)
+    {
+        world->DestroyBody(body);
+        body = NULL;
+        bodyFixture = NULL;
+        footboxFixture = NULL;
+    }
 }
 
 void Player::Process()
@@ -293,4 +302,13 @@ float Player::GetMass()
     return (body->GetMass());
 }
 
+float Player::GetHalfWidth()
+{
+    return (halfWidth);
+}
+
+float Player::GetHalfHeight()
+{
+    return (halfHeight);
+}
 #endif

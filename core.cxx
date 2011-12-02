@@ -28,6 +28,7 @@ void Core::Cleanup()
 bool Core::Create(float x, float y, float radius, float mass, b2World* world)
 {
     this->mass = mass;
+    this->radius = radius;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
     bodyDef->type = b2_staticBody;
@@ -64,7 +65,12 @@ Core* Core::CreateCore(float x, float y, float radius, float mass, b2World* worl
 
 void Core::Destroy(b2World* world)
 {
-    world->DestroyBody(body);
+    if (body)
+    {
+        world->DestroyBody(body);
+        body = NULL;
+        fixture = NULL;
+    }
 }
 
 void Core::Process()
@@ -98,5 +104,9 @@ float Core::GetMass()
     return (mass);
 }
 
+float Core::GetRadius()
+{
+    return (radius);
+}
 
 #endif

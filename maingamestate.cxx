@@ -55,29 +55,176 @@ void MainGameState::Cleanup()
 {
     bgm->Stop();
     // Destroy all instances of everything
-    while (cores.size() > 0)
-    {
-        cores.back()->Destroy(world);
-        cores.pop_back();
-    }
-    while (shapes.size() > 0)
-    {
-        shapes.back()->Destroy(world);
-        shapes.pop_back();
-    }
-    player->Destroy(world);
+    ClearStage();
 
     // Clean up classes
     Core::Cleanup();
     Player::Cleanup();
     delete bgm;
     delete playerView;
+    delete player;
     delete minimapView;
     delete minimapBox;
-    delete player;
     delete world;
     delete contactListener;
 }
+
+void MainGameState::ClearStage()
+{
+    while (cores.size() > 0)
+    {
+        cores.back()->Destroy(world);
+        delete cores.back();
+        cores.pop_back();
+    }
+    while (shapes.size() > 0)
+    {
+        shapes.back()->Destroy(world);
+        delete shapes.back();
+        shapes.pop_back();
+    }
+    player->Destroy(world);
+}
+
+void MainGameState::LoadStage(std::string fileName)
+{
+    ClearStage();
+
+    struct PlayerData
+    {
+        float x;
+        float y;
+        float halfWidth;
+        float halfHeight;
+        float mass;
+    } playerData;
+
+    struct RectangleData
+    {
+        float x;
+        float y;
+        float halfWidth;
+        float halfHeight;
+        float angle;
+        bool dynamic;
+    } rectangleData;
+
+    struct CoreData
+    {
+        float x;
+        float y;
+        float radius;
+        float mass;
+    } coreData;
+
+    unsigned int size;
+
+    std::ifstream input;
+    input.open(fileName.c_str(), std::ios::in | std::ios::binary);
+    // Input Player information
+    input.read((char*)&playerData, sizeof(PlayerData));
+
+    player->Create(playerData.x, playerData.y, playerData.halfWidth, playerData.halfHeight, playerData.mass, world);
+
+    // Input Core information
+    input.read((char*)&size, sizeof(unsigned int));
+
+    for (int i = 0; i < size; i++)
+    {
+        input.read((char*)&coreData, sizeof(CoreData));
+        cores.push_back(Core::CreateCore(coreData.x, coreData.y, coreData.radius, coreData.mass, world));
+    }
+
+    // input Rectangle information
+    input.read((char*)&size, sizeof(unsigned int));
+
+    for (int i = 0; i < size; i++)
+    {
+        input.read((char*)&rectangleData, sizeof(RectangleData));
+        shapes.push_back(Shape::CreateRectangle(rectangleData.x, rectangleData.y, rectangleData.halfWidth, rectangleData.halfHeight, rectangleData.angle, rectangleData.dynamic, world));
+    }
+
+    input.close();
+}
+
+void LoadStage(int stageNumber);
+
+void MainGameState::SaveStage(std::string fileName)
+{
+    struct PlayerData
+    {
+        float x;
+        float y;
+        float halfWidth;
+        float halfHeight;
+        float mass;
+    } playerData;
+
+    struct RectangleData
+    {
+        float x;
+        float y;
+        float halfWidth;
+        float halfHeight;
+        float angle;
+        bool dynamic;
+    } rectangleData;
+
+    struct CoreData
+    {
+        float x;
+        float y;
+        float radius;
+        float mass;
+    } coreData;
+
+    unsigned int size;
+
+    std::ofstream output;
+    output.open(fileName.c_str(), std::ios::out | std::ios::binary);
+    // Output Player information
+    playerData.x = player->GetPosition().x;
+    playerData.y = player->GetPosition().y;
+    playerData.halfWidth = player->GetHalfWidth();
+    playerData.halfHeight = player->GetHalfHeight();
+    playerData.mass = player->GetMass();
+
+    output.write((char*)&playerData, sizeof(PlayerData));
+
+    // Output Core information
+    size = cores.size();
+    output.write((char*)&size, sizeof(unsigned int));
+
+    for (int i = 0; i < size; i++)
+    {
+        coreData.x = cores[i]->GetPosition().x;
+        coreData.y = cores[i]->GetPosition().y;
+        coreData.radius = cores[i]->GetRadius();
+        coreData.mass = cores[i]->GetMass();
+
+        output.write((char*)&coreData, sizeof(CoreData));
+    }
+
+    // Output Rectangle information
+    size = shapes.size();
+    output.write((char*)&size, sizeof(unsigned int));
+
+    for (int i = 0; i < size; i++)
+    {
+        rectangleData.x = shapes[i]->GetPosition().x;
+        rectangleData.y = shapes[i]->GetPosition().y;
+        rectangleData.halfWidth = shapes[i]->GetHalfWidth();
+        rectangleData.halfHeight = shapes[i]->GetHalfHeight();
+        rectangleData.angle = shapes[i]->GetAngle();
+        rectangleData.dynamic = shapes[i]->IsDynamic();
+
+        output.write((char*)&rectangleData, sizeof(RectangleData));
+    }
+
+    output.close();
+}
+
+void LoadNextStage();
 
 void MainGameState::Pause()
 {
@@ -137,6 +284,21 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                     break;
                 case sf::Keyboard::Escape:
                     PushState(new PauseMenuState(game));
+                    break;
+                case sf::Keyboard::L:
+                    if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
+                    {
+                        LoadStage("test.bin");
+                        std::cout << "LOADED!";
+                    }
+                    break;
+                case sf::Keyboard::S:
+                    if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
+                    {
+                        SaveStage("test.bin");
+                        std::cout << "SAVED!";
+                    }
+                    break;
                 default:
                     break;
             }
