@@ -34,7 +34,7 @@
 	<File name="maingamestate.cxx" open="1" top="0" tabpos="6">
 		<Cursor position="3691" topLine="116" />
 	</File>
-	<File name="maingamestate.hxx" open="1" top="0" tabpos="21">
+	<File name="maingamestate.hxx" open="1" top="1" tabpos="21">
 		<Cursor position="310" topLine="3" />
 	</File>
 	<File name="mainmenustate.cxx" open="1" top="0" tabpos="10">
@@ -43,7 +43,7 @@
 	<File name="mainmenustate.hxx" open="1" top="0" tabpos="3">
 		<Cursor position="235" topLine="0" />
 	</File>
-	<File name="pausemenustate.cxx" open="1" top="1" tabpos="11">
+	<File name="pausemenustate.cxx" open="1" top="0" tabpos="11">
 		<Cursor position="2800" topLine="119" />
 	</File>
 	<File name="pausemenustate.hxx" open="1" top="0" tabpos="4">

@@ -25,7 +25,7 @@ void MainGameState::Initiate()
     Player::Initiate();
 
     player = new Player();
-    player->Create(7.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
+    player->Create(10.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
 
     playerView = new sf::View();
     minimapView = new sf::View();
@@ -47,7 +47,8 @@ void MainGameState::Initiate()
 
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
-    cores.push_back(Core::CreateCore(10, 10, 2, 1000, world));
+    cores.push_back(Core::CreateCore(10, 15, 5, 10000, world));
+    shapes.push_back(Shape::CreateRectangle(10, 6, 1, 1, 0, false, world));
 }
 
 void MainGameState::Cleanup()
@@ -164,14 +165,21 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
             {
                 case sf::Mouse::Left:
                     // Create a core on a left click at the point of the click
-                    cores.push_back(Core::CreateCore(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 2.0f, 1000, world));
+                    cores.push_back(Core::CreateCore(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 2.0f, 10000, world));
                     break;
                 case sf::Mouse::Right:
                     // Create a massless shape at the point of the mouse click
-                    shapes.push_back(Shape::CreateCircle(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor, window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor, 1.0f, false, world));
+                    shapes.push_back(Shape::CreateRectangle(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 1.0f, 1.0f, 0.0f, false, world));
                     break;
                 default:
                     break;
+            }
+            break;
+        case sf::Event::MouseWheelMoved:
+            scaleFactor += event->MouseWheel.Delta;
+            if (scaleFactor < 1)
+            {
+                scaleFactor = 1;
             }
             break;
         default:

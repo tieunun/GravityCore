@@ -152,6 +152,9 @@ void Player::Process()
         if (spriteTimer.GetElapsedTime() < 600)
         {
             subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
+        } else
+        {
+            subRect.Left = 5 * 64;
         }
     }
 }
@@ -259,9 +262,10 @@ void Player::ChangeFloors(bool increment)
     {
         floors--;
     }
-    if (floors < 0)
+    if (floors <= 0)
     {
         floors = 0;
+        jumping = true;
     }
 }
 void Player::ClearGravitation()
