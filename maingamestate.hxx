@@ -44,6 +44,7 @@ class MainGameState : public State
         Player* player;
         std::vector<Core*> cores;
         std::vector<Shape*> shapes;
+        Shape* exit;
 
         std::vector<std::string> stages;
         unsigned short int currentStage;

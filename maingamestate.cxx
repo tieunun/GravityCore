@@ -23,10 +23,11 @@ void MainGameState::Initiate()
     contactListener = new ContactListener();
     world->SetContactListener(contactListener);
     Player::Initiate();
+    Core::Initiate();
+    Shape::Initiate();
 
     player = new Player();
-    player->Create(10.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
-
+    exit = new Shape();
     playerView = new sf::View();
     minimapView = new sf::View();
 
@@ -47,8 +48,12 @@ void MainGameState::Initiate()
 
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
-    cores.push_back(Core::CreateCore(10, 15, 5, 10000, world));
-    shapes.push_back(Shape::CreateRectangle(10, 6, 1, 1, 0, false, world));
+
+    player->Create(10.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
+    cores.push_back(Core::CreateCore(10, 15, 2, 15000, world));
+    cores.push_back(Core::CreateCore(25, 15, 2, 15000, world));
+    shapes.push_back(Shape::CreateRectangle(18, 6, 10, 1, 0, false, world));
+    exit->CreateAsExit(25, 4, 1, world);
 }
 
 void MainGameState::Cleanup()
@@ -59,7 +64,10 @@ void MainGameState::Cleanup()
 
     // Clean up classes
     Core::Cleanup();
+    Shape::Cleanup();
     Player::Cleanup();
+
+    delete exit;
     delete bgm;
     delete playerView;
     delete player;
@@ -84,6 +92,7 @@ void MainGameState::ClearStage()
         shapes.pop_back();
     }
     player->Destroy(world);
+    exit->Destroy(world);
 }
 
 void MainGameState::LoadStage(std::string fileName)
@@ -96,6 +105,13 @@ void MainGameState::LoadStage(std::string fileName)
         float halfHeight;
         float mass;
     } playerData;
+
+    struct ExitData
+    {
+        float x;
+        float y;
+        float radius;
+    } exitData;
 
     struct RectangleData
     {
@@ -131,6 +147,11 @@ void MainGameState::LoadStage(std::string fileName)
 
     player->Create(playerData.x, playerData.y, playerData.halfWidth, playerData.halfHeight, playerData.mass, world);
 
+    // Input Exit information
+    input.read((char*)&exitData, sizeof(ExitData));
+
+    exit->CreateAsExit(exitData.x, exitData.y, exitData.radius, world);
+
     // Input Core information
     input.read((char*)&size, sizeof(unsigned int));
 
@@ -165,6 +186,13 @@ void MainGameState::SaveStage(std::string fileName)
         float mass;
     } playerData;
 
+    struct ExitData
+    {
+        float x;
+        float y;
+        float radius;
+    } exitData;
+
     struct RectangleData
     {
         float x;
@@ -187,6 +215,7 @@ void MainGameState::SaveStage(std::string fileName)
 
     std::ofstream output;
     output.open(fileName.c_str(), std::ios::out | std::ios::binary);
+
     // Output Player information
     playerData.x = player->GetPosition().x;
     playerData.y = player->GetPosition().y;
@@ -195,6 +224,13 @@ void MainGameState::SaveStage(std::string fileName)
     playerData.mass = player->GetMass();
 
     output.write((char*)&playerData, sizeof(PlayerData));
+
+     // Output Exit information
+    exitData.x = exit->GetPosition().x;
+    exitData.y = exit->GetPosition().y;
+    exitData.radius = exit->GetRadius();
+
+    output.write((char*)&exitData, sizeof(ExitData));
 
     // Output Core information
     size = cores.size();
@@ -234,6 +270,7 @@ void LoadNextStage();
 void MainGameState::Pause()
 {
     bgm->Pause();
+    exit->Pause();
     player->Pause();
     for (unsigned int i = 0; i < cores.size(); i++)
     {
@@ -249,6 +286,7 @@ void MainGameState::Pause()
 void MainGameState::Resume()
 {
     bgm->Play();
+    exit->Pause();
     player->Resume();
     for (unsigned int i = 0; i < cores.size(); i++)
     {
@@ -374,6 +412,18 @@ void MainGameState::Process(float frameTime)
     // Apply gravitational force and movement
     player->Process();
 
+    // If you win, move to the next stage
+    if (player->IsExited())
+    {
+        PopState();
+        //LoadNextStage();
+    }
+    // If you die, reload the current stage
+    if (player->IsDead())
+    {
+        LoadStage("test.bin");
+        //LoadStage(currentStage);
+    }
 }
 
 void MainGameState::Render(sf::RenderWindow* window)
@@ -392,6 +442,8 @@ void MainGameState::Render(sf::RenderWindow* window)
         shapes[i]->Render(scaleFactor, window);
     }
 
+    exit->Render(scaleFactor, window);
+
     // Set and render the minimap bounding box
     window->SetView(window->GetDefaultView());
     window->Draw(*minimapBox);
@@ -408,6 +460,8 @@ void MainGameState::Render(sf::RenderWindow* window)
     {
         shapes[i]->Render(minimapScaleFactor, window);
     }
+
+    exit->Render(minimapScaleFactor, window);
 }
 
 #endif

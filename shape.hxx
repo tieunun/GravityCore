@@ -20,6 +20,7 @@ class Shape
 
         float halfWidth;
         float halfHeight;
+        float radius;
 
         b2Body* body;
         b2Fixture* fixture;
@@ -42,10 +43,12 @@ class Shape
         //+Trouble happens if called more than once.
         bool CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world);
         bool CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world);
+        bool CreateAsExit(float x, float y, float radius, b2World* world);
         // Create and return pointer to desired instance.  Call as desired, but only should be used
         //+with a container such as a std::vector or std::list.
         static Shape* CreateCircle(float x, float y, float radius, bool dynamic, b2World* world);
         static Shape* CreateRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world);
+        static Shape* CreateExit(float x, float y, float radius, b2World* world);
         // Destroy the obect from the world
         void Destroy(b2World* world);
 
@@ -61,6 +64,7 @@ class Shape
         float GetHalfWidth();
         float GetHalfHeight();
         float GetAngle();
+        float GetRadius();
         bool IsDynamic();
 };
 

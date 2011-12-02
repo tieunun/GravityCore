@@ -26,6 +26,8 @@ class Player
         } movementStatus;
 
         bool jumping;
+        bool exited;
+        bool dead;
 
         b2Body* body;
         b2Fixture* bodyFixture;
@@ -83,8 +85,12 @@ class Player
         void StopMoving();
         void Jump();
         void Land();
+        void Exit();
+        void Die();
 
         bool IsGrounded();
+        bool IsExited();
+        bool IsDead();
         // if true, increase the number of floors, if false, decrease.
         void ChangeFloors(bool increment);
         void ClearGravitation();

@@ -26,9 +26,11 @@ void Shape::Cleanup()
 
 bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
 {
+    this->radius = radius;
     this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
+    bodyDef->userData = (void*)this;
 
     b2CircleShape* shape = new b2CircleShape();
     shape->m_radius = radius;
@@ -39,6 +41,7 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 1.0f;
     fixtureDef->restitution = 0.4f;
+    fixtureDef->userData = (void*)masslessFixture;
 
     if (dynamic)
     {
@@ -69,6 +72,7 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
     // Set the dynamic / static type accordingly
     bodyDef->type = (dynamic ? b2_dynamicBody : b2_staticBody);
     bodyDef->angle = angle;
+    bodyDef->userData = (void*)this;
 
     b2PolygonShape* shape = new b2PolygonShape();
     shape->SetAsBox(halfWidth, halfHeight);
@@ -93,6 +97,38 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
     return (true);
 }
 
+bool Shape::CreateAsExit(float x, float y, float radius, b2World* world)
+{
+    this->radius = radius;
+    b2BodyDef* bodyDef = new b2BodyDef();
+    bodyDef->position.Set(x, y);
+    bodyDef->userData = (void*)this;
+    bodyDef->type = b2_staticBody;
+
+    b2CircleShape* shape = new b2CircleShape();
+    shape->m_radius = radius;
+
+    b2FixtureDef* fixtureDef = new b2FixtureDef();
+    fixtureDef->shape = shape;
+
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 1.0f;
+    fixtureDef->restitution = 0.4f;
+    fixtureDef->isSensor = true;
+    fixtureDef->userData = (void*)exitSensor;
+
+    body = world->CreateBody(bodyDef);
+    fixture = body->CreateFixture(fixtureDef);
+
+    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Green, 2.0f, sf::Color::Green);
+    renderShape.EnableOutline(false);
+
+    delete (bodyDef);
+    delete (fixtureDef);
+    delete (shape);
+    return (true);
+}
+
 Shape* Shape::CreateCircle(float x, float y, float radius, bool dynamic, b2World* world)
 {
     Shape* output = new Shape();
@@ -104,6 +140,13 @@ Shape* Shape::CreateRectangle(float x, float y, float halfWidth, float halfHeigh
 {
     Shape* output = new Shape();
     output->CreateAsRectangle(x, y, halfWidth, halfHeight, angle, dynamic, world);
+    return (output);
+}
+
+Shape* Shape::CreateExit(float x, float y, float radius, b2World* world)
+{
+    Shape* output = new Shape();
+    output->CreateAsExit(x, y, radius, world);
     return (output);
 }
 
@@ -162,6 +205,11 @@ float Shape::GetHalfHeight()
 float Shape::GetAngle()
 {
     return (body->GetAngle());
+}
+
+float Shape::GetRadius()
+{
+    return (radius);
 }
 
 bool Shape::IsDynamic()

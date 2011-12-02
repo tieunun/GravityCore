@@ -31,6 +31,8 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
 
     movementStatus = none;
     jumping = true;
+    exited = false;
+    dead = false;
 
     gravitationalForce.x = 0;
     gravitationalForce.y = 0;
@@ -257,9 +259,29 @@ void Player::Land()
     jumping = false;
 }
 
+void Player::Exit()
+{
+    exited = true;
+}
+
+void Player::Die()
+{
+    dead = true;
+}
+
 bool Player::IsGrounded()
 {
     return ((bool)floors);
+}
+
+bool Player::IsExited()
+{
+    return (exited);
+}
+
+bool Player::IsDead()
+{
+    return (dead);
 }
 
 void Player::ChangeFloors(bool increment)
@@ -275,6 +297,9 @@ void Player::ChangeFloors(bool increment)
     {
         floors = 0;
         jumping = true;
+    } else
+    {
+        jumping = false;
     }
 }
 void Player::ClearGravitation()
