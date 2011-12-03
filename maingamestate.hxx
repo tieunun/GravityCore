@@ -65,8 +65,8 @@ class MainGameState : public State
         void ClearStage();
         void LoadStage(std::string fileName);
         void LoadStage(int stageNumber);
-        void SaveStage(std::string fileName);
         void LoadNextStage();
+        void SaveStage(std::string fileName);
 
         void Pause();
         void Resume();

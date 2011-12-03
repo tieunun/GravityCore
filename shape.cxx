@@ -9,6 +9,8 @@
 
 Shape::Shape() : PI(3.1415926535)
 {
+    body = NULL;
+    fixture = NULL;
 }
 
 Shape::~Shape()

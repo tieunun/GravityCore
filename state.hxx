@@ -51,7 +51,7 @@ class State
             game->PopState();
         }
 
-        void PopStates(int i)
+        void PopStates(unsigned int i)
         {
             game->PopStates(i);
         }

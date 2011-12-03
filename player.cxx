@@ -9,6 +9,9 @@
 
 Player::Player() : PI(3.1415926535)
 {
+    body = NULL;
+    bodyFixture = NULL;
+    footboxFixture = NULL;
 }
 
 Player::~Player()
@@ -116,7 +119,10 @@ void Player::Process()
     // Apply gravity
     body->ApplyForceToCenter(gravitationalForce);
     // Set the body's angle, relative to local gravitation
-    body->SetTransform(body->GetWorldCenter(), atan2(-gravitationalForce.x, gravitationalForce.y));
+    if (!IsGrounded())
+    {
+        body->SetTransform(body->GetWorldCenter(), atan2(-gravitationalForce.x, gravitationalForce.y));
+    }
 
     switch (movementStatus)
     {

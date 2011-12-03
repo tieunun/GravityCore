@@ -14,6 +14,10 @@ MainGameState::MainGameState(GameCore* game) : PI(3.1415926535f)
 
 void MainGameState::Initiate()
 {
+    currentStage = 0;
+    stages.push_back("stage1.grav");
+    stages.push_back("stage2.grav");
+
     velocityIterations = 6;
     positionIterations = 2;
     gravity = b2Vec2(0.0f, 0.0f);
@@ -49,11 +53,27 @@ void MainGameState::Initiate()
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
 
-    player->Create(10.0f, 5.0f, 0.3f, 0.9f, 60.0f, world);
-    cores.push_back(Core::CreateCore(10, 15, 2, 15000, world));
-    cores.push_back(Core::CreateCore(25, 15, 2, 15000, world));
-    shapes.push_back(Shape::CreateRectangle(18, 6, 10, 1, 0, false, world));
-    exit->CreateAsExit(25, 4, 1, world);
+    /*player->Create(0.0f, 0.0f, 0.3f, 0.9f, 60.0f, world);
+    shapes.push_back(Shape::CreateRectangle(5, 2, 8, 0.5f, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(13, -8, 0.5f, 10, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(3, -25, 0.5f, 10, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(-2, -35, 5.5f, 0.5f, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(-7, -25, 0.5f, 10, 0, false, world));
+    cores.push_back(Core::CreateCore(1, 10, 1, 20000, world));
+    cores.push_back(Core::CreateCore(20, -2, 1, 20000, world));
+    cores.push_back(Core::CreateCore(20, -15, 1, 20000, world));
+    cores.push_back(Core::CreateCore(-2, -18, 1, 10000, world));
+    cores.push_back(Core::CreateCore(-2, -25, 1, 5000, world));
+    cores.push_back(Core::CreateCore(-2, -32, 1, 5000, world));
+    cores.push_back(Core::CreateCore(-2, -50, 1, 5000, world));
+    */
+
+
+
+    //cores.push_back(Core::CreateCore(25, 15, 2, 15000, world));
+    //shapes.push_back(Shape::CreateRectangle(-7, -9, 10, 1, 0, false, world));
+    //exit->CreateAsExit(-8, -18, 0.5f, world);
+    LoadStage(0);
 }
 
 void MainGameState::Cleanup()
@@ -134,7 +154,7 @@ void MainGameState::LoadStage(std::string fileName)
     unsigned int size;
 
     std::ifstream input;
-    input.open(fileName.c_str(), std::ios::in | std::ios::binary);
+    input.open(("stages/" + fileName).c_str(), std::ios::in | std::ios::binary);
 
     if (!input.is_open())
     {
@@ -155,7 +175,7 @@ void MainGameState::LoadStage(std::string fileName)
     // Input Core information
     input.read((char*)&size, sizeof(unsigned int));
 
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         input.read((char*)&coreData, sizeof(CoreData));
         cores.push_back(Core::CreateCore(coreData.x, coreData.y, coreData.radius, coreData.mass, world));
@@ -164,7 +184,7 @@ void MainGameState::LoadStage(std::string fileName)
     // input Rectangle information
     input.read((char*)&size, sizeof(unsigned int));
 
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         input.read((char*)&rectangleData, sizeof(RectangleData));
         shapes.push_back(Shape::CreateRectangle(rectangleData.x, rectangleData.y, rectangleData.halfWidth, rectangleData.halfHeight, rectangleData.angle, rectangleData.dynamic, world));
@@ -173,7 +193,22 @@ void MainGameState::LoadStage(std::string fileName)
     input.close();
 }
 
-void LoadStage(int stageNumber);
+void MainGameState::LoadStage(int stageNumber)
+{
+    LoadStage(stages[stageNumber]);
+}
+
+void MainGameState::LoadNextStage()
+{
+    currentStage++;
+    if (currentStage < stages.size())
+    {
+        LoadStage(currentStage);
+    } else
+    {
+        PopState();
+    }
+}
 
 void MainGameState::SaveStage(std::string fileName)
 {
@@ -214,7 +249,7 @@ void MainGameState::SaveStage(std::string fileName)
     unsigned int size;
 
     std::ofstream output;
-    output.open(fileName.c_str(), std::ios::out | std::ios::binary);
+    output.open(("stages/" + fileName).c_str(), std::ios::out | std::ios::binary);
 
     // Output Player information
     playerData.x = player->GetPosition().x;
@@ -236,7 +271,7 @@ void MainGameState::SaveStage(std::string fileName)
     size = cores.size();
     output.write((char*)&size, sizeof(unsigned int));
 
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         coreData.x = cores[i]->GetPosition().x;
         coreData.y = cores[i]->GetPosition().y;
@@ -250,7 +285,7 @@ void MainGameState::SaveStage(std::string fileName)
     size = shapes.size();
     output.write((char*)&size, sizeof(unsigned int));
 
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         rectangleData.x = shapes[i]->GetPosition().x;
         rectangleData.y = shapes[i]->GetPosition().y;
@@ -264,8 +299,6 @@ void MainGameState::SaveStage(std::string fileName)
 
     output.close();
 }
-
-void LoadNextStage();
 
 void MainGameState::Pause()
 {
@@ -331,13 +364,13 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Keyboard::O:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
-                        LoadStage("test.bin");
+                        LoadStage("new.grav");
                     }
                     break;
                 case sf::Keyboard::S:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
-                        SaveStage("test.bin");
+                        SaveStage("new.grav");
                     }
                     break;
                 default:
@@ -415,14 +448,12 @@ void MainGameState::Process(float frameTime)
     // If you win, move to the next stage
     if (player->IsExited())
     {
-        PopState();
-        //LoadNextStage();
+        LoadNextStage();
     }
     // If you die, reload the current stage
     if (player->IsDead())
     {
-        LoadStage("test.bin");
-        //LoadStage(currentStage);
+        LoadStage(currentStage);
     }
 }
 
