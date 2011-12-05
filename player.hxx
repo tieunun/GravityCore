@@ -96,6 +96,7 @@ class Player
         void ClearGravitation();
         void AddGravitation(b2Vec2 distance, float mass);
         float GetAngle();
+        float GetGravityAngle();
         b2Vec2 GetPosition();
         float GetMass();
         float GetHalfWidth();

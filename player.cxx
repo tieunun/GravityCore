@@ -323,6 +323,11 @@ float Player::GetAngle()
     return (body->GetAngle());
 }
 
+float Player::GetGravityAngle()
+{
+    return (atan2(-gravitationalForce.x, gravitationalForce.y));
+}
+
 b2Vec2 Player::GetPosition()
 {
     return (body->GetWorldCenter());

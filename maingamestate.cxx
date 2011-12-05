@@ -17,6 +17,7 @@ void MainGameState::Initiate()
     currentStage = 0;
     stages.push_back("stage1.grav");
     stages.push_back("stage2.grav");
+    stages.push_back("stage3.grav");
 
     velocityIterations = 6;
     positionIterations = 2;
@@ -53,26 +54,13 @@ void MainGameState::Initiate()
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
 
-    /*player->Create(0.0f, 0.0f, 0.3f, 0.9f, 60.0f, world);
-    shapes.push_back(Shape::CreateRectangle(5, 2, 8, 0.5f, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(13, -8, 0.5f, 10, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(3, -25, 0.5f, 10, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(-2, -35, 5.5f, 0.5f, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(-7, -25, 0.5f, 10, 0, false, world));
-    cores.push_back(Core::CreateCore(1, 10, 1, 20000, world));
-    cores.push_back(Core::CreateCore(20, -2, 1, 20000, world));
-    cores.push_back(Core::CreateCore(20, -15, 1, 20000, world));
-    cores.push_back(Core::CreateCore(-2, -18, 1, 10000, world));
-    cores.push_back(Core::CreateCore(-2, -25, 1, 5000, world));
-    cores.push_back(Core::CreateCore(-2, -32, 1, 5000, world));
-    cores.push_back(Core::CreateCore(-2, -50, 1, 5000, world));
-    */
+    /*player->Create(0.0f, -18.0f, 0.3f, 0.9f, 60.0f, world);
+    shapes.push_back(Shape::CreateRectangle(0, -15, 2, 0.5f, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(0, 1, 2, 0.5f, 0, false, world));
+    shapes.push_back(Shape::CreateRectangle(10, 0, 0.5f, 2, 0, false, world));
+    cores.push_back(Core::CreateCore(0, 0, 1, 7000, world));
+    exit->CreateAsExit(0, 3, 1.0f, world);*/
 
-
-
-    //cores.push_back(Core::CreateCore(25, 15, 2, 15000, world));
-    //shapes.push_back(Shape::CreateRectangle(-7, -9, 10, 1, 0, false, world));
-    //exit->CreateAsExit(-8, -18, 0.5f, world);
     LoadStage(0);
 }
 
@@ -461,7 +449,7 @@ void MainGameState::Render(sf::RenderWindow* window)
 {
     // Set and render the normal view
     playerView->SetCenter(player->GetPosition().x * scaleFactor, player->GetPosition().y * scaleFactor);
-    playerView->SetRotation(player->GetAngle() * 180.0f / PI);
+    playerView->SetRotation(player->GetGravityAngle() * 180.0f / PI);
     window->SetView(*playerView);
     player->Render(scaleFactor, window);
     for (unsigned int i = 0; i < cores.size(); i++)
