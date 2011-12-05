@@ -40,8 +40,6 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     gravitationalForce.x = 0;
     gravitationalForce.y = 0;
 
-    floors = 0;
-
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
     // Used to prevent a player from spiraling out to space
@@ -111,6 +109,7 @@ void Player::Destroy(b2World* world)
         body = NULL;
         bodyFixture = NULL;
         footboxFixture = NULL;
+        floors.clear();
     }
 }
 
@@ -119,7 +118,10 @@ void Player::Process()
     // Apply gravity
     body->ApplyForceToCenter(gravitationalForce);
     // Set the body's angle, relative to local gravitation
-    if (!IsGrounded())
+    if (IsGrounded())
+    {
+
+    } else
     {
         body->SetTransform(body->GetWorldCenter(), atan2(-gravitationalForce.x, gravitationalForce.y));
     }
@@ -277,7 +279,7 @@ void Player::Die()
 
 bool Player::IsGrounded()
 {
-    return ((bool)floors);
+    return ((bool)floors.size());
 }
 
 bool Player::IsExited()
@@ -290,24 +292,28 @@ bool Player::IsDead()
     return (dead);
 }
 
-void Player::ChangeFloors(bool increment)
+void Player::AddFloor(Shape* floor)
 {
-    if (increment)
+    floors.push_back(floor);
+}
+
+void Player::RemoveFloor(Shape* floor)
+{
+    for (unsigned int i = 0; i < floors.size(); i++)
     {
-        floors++;
-    } else
-    {
-        floors--;
+        if (floor == floors[i])
+        {
+            floors.erase(floors.begin() + i);
+            break;
+        }
     }
-    if (floors <= 0)
+
+    if (floors.size() <= 0)
     {
-        floors = 0;
         jumping = true;
-    } else
-    {
-        jumping = false;
     }
 }
+
 void Player::ClearGravitation()
 {
     gravitationalForce.SetZero();

@@ -9,18 +9,24 @@
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
-    // If fixture A exists and is a footboxSensor
-    if (contact->GetFixtureA()->GetUserData() &&
-        contact->GetFixtureA()->GetUserData() == (void*)footboxSensor)
+
+    // If fixture A exists and is a footboxSensor and if fixture B exists and is a shape
+    if ((contact->GetFixtureA()->GetUserData() &&
+         contact->GetFixtureA()->GetUserData() == (void*)footboxSensor) &&
+        (contact->GetFixtureB()->GetUserData() &&
+         contact->GetFixtureB()->GetUserData() == (void*)masslessFixture))
     {
-        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(true);
+        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->AddFloor((Shape*)contact->GetFixtureB()->GetBody()->GetUserData());
         ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->Land();
-    // If fixture B exists and is a footboxSensor
-    } else if (contact->GetFixtureB()->GetUserData() &&
-                contact->GetFixtureB()->GetUserData() == (void*)footboxSensor)
+
+    // If fixture B exists and is a footboxSensor and if fixture A exists and is a shape
+    } else if ((contact->GetFixtureB()->GetUserData() &&
+                 contact->GetFixtureB()->GetUserData() == (void*)footboxSensor) &&
+                (contact->GetFixtureA()->GetUserData() &&
+                 contact->GetFixtureA()->GetUserData() == (void*)masslessFixture))
     {
-        ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->ChangeFloors(true);
-        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->Land();
+        ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->AddFloor((Shape*)contact->GetFixtureA()->GetBody()->GetUserData());
+        ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->Land();
     }
 
     // If fixture A exists and is a playerFixture and if fixture B exists and is an exit sensor
@@ -59,16 +65,21 @@ void ContactListener::BeginContact(b2Contact* contact)
 
 void ContactListener::EndContact(b2Contact* contact)
 {
-    // If fixture A exists and is a footboxSensor
-    if (contact->GetFixtureA()->GetBody()->GetUserData() &&
-        contact->GetFixtureA()->GetUserData() == (void*)(footboxSensor))
+    // If fixture A exists and is a footboxSensor and if fixture B exists and is a shape
+    if ((contact->GetFixtureA()->GetUserData() &&
+         contact->GetFixtureA()->GetUserData() == (void*)footboxSensor) &&
+        (contact->GetFixtureB()->GetUserData() &&
+         contact->GetFixtureB()->GetUserData() == (void*)masslessFixture))
     {
-        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->ChangeFloors(false);
-    // If fixture B exists and is a footboxSensor
-    } else if (contact->GetFixtureB()->GetBody()->GetUserData() &&
-                contact->GetFixtureB()->GetUserData() == (void*)(footboxSensor))
+        ((Player*)contact->GetFixtureA()->GetBody()->GetUserData())->RemoveFloor((Shape*)contact->GetFixtureB()->GetBody()->GetUserData());
+
+    // If fixture B exists and is a footboxSensor and if fixture A exists and is a shape
+    } else if ((contact->GetFixtureB()->GetUserData() &&
+                 contact->GetFixtureB()->GetUserData() == (void*)footboxSensor) &&
+                (contact->GetFixtureA()->GetUserData() &&
+                 contact->GetFixtureA()->GetUserData() == (void*)masslessFixture))
     {
-        ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->ChangeFloors(false);
+        ((Player*)contact->GetFixtureB()->GetBody()->GetUserData())->RemoveFloor((Shape*)contact->GetFixtureA()->GetBody()->GetUserData());
     }
 }
 

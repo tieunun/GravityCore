@@ -7,9 +7,11 @@
 
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include <iostream>
 
 #include "fixturetype.cxx"
+#include "shape.hxx"
 
 class Player
 {
@@ -34,7 +36,7 @@ class Player
         b2Fixture* footboxFixture;
 
         // The number of floors contacted by the footbox, used to determine jumping.
-        char floors;
+        std::vector<Shape*> floors;
         // The force of gravity, recalculated and reapplied each frame.
         b2Vec2 gravitationalForce;
 
@@ -92,7 +94,8 @@ class Player
         bool IsExited();
         bool IsDead();
         // if true, increase the number of floors, if false, decrease.
-        void ChangeFloors(bool increment);
+        void AddFloor(Shape* floor);
+        void RemoveFloor(Shape* floor);
         void ClearGravitation();
         void AddGravitation(b2Vec2 distance, float mass);
         float GetAngle();
