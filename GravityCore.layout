@@ -32,13 +32,13 @@
 		<Cursor position="461" topLine="0" />
 	</File>
 	<File name="maingamestate.cxx" open="1" top="1" tabpos="2">
-		<Cursor position="12717" topLine="444" />
+		<Cursor position="9074" topLine="345" />
 	</File>
 	<File name="maingamestate.hxx" open="1" top="0" tabpos="1">
 		<Cursor position="1736" topLine="54" />
 	</File>
-	<File name="mainmenustate.cxx" open="0" top="0" tabpos="10">
-		<Cursor position="2662" topLine="112" />
+	<File name="mainmenustate.cxx" open="1" top="0" tabpos="13">
+		<Cursor position="2482" topLine="103" />
 	</File>
 	<File name="mainmenustate.hxx" open="0" top="0" tabpos="3">
 		<Cursor position="235" topLine="0" />

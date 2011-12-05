@@ -37,8 +37,13 @@ sphere from destroying itself.
 Arrow keys:  Move left and right
 Space bar (ground):  Jump
 Space bar (air):  Neutralize velocity
-Left click:  Make large core
-Right click:  Make massless shape
+Mouse scroll:  Zoom in or out
+Middle mouse button:  Return to default zoom
+
+// NOTES:
+Certain parts of the game are a little bugged, such as player orientation, and
+some parts of some levels are badly designed, because I am no level designer.
+The main purpose of this is to showcase my physics engine.
 
 // BUILDING:
 Needs:

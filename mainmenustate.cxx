@@ -19,7 +19,7 @@ void MainMenuState::Initiate()
     std::vector<std::string> menuItems;
 
     menuItems.push_back("Start Game");
-    menuItems.push_back("Options");
+    //menuItems.push_back("Options");
     menuItems.push_back("Credits");
     menuItems.push_back("Exit");
 
@@ -124,13 +124,10 @@ void MainMenuState::SelectCurrent()
             break;
         // Options
         case 1:
-            break;
-        // Credits
-        case 2:
             PushState(new CreditsState(game));
             break;
         // Exit
-        case 3:
+        case 2:
             PopState();
             break;
         default:

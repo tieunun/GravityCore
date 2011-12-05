@@ -18,6 +18,7 @@ void MainGameState::Initiate()
     stages.push_back("stage1.grav");
     stages.push_back("stage2.grav");
     stages.push_back("stage3.grav");
+    stages.push_back("stage4.grav");
 
     velocityIterations = 6;
     positionIterations = 2;
@@ -53,13 +54,6 @@ void MainGameState::Initiate()
 
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
-
-    /*player->Create(0.0f, -18.0f, 0.3f, 0.9f, 60.0f, world);
-    shapes.push_back(Shape::CreateRectangle(0, -15, 2, 0.5f, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(0, 1, 2, 0.5f, 0, false, world));
-    shapes.push_back(Shape::CreateRectangle(10, 0, 0.5f, 2, 0, false, world));
-    cores.push_back(Core::CreateCore(0, 0, 1, 7000, world));
-    exit->CreateAsExit(0, 3, 1.0f, world);*/
 
     LoadStage(0);
 }
@@ -352,13 +346,13 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
                 case sf::Keyboard::O:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
-                        LoadStage("new.grav");
+                        //LoadStage("new.grav");
                     }
                     break;
                 case sf::Keyboard::S:
                     if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
                     {
-                        SaveStage("new.grav");
+                        //SaveStage("new.grav");
                     }
                     break;
                 default:
@@ -389,11 +383,11 @@ void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
             {
                 case sf::Mouse::Left:
                     // Create a core on a left click at the point of the click
-                    cores.push_back(Core::CreateCore(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 2.0f, 10000, world));
+                    //cores.push_back(Core::CreateCore(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 2.0f, 10000, world));
                     break;
                 case sf::Mouse::Right:
                     // Create a massless shape at the point of the mouse click
-                    shapes.push_back(Shape::CreateRectangle(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 1.0f, 1.0f, 0.0f, false, world));
+                    //shapes.push_back(Shape::CreateRectangle(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 1.0f, 1.0f, 0.0f, false, world));
                     break;
                 case sf::Mouse::Middle:
                     scaleFactor = 30;
