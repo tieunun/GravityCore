@@ -48,9 +48,11 @@ void MainGameState::Initiate()
     minimapBox->EnableOutline(true);
 
     bgm = new sf::Music();
-    bgm->OpenFromFile("audio/music/background.ogg");
-    bgm->SetLoop(true);
-    bgm->Play();
+    if (bgm->OpenFromFile("audio/music/background.wav"))
+    {
+        bgm->SetLoop(true);
+        bgm->Play();
+    }
 
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
@@ -60,7 +62,10 @@ void MainGameState::Initiate()
 
 void MainGameState::Cleanup()
 {
-    bgm->Stop();
+    if (bgm->GetStatus() == sf::Music::Playing)
+    {
+        bgm->Stop();
+    }
     // Destroy all instances of everything
     ClearStage();
 
@@ -284,7 +289,10 @@ void MainGameState::SaveStage(std::string fileName)
 
 void MainGameState::Pause()
 {
-    bgm->Pause();
+    if (bgm->GetStatus() == sf::Music::Playing)
+    {
+        bgm->Pause();
+    }
     exit->Pause();
     player->Pause();
     for (unsigned int i = 0; i < cores.size(); i++)
@@ -300,7 +308,10 @@ void MainGameState::Pause()
 
 void MainGameState::Resume()
 {
-    bgm->Play();
+    if (bgm->GetStatus() == sf::Music::Paused)
+    {
+        bgm->Play();
+    }
     exit->Pause();
     player->Resume();
     for (unsigned int i = 0; i < cores.size(); i++)
