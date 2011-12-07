@@ -48,7 +48,7 @@ void MainGameState::Initiate()
     minimapBox->EnableOutline(true);
 
     bgm = new sf::Music();
-    if (bgm->OpenFromFile("audio/music/background.wav"))
+    if (bgm->OpenFromFile("audio/music/background.ogg"))
     {
         bgm->SetLoop(true);
         bgm->Play();

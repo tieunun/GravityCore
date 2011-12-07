@@ -35,6 +35,7 @@
 					<Add option="-l sfml-system" />
 					<Add option="-l sfml-window" />
 					<Add option="-l sfml-graphics" />
+					<Add option="-l sfml-audio" />
 					<Add option="-l Box2D" />
 				</Linker>
 			</Target>
