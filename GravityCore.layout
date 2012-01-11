@@ -26,18 +26,18 @@
 		<Cursor position="2424" topLine="123" />
 	</File>
 	<File name="gamecore.hxx" open="1" top="0" tabpos="11">
-		<Cursor position="1228" topLine="38" />
+		<Cursor position="1228" topLine="19" />
 	</File>
-	<File name="main.cxx" open="0" top="0" tabpos="16">
+	<File name="main.cxx" open="1" top="0" tabpos="15">
 		<Cursor position="461" topLine="0" />
 	</File>
-	<File name="maingamestate.cxx" open="1" top="1" tabpos="2">
-		<Cursor position="1193" topLine="43" />
+	<File name="maingamestate.cxx" open="1" top="0" tabpos="2">
+		<Cursor position="1193" topLine="6" />
 	</File>
 	<File name="maingamestate.hxx" open="1" top="0" tabpos="1">
 		<Cursor position="1736" topLine="54" />
 	</File>
-	<File name="mainmenustate.cxx" open="1" top="0" tabpos="13">
+	<File name="mainmenustate.cxx" open="1" top="1" tabpos="13">
 		<Cursor position="2482" topLine="103" />
 	</File>
 	<File name="mainmenustate.hxx" open="0" top="0" tabpos="3">
