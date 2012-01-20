@@ -4,7 +4,7 @@
 
 #ifndef MAINGAME_STATE_CXX
 #define MAINGAME_STATE_CXX
-
+#include <iostream>
 #include "maingamestate.hxx"
 
 MainGameState::MainGameState(GameCore* game) : PI(3.1415926535f)
@@ -14,7 +14,19 @@ MainGameState::MainGameState(GameCore* game) : PI(3.1415926535f)
 
 void MainGameState::Create()
 {
-    glDisable(GL_BLEND);
+    game->SetPollEvents();
+
+    GLfloat lmodel_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
+
+    glMaterialf(GL_FRONT, GL_SHININESS, 70.0f);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+    glEnable(GL_BLEND);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_RESCALE_NORMAL);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -35,8 +47,8 @@ void MainGameState::Create()
     contactListener = new ContactListener();
     world->SetContactListener(contactListener);
     Player::Initiate();
-    Core::Initiate();
-    Shape::Initiate();
+    Core::Initiate(1.0f, 16, 16);
+    Shape::Initiate(1.0f, 16, 16);
 
     player = new Player();
     exit = new Shape();
@@ -156,6 +168,23 @@ void MainGameState::LoadStage(std::string fileName)
     }
 
     input.close();
+    for (unsigned int i = 0; i < 8; i++)
+    {
+        glDisable(GL_LIGHT0 + i);
+    }
+
+    for (unsigned int i = 0; i < cores.size(); i++)
+    {
+        GLfloat lightPosition[] = {cores[i]->GetPosition().x, cores[i]->GetPosition().y, 0, 1.0};
+        GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
+        if (i < 8)
+        {
+            glLightfv(GL_LIGHT0 + i, GL_POSITION, lightPosition);
+            glLightfv(GL_LIGHT0 + i, GL_DIFFUSE, white);
+            glLightfv(GL_LIGHT0 + i, GL_SPECULAR, white);
+            glEnable(GL_LIGHT0 + i);
+        }
+    }
 }
 
 void MainGameState::LoadStage(int stageNumber)
@@ -297,6 +326,7 @@ void MainGameState::Resume()
     glPopAttrib();
     glPopClientAttrib();
     SendResizeEvent();
+    game->SetPollEvents();
 }
 
 void MainGameState::HandleEvents(GLFWEvent* event)
@@ -348,10 +378,10 @@ void MainGameState::HandleEvents(GLFWEvent* event)
             glViewport(0, 0, event->width, event->height);
             if (((GLfloat)event->width / (GLfloat)event->height) > (15.0f / 10.0f))
             {
-                glFrustum(((GLfloat)event->width) / ((GLfloat)event->height) * (-10.0f), ((GLfloat)event->width) / ((GLfloat)event->height) * (10.0f), -10.0f, 10.0f, 80.0f, 200.0f);
+                glFrustum(((GLfloat)event->width) / ((GLfloat)event->height) * (-10.0f), ((GLfloat)event->width) / ((GLfloat)event->height) * (10.0f), -10.0f, 10.0f, 30.0f, 60.0f);
             } else
             {
-                glFrustum(-15.0f, 15.0f, ((GLfloat)event->height) / ((GLfloat)event->width) * (-15.0f), ((GLfloat)event->height) / ((GLfloat)event->width) * (15.0f ), 80.0f, 200.0f);
+                glFrustum(-15.0f, 15.0f, ((GLfloat)event->height) / ((GLfloat)event->width) * (-15.0f), ((GLfloat)event->height) / ((GLfloat)event->width) * (15.0f ), 30.0f, 60.0f);
             }
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
@@ -396,16 +426,20 @@ void MainGameState::Render()
 {
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
-    glRotatef(player->GetAngle() * 180.0f / PI, 0.0f, 0.0f, -1.0f);
-    gluLookAt(player->GetPosition().x, player->GetPosition().y, 150.0, player->GetPosition().x, player->GetPosition().y, 0.0, 0.0, 1.0, 0.0);
+    glRotatef(player->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
+    gluLookAt(player->GetPosition().x, player->GetPosition().y, -35.0f, player->GetPosition().x, player->GetPosition().y, 0.0, 0.0, -1.0, 0.0);
     glMatrixMode(GL_MODELVIEW);
 
     // Set and render the normal view
     player->Render();
+    glPushAttrib(GL_LIGHTING_BIT);
+    static GLfloat halfRed[] = { 0.50, 0.0, 0.0 };
+    glMaterialfv(GL_FRONT, GL_EMISSION, halfRed);
     for (unsigned int i = 0; i < cores.size(); i++)
     {
         cores[i]->Render();
     }
+    glPopAttrib();
     for (unsigned int i = 0; i < shapes.size(); i++)
     {
         shapes[i]->Render();

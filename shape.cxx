@@ -7,7 +7,11 @@
 
 #include "shape.hxx"
 
-Shape::Shape() : PI(3.1415926535)
+GLuint Shape::buffers[VAOCOUNT][NumVBOs];
+GLuint Shape::indexCount[VAOCOUNT];
+GLuint Shape::VAO[VAOCOUNT];
+
+Shape::Shape()
 {
     body = NULL;
     fixture = NULL;
@@ -17,13 +21,193 @@ Shape::~Shape()
 {
 }
 
-bool Shape::Initiate()
+bool Shape::Initiate(float radius, unsigned int stacks, unsigned int slices)
 {
+    GLuint numVertices = 0;
+    GLuint numFaces = 0;
+    std::vector<GLfloat> vertices;
+    std::vector<GLfloat> normals;
+    std::vector<GLuint> indices;
+    std::string inString;
+    std::string dummy;
+    std::string fileType;
+    std::string fileVersion;
+    GLfloat tempFloat;
+    GLuint tempUInt;
+    GLuint faceGon;
+    std::ifstream input;
+    glGenVertexArrays(VAOCOUNT, VAO);
+
+    for (unsigned int stackNumber = 0; stackNumber <= stacks; ++stackNumber)
+    {
+        for (unsigned int sliceNumber = 0; sliceNumber < slices; ++sliceNumber)
+        {
+            float theta = stackNumber * PI / stacks;
+            float phi = sliceNumber * 2 * PI / slices;
+            float sinTheta = sin(theta);
+            float sinPhi = sin(phi);
+            float cosTheta = cos(theta);
+            float cosPhi = cos(phi);
+            vertices.push_back(radius * cosPhi * sinTheta);
+            vertices.push_back(radius * sinPhi * sinTheta);
+            vertices.push_back(radius * cosTheta);
+        }
+    }
+
+    for (unsigned int stackNumber = 0; stackNumber < stacks; ++stackNumber)
+    {
+        for (unsigned int sliceNumber = 0; sliceNumber <= slices; ++sliceNumber)
+        {
+            indices.push_back((stackNumber * slices) + (sliceNumber % slices));
+            indices.push_back(((stackNumber + 1) * slices) + (sliceNumber % slices));
+        }
+    }
+
+    glBindVertexArray(VAO[SPHERE]);
+
+        glGenBuffers(NumVBOs, buffers[SPHERE]);
+        glBindBuffer(GL_ARRAY_BUFFER, buffers[SPHERE][Vertices]);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+        glVertexPointer(3, GL_FLOAT, 0, NULL);
+        glEnableClientState(GL_VERTEX_ARRAY);
+
+        glBindBuffer(GL_ARRAY_BUFFER, buffers[SPHERE][Normals]);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+        glNormalPointer(GL_FLOAT, 0, NULL);
+        glEnableClientState(GL_NORMAL_ARRAY);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[SPHERE][Indices]);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+
+    indexCount[SPHERE] = indices.size();
+
+    glBindVertexArray(0);
+    indices.clear();
+    vertices.clear();
+    normals.clear();
+
+    input.open("models/cube.ply", std::ifstream::in);
+    if (input.is_open())
+    {
+        input >> inString;
+        if (inString != "ply")
+        {
+            input.close();
+            inString = "end_header";
+        }
+        input >> inString;
+        while (inString != "end_header")
+        {
+            if (inString == "format")
+            {
+                input >> fileType;
+                input >> fileVersion;
+            } else if (inString == "element")
+            {
+                input >> inString;
+                if (inString == "vertex")
+                {
+                    input >> inString;
+                    std::stringstream(inString) >> numVertices;
+                } else if (inString == "face")
+                {
+                    input >> inString;
+                    std::stringstream(inString) >> numFaces;
+                }
+            } else if (inString == "property")
+            {
+                input >> inString;
+                // ignore type for now
+                input >> inString;
+                if ((inString == "x") || (inString == "y") || (inString == "z"))
+                {
+                } else if ((inString == "nx") || (inString == "ny") || (inString == "nz"))
+                {
+                } else
+                {
+                    getline(input, dummy);
+                }
+
+            } else if (inString == "comment")
+            {
+                getline(input, dummy);
+            } else
+            {
+                break;
+            }
+            input >> inString;
+        }
+        for (unsigned int i = 0; i < numVertices; i++)
+        {
+            for (unsigned int j = 0; j < 3; j++)
+            {
+                input >> inString;
+                std::stringstream(inString) >> tempFloat;
+                vertices.push_back(tempFloat);
+            }
+            for (unsigned int j = 0; j < 3; j++)
+            {
+                input >> inString;
+                std::stringstream(inString) >> tempFloat;
+                normals.push_back(tempFloat);
+            }
+        }
+        // Only handles one type of face for now
+        for (unsigned int i = 0; i < numFaces; i++)
+        {
+            input >> inString;
+            std::stringstream(inString) >> faceGon;
+            for (unsigned int j = 0; j < faceGon; j++)
+            {
+                input >> inString;
+                std::stringstream(inString) >> tempUInt;
+                indices.push_back(tempUInt);
+            }
+        }
+
+        input.close();
+
+
+
+        glBindVertexArray(VAO[CUBE]);
+
+            glGenBuffers(NumVBOs, buffers[CUBE]);
+            glBindBuffer(GL_ARRAY_BUFFER, buffers[CUBE][Vertices]);
+            glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+            glVertexPointer(3, GL_FLOAT, 0, NULL);
+            glEnableClientState(GL_VERTEX_ARRAY);
+
+            glBindBuffer(GL_ARRAY_BUFFER, buffers[CUBE][Normals]);
+            glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(GLfloat), &normals[0], GL_STATIC_DRAW);
+            glNormalPointer(GL_FLOAT, 0, NULL);
+            glEnableClientState(GL_NORMAL_ARRAY);
+
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[CUBE][Indices]);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+
+        indexCount[CUBE] = indices.size();
+        glBindVertexArray(0);
+    } else
+    {
+        VAO[CUBE] = VAO[SPHERE];
+        buffers[CUBE][Indices] = buffers[SPHERE][Indices];
+        indexCount[CUBE] = indexCount[SPHERE];
+    }
+    indices.clear();
+    vertices.clear();
+    normals.clear();
+
     return (true);
 }
 
 void Shape::Cleanup()
 {
+    for (unsigned int i = 0; i < VAOCOUNT; i++)
+    {
+        glBindVertexArray(i);
+        glDeleteBuffers(NumVBOs, buffers[i]);
+    }
+    glDeleteVertexArrays(VAOCOUNT, VAO);
 }
 
 bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
@@ -162,27 +346,29 @@ void Shape::Process()
 
 void Shape::Render()
 {
-    glPushMatrix();
-    glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
-    glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
     if (circle)
     {
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glScalef(radius, radius, radius);
+        glBindVertexArray(VAO[SPHERE]);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[SPHERE][Indices]);
+        glPushMatrix();
+            glColor3f(0.0f, 0.0f, 1.0f);
+            glTranslatef(body->GetWorldCenter().x, body->GetWorldCenter().y, 0.0f);
+            glScalef(radius, radius, radius);
+            glDrawElements(GL_TRIANGLE_STRIP, indexCount[SPHERE], GL_UNSIGNED_INT, NULL);
+        glPopMatrix();
+        glBindVertexArray(0);
     } else
     {
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glScalef(halfWidth, halfHeight, 1.0f);
+        glBindVertexArray(VAO[CUBE]);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[CUBE][Indices]);
+        glPushMatrix();
+            glColor3f(0.0f, 1.0f, 0.0f);
+            glTranslatef(body->GetWorldCenter().x, body->GetWorldCenter().y, 0.0f);
+            glScalef(halfWidth, halfHeight, 1.0f);
+            glDrawElements(GL_QUADS, indexCount[CUBE], GL_UNSIGNED_INT, NULL);
+        glPopMatrix();
+        glBindVertexArray(0);
     }
-
-    glBegin(GL_QUADS);
-        glVertex2f(-1.0f, -1.0f);
-        glVertex2f(1.0f, -1.0f);
-        glVertex2f(1.0f, 1.0f);
-        glVertex2f(-1.0f, 1.0f);
-    glEnd();
-
-    glPopMatrix();
 }
 
 void Shape::Pause()

@@ -5,18 +5,43 @@
 #ifndef SHAPE_HXX
 #define SHAPE_HXX
 
-#include <Box2D/Box2D.h>
-#include <GL/gl.h>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
 
+#include <Box2D/Box2D.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+#include <iostream>
 #include "fixturetype.cxx"
 
 // A shape is simulated with the Box2D world, but has no gravitation
 class Shape
 {
     private:
-        const float PI;
+        const static float PI = 3.1415926535;
         // The Box2D world constraints.
         //+If these are unclear, review the Box2D documentation.
+
+        enum
+        {
+            SPHERE = 0,
+            CUBE,
+            VAOCOUNT
+        };
+        enum
+        {
+            Vertices = 0,
+            Normals,
+            Indices,
+            NumVBOs
+        };
+        static GLuint buffers[VAOCOUNT][NumVBOs];
+        static GLuint indexCount[VAOCOUNT];
+        static GLuint VAO[VAOCOUNT];
 
         float halfWidth;
         float halfHeight;
@@ -34,7 +59,7 @@ class Shape
         Shape();
         ~Shape();
 
-        static bool Initiate();
+        static bool Initiate(float radius, unsigned int stacks, unsigned int slices);
         static void Cleanup();
 
         // Create this instance as the desired shape.  Should be called imediately after construction.

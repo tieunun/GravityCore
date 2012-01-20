@@ -6,7 +6,9 @@
 #define PLAYER_HXX
 
 #include <Box2D/Box2D.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 #include <vector>
 #include <iostream>
 
@@ -26,6 +28,22 @@ class Player
             left,
             none
         } movementStatus;
+
+        enum
+        {
+            CUBE,
+            VAOCOUNT
+        };
+        enum
+        {
+            Vertices = 0,
+            Normals,
+            Indices,
+            NumVBOs
+        };
+        static GLuint buffers[VAOCOUNT][NumVBOs];
+        static GLuint indexCount[VAOCOUNT];
+        static GLuint VAO[VAOCOUNT];
 
         bool jumping;
         bool exited;

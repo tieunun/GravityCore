@@ -5,8 +5,12 @@
 #ifndef CORE_HXX
 #define CORE_HXX
 
+#include <vector>
+
 #include <Box2D/Box2D.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 #include "fixturetype.cxx"
 
@@ -15,7 +19,24 @@ class Core
 {
     private:
         // Duh, the constant Pi
-        const float PI;
+        const static float PI = 3.1415926535;
+
+        enum
+        {
+            SPHERE = 0,
+            VAOCOUNT
+        };
+        enum
+        {
+            Vertices = 0,
+            Normals,
+            Indices,
+            NumVBOs
+        };
+        static GLuint buffers[VAOCOUNT][NumVBOs];
+        static GLuint indexCount[VAOCOUNT];
+        static GLuint VAO[VAOCOUNT];
+
         // the mass of the core, only used for gravitation
         float mass;
         float radius;
@@ -29,7 +50,7 @@ class Core
         Core();
         ~Core();
 
-        static bool Initiate();
+        static bool Initiate(float radius, unsigned int stacks, unsigned int slices);
         static void Cleanup();
 
         // Create this instance as the desired core.

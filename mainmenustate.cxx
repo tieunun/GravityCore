@@ -18,7 +18,7 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::Create()
 {
-
+    game->SetWaitEvents();
     glDisable(GL_LIGHTING);
 
     current = 0;
@@ -41,6 +41,7 @@ void MainMenuState::Pause()
 void MainMenuState::Resume()
 {
     glPopAttrib();
+    game->SetWaitEvents();
 }
 
 void MainMenuState::HandleEvents(GLFWEvent* event)

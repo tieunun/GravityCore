@@ -18,6 +18,7 @@ PauseMenuState::~PauseMenuState()
 
 void PauseMenuState::Create()
 {
+    game->SetWaitEvents();
     current = 0;
 
     menuItems.push_back("Back to Game");
@@ -39,6 +40,7 @@ void PauseMenuState::Pause()
 void PauseMenuState::Resume()
 {
     glPopAttrib();
+    game->SetWaitEvents();
 }
 
 void PauseMenuState::HandleEvents(GLFWEvent* event)

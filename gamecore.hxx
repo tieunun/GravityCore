@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <iostream>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -32,7 +33,7 @@ class GameCore
         static std::queue<GLFWEvent> events;
         static int mouseX, mouseY;
 
-        GLfloat frametime;
+        GLfloat prevFrametime, frametime;
 
     public:
         GameCore(std::string title);
@@ -53,6 +54,9 @@ class GameCore
         void HandleEvents();
         void Process();
         void Render();
+        void CheckErrors();
+        // Function Pointer, implemented so that menus don't constantly render
+        void (*GrabEvents)();
 
         void PushState(State* state);
         void PopState();
@@ -60,6 +64,9 @@ class GameCore
 
         int GetWidth();
         int GetHeight();
+
+        void SetPollEvents();
+        void SetWaitEvents();
 };
 
 #endif

@@ -116,6 +116,9 @@ int GameCore::Run()
 
         // --Rendering--
         Render();
+
+        // --Error Checking--
+        CheckErrors();
     }
 
     // --Cleanup--
@@ -188,7 +191,8 @@ void GameCore::Cleanup()
 
 void GameCore::HandleEvents()
 {
-    glfwPollEvents();
+    // Calls glfwPollEvents or glfwWaitEvents, depending on the situation
+    (*GrabEvents)();
     while (!events.empty())
     {
         event = &events.front();
@@ -206,7 +210,7 @@ void GameCore::HandleEvents()
 
 void GameCore::Process()
 {
-        states.back()->Process(frametime);
+    states.back()->Process(frametime);
 }
 
 void GameCore::Render(void)
@@ -214,8 +218,19 @@ void GameCore::Render(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     states.back()->Render();
     glfwSwapBuffers();
-    frametime = glfwGetTime();
-    glfwSetTime(0.0);
+    frametime = glfwGetTime() - prevFrametime;
+    prevFrametime = glfwGetTime();
+}
+
+void GameCore::CheckErrors()
+{
+    static GLuint error;
+    error = glGetError();
+    while (error != GL_NO_ERROR)
+    {
+        std::cout << "OPENGL ERROR:  " << gluErrorString(error) << std::endl;
+        error = glGetError();
+    }
 }
 
 void GameCore::PushState(State* state)
@@ -263,4 +278,13 @@ int GameCore::GetHeight()
     return (WINDOWHEIGHT);
 }
 
+void GameCore::SetPollEvents()
+{
+    GrabEvents = glfwPollEvents;
+}
+
+void GameCore::SetWaitEvents()
+{
+    GrabEvents = glfwWaitEvents;
+}
 #endif
