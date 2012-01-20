@@ -39,7 +39,7 @@ bool Player::Initiate()
     std::ifstream input;
     glGenVertexArrays(VAOCOUNT, VAO);
 
-    input.open("models/cube.ply", std::ifstream::in);
+    input.open("models/blankman/0.ply", std::ifstream::in);
     if (input.is_open())
     {
         input >> inString;
@@ -96,7 +96,7 @@ bool Player::Initiate()
             {
                 input >> inString;
                 std::stringstream(inString) >> tempFloat;
-                vertices.push_back(tempFloat);
+                vertices.push_back(tempFloat / 17.1f);
             }
             for (unsigned int j = 0; j < 3; j++)
             {
@@ -120,23 +120,23 @@ bool Player::Initiate()
 
         input.close();
 
-        glBindVertexArray(VAO[CUBE]);
+        glBindVertexArray(VAO[MAN]);
 
-            glGenBuffers(NumVBOs, buffers[CUBE]);
-            glBindBuffer(GL_ARRAY_BUFFER, buffers[CUBE][Vertices]);
+            glGenBuffers(NumVBOs, buffers[MAN]);
+            glBindBuffer(GL_ARRAY_BUFFER, buffers[MAN][Vertices]);
             glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
             glVertexPointer(3, GL_FLOAT, 0, NULL);
             glEnableClientState(GL_VERTEX_ARRAY);
 
-            glBindBuffer(GL_ARRAY_BUFFER, buffers[CUBE][Normals]);
+            glBindBuffer(GL_ARRAY_BUFFER, buffers[MAN][Normals]);
             glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(GLfloat), &normals[0], GL_STATIC_DRAW);
             glNormalPointer(GL_FLOAT, 0, NULL);
             glEnableClientState(GL_NORMAL_ARRAY);
 
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[CUBE][Indices]);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[MAN][Indices]);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 
-        indexCount[CUBE] = indices.size();
+        indexCount[MAN] = indices.size();
         glBindVertexArray(0);
     } else
     {
@@ -205,6 +205,22 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     bodyFixture = body->CreateFixture(bodyFixtureDef);
     footboxFixture = body->CreateFixture(footboxFixtureDef);
 
+    for (unsigned int i = 0; i < 15; i++)
+    {
+        scaleMatrix[i] = 0.0f;
+    }
+    scaleMatrix[0] = scaleMatrix[5] = scaleMatrix[10] = halfHeight;
+    scaleMatrix[15] = 1.0f;
+
+    GLfloat temp[] = {0, 0, 1, 0,
+                      0, -1, 0, 0,
+                      1, 0, 0, 0,
+                      0, 0, 0, 1};
+    for (unsigned int i = 0; i < 16; i++)
+    {
+        rotationMatrix[i] = temp[i];
+    }
+
     delete bodyDef;
     delete bodyFixtureDef;
     delete footboxFixtureDef;
@@ -244,12 +260,14 @@ void Player::Process()
             if (!jumping)
             {
                 ApplyRelativeHorizontalMotion(-5);
+                rotationMatrix[8] = -1.0f;
             }
             break;
         case right:
             if (!jumping)
             {
                 ApplyRelativeHorizontalMotion(5);
+                rotationMatrix[8] = 1.0f;
             }
             break;
         case none:
@@ -265,14 +283,18 @@ void Player::Process()
 
 void Player::Render()
 {
-    glBindVertexArray(VAO[CUBE]);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[CUBE][Indices]);
+    glBindVertexArray(VAO[MAN]);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[MAN][Indices]);
     glPushMatrix();
         glColor3f(1.0f, 1.0f, 1.0f);
-    glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
-    glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
-    glScalef(halfWidth, halfHeight, 1.0f);
-        glDrawElements(GL_QUADS, indexCount[CUBE], GL_UNSIGNED_INT, NULL);
+        glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
+        glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
+        //glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
+        glMultMatrixf(rotationMatrix);
+        //glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+        //glScalef(halfHeight, halfHeight, halfHeight);
+        glMultMatrixf(scaleMatrix);
+        glDrawElements(GL_TRIANGLES, indexCount[MAN], GL_UNSIGNED_INT, NULL);
     glPopMatrix();
     glBindVertexArray(0);
 }

@@ -32,6 +32,7 @@ class Player
         enum
         {
             CUBE,
+            MAN,
             VAOCOUNT
         };
         enum
@@ -44,6 +45,9 @@ class Player
         static GLuint buffers[VAOCOUNT][NumVBOs];
         static GLuint indexCount[VAOCOUNT];
         static GLuint VAO[VAOCOUNT];
+
+        GLfloat scaleMatrix[16];
+        GLfloat rotationMatrix[16];
 
         bool jumping;
         bool exited;
