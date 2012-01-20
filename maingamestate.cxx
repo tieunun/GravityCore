@@ -12,8 +12,14 @@ MainGameState::MainGameState(GameCore* game) : PI(3.1415926535f)
     this->game = game;
 }
 
-void MainGameState::Initiate()
+void MainGameState::Create()
 {
+    glDisable(GL_BLEND);
+    glEnable(GL_RESCALE_NORMAL);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glShadeModel(GL_SMOOTH);
+
     currentStage = 0;
     stages.push_back("stage1.grav");
     stages.push_back("stage2.grav");
@@ -34,25 +40,6 @@ void MainGameState::Initiate()
 
     player = new Player();
     exit = new Shape();
-    playerView = new sf::View();
-    minimapView = new sf::View();
-
-    playerView->SetSize(sf::Vector2f(game->GetWidth(), game->GetHeight()));
-
-    minimapView->SetViewport(sf::FloatRect(0.05f, 0.05f, 0.15f, 0.15f));
-    minimapView->SetSize(sf::Vector2f(game->GetWidth() * minimapView->GetViewport().Width, game->GetHeight() * minimapView->GetViewport().Height));
-
-    minimapBox = new sf::Shape();
-    *minimapBox = sf::Shape::Rectangle(game->GetWidth() * minimapView->GetViewport().Left, game->GetHeight() * minimapView->GetViewport().Top, game->GetWidth() * minimapView->GetViewport().Width, game->GetHeight() * minimapView->GetViewport().Height, sf::Color(0, 0, 0, 127), 2, sf::Color::Magenta);
-    minimapBox->EnableFill(true);
-    minimapBox->EnableOutline(true);
-
-    bgm = new sf::Music();
-    if (bgm->OpenFromFile("audio/music/background.ogg"))
-    {
-        bgm->SetLoop(true);
-        bgm->Play();
-    }
 
     minimapScaleFactor = 2.0f;
     scaleFactor = 20.0f;
@@ -60,12 +47,8 @@ void MainGameState::Initiate()
     LoadStage(0);
 }
 
-void MainGameState::Cleanup()
+void MainGameState::Destroy()
 {
-    if (bgm->GetStatus() == sf::Music::Playing)
-    {
-        bgm->Stop();
-    }
     // Destroy all instances of everything
     ClearStage();
 
@@ -75,11 +58,6 @@ void MainGameState::Cleanup()
     Player::Cleanup();
 
     delete exit;
-    delete bgm;
-    delete playerView;
-    delete player;
-    delete minimapView;
-    delete minimapBox;
     delete world;
     delete contactListener;
 }
@@ -289,10 +267,6 @@ void MainGameState::SaveStage(std::string fileName)
 
 void MainGameState::Pause()
 {
-    if (bgm->GetStatus() == sf::Music::Playing)
-    {
-        bgm->Pause();
-    }
     exit->Pause();
     player->Pause();
     for (unsigned int i = 0; i < cores.size(); i++)
@@ -303,15 +277,13 @@ void MainGameState::Pause()
     {
         shapes[i]->Pause();
     }
+    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_LIGHTING_BIT | GL_ENABLE_BIT | GL_VIEWPORT_BIT);
+    glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT);
 }
 
 
 void MainGameState::Resume()
 {
-    if (bgm->GetStatus() == sf::Music::Paused)
-    {
-        bgm->Play();
-    }
     exit->Pause();
     player->Resume();
     for (unsigned int i = 0; i < cores.size(); i++)
@@ -322,97 +294,67 @@ void MainGameState::Resume()
     {
         shapes[i]->Resume();
     }
+    glPopAttrib();
+    glPopClientAttrib();
+    SendResizeEvent();
 }
 
-void MainGameState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
+void MainGameState::HandleEvents(GLFWEvent* event)
 {
-    switch (event->Type)
+    switch (event->type)
     {
-        case sf::Event::KeyPressed:
-            switch (event->Key.Code)
+        case GLFWEvent::KEY:
+            if (event->state == GLFW_PRESS)
             {
-                case sf::Keyboard::Up:
-                    break;
-                case sf::Keyboard::Down:
-                    //player->Impulse(0, 5);
-                    break;
-                case sf::Keyboard::Left:
-                    player->MoveLeft();
-                    break;
-                case sf::Keyboard::Right:
-                    player->MoveRight();
-                    break;
-                case sf::Keyboard::Space:
-                    if (player->IsGrounded())
-                    {
-                        player->Jump();
-                    } else
-                    {
-                        player->StopVelocity();
-                    }
-                    break;
-                case sf::Keyboard::Escape:
-                    PushState(new PauseMenuState(game));
-                    break;
-                case sf::Keyboard::O:
-                    if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
-                    {
-                        //LoadStage("new.grav");
-                    }
-                    break;
-                case sf::Keyboard::S:
-                    if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RControl))
-                    {
-                        //SaveStage("new.grav");
-                    }
-                    break;
-                default:
-                    break;
+                switch (event->key)
+                {
+                    case GLFW_KEY_LEFT:
+                        player->MoveLeft();
+                        break;
+                    case GLFW_KEY_RIGHT:
+                        player->MoveRight();
+                        break;
+                    case GLFW_KEY_SPACE:
+                        if (player->IsGrounded())
+                        {
+                            player->Jump();
+                        } else
+                        {
+                            player->StopVelocity();
+                        }
+                        break;
+                    case GLFW_KEY_ESC:
+                        PushState(new PauseMenuState(game));
+                        break;
+                    default:
+                        break;
+                }
+            } else
+            {
+                switch (event->key)
+                {
+                    case GLFW_KEY_LEFT:
+                    case GLFW_KEY_RIGHT:
+                        player->StopMoving();
+                        break;
+                    default:
+                        break;
+                }
             }
             break;
-        case sf::Event::KeyReleased:
-            switch (event->Key.Code)
+        case GLFWEvent::RESIZE:
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glViewport(0, 0, event->width, event->height);
+            if (((GLfloat)event->width / (GLfloat)event->height) > (15.0f / 10.0f))
             {
-                case sf::Keyboard::Up:
-                    break;
-                case sf::Keyboard::Down:
-                    break;
-                case sf::Keyboard::Left:
-                    player->StopMoving();
-                    break;
-                case sf::Keyboard::Right:
-                    player->StopMoving();
-                    break;
-                case sf::Keyboard::Space:
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case sf::Event::MouseButtonPressed:
-            switch (event->MouseButton.Button)
+                glFrustum(((GLfloat)event->width) / ((GLfloat)event->height) * (-10.0f), ((GLfloat)event->width) / ((GLfloat)event->height) * (10.0f), -10.0f, 10.0f, 80.0f, 200.0f);
+            } else
             {
-                case sf::Mouse::Left:
-                    // Create a core on a left click at the point of the click
-                    //cores.push_back(Core::CreateCore(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 2.0f, 10000, world));
-                    break;
-                case sf::Mouse::Right:
-                    // Create a massless shape at the point of the mouse click
-                    //shapes.push_back(Shape::CreateRectangle(round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).x / scaleFactor), round(window->ConvertCoords(event->MouseButton.X, event->MouseButton.Y, *playerView).y / scaleFactor), 1.0f, 1.0f, 0.0f, false, world));
-                    break;
-                case sf::Mouse::Middle:
-                    scaleFactor = 30;
-                    break;
-                default:
-                    break;
+                glFrustum(-15.0f, 15.0f, ((GLfloat)event->height) / ((GLfloat)event->width) * (-15.0f), ((GLfloat)event->height) / ((GLfloat)event->width) * (15.0f ), 80.0f, 200.0f);
             }
-            break;
-        case sf::Event::MouseWheelMoved:
-            scaleFactor += event->MouseWheel.Delta;
-            if (scaleFactor < 1)
-            {
-                scaleFactor = 1;
-            }
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
             break;
         default:
             break;
@@ -450,42 +392,30 @@ void MainGameState::Process(float frameTime)
     }
 }
 
-void MainGameState::Render(sf::RenderWindow* window)
+void MainGameState::Render()
 {
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glRotatef(player->GetAngle() * 180.0f / PI, 0.0f, 0.0f, -1.0f);
+    gluLookAt(player->GetPosition().x, player->GetPosition().y, 150.0, player->GetPosition().x, player->GetPosition().y, 0.0, 0.0, 1.0, 0.0);
+    glMatrixMode(GL_MODELVIEW);
+
     // Set and render the normal view
-    playerView->SetCenter(player->GetPosition().x * scaleFactor, player->GetPosition().y * scaleFactor);
-    playerView->SetRotation(player->GetGravityAngle() * 180.0f / PI);
-    window->SetView(*playerView);
-    player->Render(scaleFactor, window);
+    player->Render();
     for (unsigned int i = 0; i < cores.size(); i++)
     {
-        cores[i]->Render(scaleFactor, window);
+        cores[i]->Render();
     }
     for (unsigned int i = 0; i < shapes.size(); i++)
     {
-        shapes[i]->Render(scaleFactor, window);
+        shapes[i]->Render();
     }
 
-    exit->Render(scaleFactor, window);
+    exit->Render();
 
-    // Set and render the minimap bounding box
-    window->SetView(window->GetDefaultView());
-    window->Draw(*minimapBox);
-
-    // Set and render the minimap on the bounding box
-    minimapView->SetCenter(player->GetPosition().x * minimapScaleFactor, player->GetPosition().y * minimapScaleFactor);
-    window->SetView(*minimapView);
-    player->Render(minimapScaleFactor, window);
-    for (unsigned int i = 0; i < cores.size(); i++)
-    {
-        cores[i]->Render(minimapScaleFactor, window);
-    }
-    for (unsigned int i = 0; i < shapes.size(); i++)
-    {
-        shapes[i]->Render(minimapScaleFactor, window);
-    }
-
-    exit->Render(minimapScaleFactor, window);
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
 }
 
 #endif

@@ -49,9 +49,6 @@ bool Core::Create(float x, float y, float radius, float mass, b2World* world)
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Red, 2.0f, sf::Color::Red);
-    renderShape.EnableOutline(false);
-
     delete (bodyDef);
     delete (fixtureDef);
     delete (shape);
@@ -79,12 +76,21 @@ void Core::Process()
 {
 }
 
-void Core::Render(float scaleFactor, sf::RenderWindow* window)
+void Core::Render()
 {
-    renderShape.SetScale(scaleFactor, scaleFactor);
-    renderShape.SetOutlineThickness(2 / scaleFactor);
-    renderShape.SetPosition(body->GetPosition().x * scaleFactor, body->GetPosition().y * scaleFactor);
-    window->Draw(renderShape);
+    glPushMatrix();
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
+    glScalef(radius, radius, radius);
+
+    glBegin(GL_QUADS);
+        glVertex2f(-1.0f, -1.0f);
+        glVertex2f(1.0f, -1.0f);
+        glVertex2f(1.0f, 1.0f);
+        glVertex2f(-1.0f, 1.0f);
+    glEnd();
+
+    glPopMatrix();
 }
 
 void Core::Pause()

@@ -1,7 +1,7 @@
 /*
  *  Lead Coder:     Taylor C. Richberger
  */
-
+/*
 #ifndef SPLASH_STATE_CXX
 #define SPLASH_STATE_CXX
 
@@ -112,3 +112,4 @@ void SplashState::Render(sf::RenderWindow* window)
 }
 
 #endif
+*/

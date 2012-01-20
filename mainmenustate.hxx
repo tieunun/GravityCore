@@ -5,40 +5,38 @@
 #ifndef MAINMENU_STATE_HXX
 #define MAINMENU_STATE_HXX
 
-#include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
+#include <iostream>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "gamecore.hxx"
-#include "state.hxx"
 #include "maingamestate.hxx"
 #include "creditsstate.hxx"
+#include "event.cxx"
+#include "menubase.hxx"
+#include "fontbase.hxx"
 
-class MainMenuState : public State
+class MainMenuState : public MenuBase, public FontBase, public State
 {
     private:
-        // Items to be displayed
-        std::vector<sf::Text> displayItems;
-        // Currently highlighted item
-        unsigned short int current;
-
     public:
         MainMenuState(GameCore* game);
-        //~MainMenuState();
+        ~MainMenuState();
 
-        void Initiate();
-        void Cleanup();
+        void Create();
+        void Destroy();
 
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
+        void HandleEvents(GLFWEvent* event);
         void Process(float frameTime);
-        void Render(sf::RenderWindow* window);
+        void Render();
 
-        void NextItem();
-        void PreviousItem();
         void SelectCurrent();
 };
 
 #endif
-

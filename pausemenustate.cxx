@@ -2,8 +2,8 @@
  *  Lead Coder:     Taylor C. Richberger
  */
 
-#ifndef MAINMENU_STATE_CXX
-#define MAINMENU_STATE_CXX
+#ifndef PAUSEMENU_STATE_CXX
+#define PAUSEMENU_STATE_CXX
 
 #include "pausemenustate.hxx"
 
@@ -12,58 +12,56 @@ PauseMenuState::PauseMenuState(GameCore* game)
     this->game = game;
 }
 
-void PauseMenuState::Initiate()
+PauseMenuState::~PauseMenuState()
+{
+}
+
+void PauseMenuState::Create()
 {
     current = 0;
 
-    std::vector<std::string> menuItems;
-
     menuItems.push_back("Back to Game");
-    menuItems.push_back("Quit to Title");
-
-    for (unsigned short int i = 0; i < menuItems.size(); i++)
-    {
-        displayItems.push_back(sf::Text());
-        displayItems.back().SetString(menuItems[i]);
-        displayItems.back().SetPosition(50, i * 50);
-    }
-    menuBox = new sf::Shape();
-    *menuBox = sf::Shape::Rectangle(0, 0, 1, 1, sf::Color(0, 0, 0, 200), 3, sf::Color::White);
-    menuBox->EnableFill(true);
-    menuBox->EnableOutline(true);
+    //menuItems.push_back("Options");
+    //menuItems.push_back("Credits");
+    menuItems.push_back("Exit to Title");
 }
 
-void PauseMenuState::Cleanup()
+void PauseMenuState::Destroy()
 {
-    delete menuBox;
+
 }
 
 void PauseMenuState::Pause()
 {
+    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_LIGHTING_BIT | GL_ENABLE_BIT | GL_VIEWPORT_BIT);
 }
 
 void PauseMenuState::Resume()
 {
+    glPopAttrib();
 }
 
-void PauseMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
+void PauseMenuState::HandleEvents(GLFWEvent* event)
 {
-    switch (event->Type)
+    switch (event->type)
     {
-        case sf::Event::KeyPressed:
-            switch (event->Key.Code)
+        case GLFWEvent::KEY:
+            if (event->state == GLFW_PRESS)
             {
-                case sf::Keyboard::Up:
-                    PreviousItem();
-                    break;
-                case sf::Keyboard::Down:
-                    NextItem();
-                    break;
-                case sf::Keyboard::Return:
-                    SelectCurrent();
-                    break;
-                default:
-                    break;
+                switch (event->key)
+                {
+                    case GLFW_KEY_UP:
+                        PreviousItem();
+                        break;
+                    case GLFW_KEY_DOWN:
+                        NextItem();
+                        break;
+                    case GLFW_KEY_ENTER:
+                        SelectCurrent();
+                        break;
+                    default:
+                        break;
+                }
             }
             break;
         default:
@@ -73,51 +71,25 @@ void PauseMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 
 void PauseMenuState::Process(float frameTime)
 {
-    for (unsigned short int i = 0; i < displayItems.size(); i++)
+}
+
+void PauseMenuState::Render()
+{
+    for (i = 0; i < menuItems.size(); i++)
     {
-        //Hilight the current item as green, and all others as white
-        if (i == current)
+        static unsigned int horizPixels;
+        horizPixels = 20;
+        if (current == i)
         {
-            displayItems[i].SetColor(sf::Color::Green);
+            glColor3f(1.0f, 1.0f, 1.0f);
         } else
         {
-            displayItems[i].SetColor(sf::Color::White);
+            glColor3f(0.3f, 0.3f, 0.3f);
         }
-    }
-}
-
-void PauseMenuState::Render(sf::RenderWindow* window)
-{
-    game->GetHiddenState()->Render(window);
-    window->SetView(window->GetDefaultView());
-    menuBox->SetScaleX(window->GetWidth());
-    menuBox->SetScaleY(window->GetHeight());
-    window->Draw(*menuBox);
-    for (unsigned short int i = 0; i < displayItems.size(); i++)
-    {
-        window->Draw(displayItems[i]);
-    }
-}
-
-void PauseMenuState::NextItem()
-{
-    if (current < (displayItems.size() - 1))
-    {
-        current++;
-    } else
-    {
-        current = 0;
-    }
-}
-
-void PauseMenuState::PreviousItem()
-{
-    if (current > 0)
-    {
-        current--;
-    } else
-    {
-        current = (displayItems.size() - 1);
+        for (j = 0; j < menuItems[i].length(); j++)
+        {
+            DrawString(menuItems[i], 20, 200 + (32 * i), 32);
+        }
     }
 }
 
@@ -125,9 +97,11 @@ void PauseMenuState::SelectCurrent()
 {
     switch (current)
     {
+        // Start Game
         case 0:
             PopState();
             break;
+        // Exit
         case 1:
             PopStates(2);
             break;
@@ -137,4 +111,3 @@ void PauseMenuState::SelectCurrent()
 }
 
 #endif
-

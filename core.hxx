@@ -6,7 +6,7 @@
 #define CORE_HXX
 
 #include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
+#include <GL/gl.h>
 
 #include "fixturetype.cxx"
 
@@ -24,9 +24,6 @@ class Core
         //+If these are unclear, review the Box2D documentation.
         b2Body* body;
         b2Fixture* fixture;
-
-        // The SFML constraint for rendering
-        sf::Shape renderShape;
 
     public:
         Core();
@@ -46,7 +43,7 @@ class Core
         void Destroy(b2World* world);
 
         void Process();
-        void Render(float scaleFactor, sf::RenderWindow* window);
+        void Render();
 
         void Pause();
         void Resume();

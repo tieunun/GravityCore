@@ -1,14 +1,17 @@
-/*
- *  Lead Coder:     Taylor C. Richberger
- */
-
 #ifndef GAMECORE_CXX
 #define GAMECORE_CXX
 
 #include "gamecore.hxx"
-// These are only not in the header to avoid conflicts with the State class
-#include "splashstate.hxx"
+#include "state.hxx"
+#include "fontbase.hxx"
+#include "menubase.hxx"
 #include "mainmenustate.hxx"
+#include "event.cxx"
+
+std::queue<GLFWEvent> GameCore::events;
+int GameCore::mouseX;
+int GameCore::mouseY;
+bool GameCore::exit;
 
 GameCore::GameCore(std::string title)
 {
@@ -22,6 +25,75 @@ GameCore::~GameCore()
 
 }
 
+void GLFWCALL GameCore::KeyCallback(int key, int state)
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::KEY;
+    temp.state = state;
+    temp.key = key;
+    temp.x = mouseX;
+    temp.y = mouseY;
+    events.push(temp);
+}
+
+void GLFWCALL GameCore::MousePosCallback(int x, int y)
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::MOUSE_POS;
+    temp.x = x;
+    temp.y = y;
+    events.push(temp);
+
+    mouseX = x;
+    mouseY = y;
+}
+
+void GLFWCALL GameCore::MouseButtonCallback(int button, int state)
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::BUTTON;
+    temp.state = state;
+    temp.button = button;
+    temp.x = mouseX;
+    temp.y = mouseY;
+    events.push(temp);
+}
+
+void GLFWCALL GameCore::MouseWheelCallback(int position)
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::MOUSE_WHEEL;
+    temp.direction = position;
+    temp.x = mouseX;
+    temp.y = mouseY;
+    glfwGetWindowSize(&temp.width, &temp.height);
+    events.push(temp);
+    glfwSetMouseWheel(0);
+}
+
+void GLFWCALL GameCore::WindowResizeCallback(int width, int height)
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::RESIZE;
+    temp.width = width;
+    temp.height = height;
+    events.push(temp);
+}
+
+int GLFWCALL GameCore::WindowCloseCallback()
+{
+    exit = true;
+    return (GL_TRUE);
+}
+
+void GameCore::SendResizeEvent()
+{
+    GLFWEvent temp;
+    temp.type = GLFWEvent::RESIZE;
+    glfwGetWindowSize(&temp.width, &temp.height);
+    events.push(temp);
+}
+
 int GameCore::Run()
 {
     // --Setup--
@@ -31,20 +103,19 @@ int GameCore::Run()
     }
 
 	// --Game Loop--
-    while (window->IsOpened())
+    while (!exit)
     {
         // --Event Loop--
         HandleEvents();
-
-        // Prevents any attempt to access an empty state stack.  Close if stack is empty.
-        if (!states.empty())
+        if (exit)
         {
-            // --Data Processing--
-            Process();
-
-            // --Rendering--
-            Render();
+            break;
         }
+        // --Data Processing--
+        Process();
+
+        // --Rendering--
+        Render();
     }
 
     // --Cleanup--
@@ -55,59 +126,96 @@ int GameCore::Run()
 
 bool GameCore::Initiate()
 {
-    window = new sf::RenderWindow();
-    event = new sf::Event();
+    exit = false;
 
-    // Create the window and set default settings
-    window->Create(sf::VideoMode(WINDOWWIDTH, WINDOWHEIGHT), TITLE);
-    window->EnableKeyRepeat(false);
-    window->EnableVerticalSync(true);
+    if (!glfwInit())
+    {
+        return (false);
+    }
 
-    // Initializes state stack with a main menu
+    if (!glfwOpenWindow(WINDOWWIDTH, WINDOWHEIGHT, 8, 8, 8, 8, 8, 0, GLFW_WINDOW))
+    {
+        return (false);
+    }
+
+    if (!FontBase::Initiate())
+    {
+        return (false);
+    }
+
+    if (!MenuBase::Initiate())
+    {
+        return (false);
+    }
+
+    glfwSetKeyCallback(KeyCallback);
+    glfwSetMousePosCallback(MousePosCallback);
+    glfwSetMouseButtonCallback(MouseButtonCallback);
+    glfwSetMouseWheelCallback(MouseWheelCallback);
+    glfwSetWindowSizeCallback(WindowResizeCallback);
+    glfwSetWindowCloseCallback(WindowCloseCallback);
+    glfwDisable(GLFW_AUTO_POLL_EVENTS);
+    glfwSetWindowTitle("Loading...");
+    // This sets the title
+    glfwSwapBuffers();
+
+    // VSync
+    glfwSwapInterval(1);
+
+    glewExperimental = GL_TRUE;
+    glewInit();
+
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    FontBase::Initiate();
+
     PushState(new MainMenuState(this));
-    PushState(new SplashState(this));
+
+    glfwSetWindowTitle(TITLE.c_str());
 
     return (true);
 }
 
 void GameCore::Cleanup()
 {
-    delete event;
-    delete window;
-
+    //delete display;
     while (!states.empty())
     {
         PopState();
     }
+    glfwTerminate();
+    FontBase::Cleanup();
 }
 
 void GameCore::HandleEvents()
 {
-    while (window->PollEvent(*event))
+    glfwPollEvents();
+    while (!events.empty())
     {
-        states.back()->HandleEvents(event, window);
+        event = &events.front();
 
-        // closes the window on an empty state stack or window close event
-        if (states.empty() || (event->Type == sf::Event::Closed))
-        {
-            window->Close();
-        }
+        states.back()->HandleEvents(event);
+
+        events.pop();
+    }
+
+    if (states.empty())
+    {
+        exit = true;
     }
 }
 
 void GameCore::Process()
 {
-    states.back()->Process(window->GetFrameTime() / 1000.0f);
+        states.back()->Process(frametime);
 }
 
-void GameCore::Render()
+void GameCore::Render(void)
 {
-    window->Clear();
-
-    states.back()->Render(window);
-
-    // Update window
-    window->Display();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    states.back()->Render();
+    glfwSwapBuffers();
+    frametime = glfwGetTime();
+    glfwSetTime(0.0);
 }
 
 void GameCore::PushState(State* state)
@@ -117,12 +225,12 @@ void GameCore::PushState(State* state)
         states.back()->Pause();
     }
     states.push_back(state);
-    states.back()->Initiate();
+    states.back()->Create();
 }
 
 void GameCore::PopState()
 {
-    states.back()->Cleanup();
+    states.back()->Destroy();
     delete states.back();
     states.pop_back();
     if (!states.empty())
@@ -131,25 +239,19 @@ void GameCore::PopState()
     }
 }
 
-void GameCore::PopStates(unsigned int i)
+void GameCore::PopStates(unsigned int num)
 {
-    for (unsigned int j = 0; j < i; j++)
+    for (unsigned int i = 0; i < num; i++)
     {
-        PopState();
+        states.back()->Destroy();
+        delete states.back();
+        states.pop_back();
+        if (!states.empty())
+        {
+            states.back()->Resume();
+        }
     }
 }
-
-State* GameCore::GetHiddenState()
-{
-    if (states.size() > 1)
-    {
-        return (states[states.size() - 2]);
-    } else
-    {
-        return (states[0]);
-    }
-}
-
 
 int GameCore::GetWidth()
 {

@@ -6,7 +6,7 @@
 #define SHAPE_HXX
 
 #include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
+#include <GL/gl.h>
 
 #include "fixturetype.cxx"
 
@@ -21,15 +21,13 @@ class Shape
         float halfWidth;
         float halfHeight;
         float radius;
+        bool circle;
 
         b2Body* body;
         b2Fixture* fixture;
 
         // Indicates whether the body is dynamic (true) or static (false)
         bool dynamic;
-
-        // The SFML shape for rendering
-        sf::Shape renderShape;
 
     public:
         // The constructor and destructor do nothing
@@ -53,7 +51,7 @@ class Shape
         void Destroy(b2World* world);
 
         void Process();
-        void Render(float scaleFactor, sf::RenderWindow* window);
+        void Render();
 
         void Pause();
         void Resume();

@@ -8,8 +8,6 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <Box2D/Box2D.h>
 
 #include "gamecore.hxx"
@@ -19,6 +17,7 @@
 #include "shape.hxx"
 #include "contactlistener.hxx"
 #include "pausemenustate.hxx"
+#include "event.cxx"
 
 class MainGameState : public State
 {
@@ -32,14 +31,6 @@ class MainGameState : public State
         // Used to manage timesteps
         int32 velocityIterations;
         int32 positionIterations;
-
-        // The main view, used for main rendering
-        sf::View* playerView;
-        // The minimap view, used to render the small map, which keeps orientation constant
-        sf::View* minimapView;
-        // The box that the minimap sits in
-        sf::Shape* minimapBox;
-        sf::Music* bgm;
 
         Player* player;
         std::vector<Core*> cores;
@@ -59,8 +50,8 @@ class MainGameState : public State
     public:
         MainGameState(GameCore* game);
 
-        void Initiate();
-        void Cleanup();
+        void Create();
+        void Destroy();
 
         void ClearStage();
         void LoadStage(std::string fileName);
@@ -71,9 +62,9 @@ class MainGameState : public State
         void Pause();
         void Resume();
 
-        void HandleEvents(sf::Event* event, sf::RenderWindow* window);
+        void HandleEvents(GLFWEvent* event);
         void Process(float frameTime);
-        void Render(sf::RenderWindow* window);
+        void Render();
 };
 
 #endif

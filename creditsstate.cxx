@@ -1,7 +1,7 @@
 /*
  *  Lead Coder:     Taylor C. Richberger
  */
-
+/*
 #ifndef CREDITS_STATE_CXX
 #define CREDITS_STATE_CXX
 
@@ -100,3 +100,4 @@ void CreditsState::Render(sf::RenderWindow* window)
 }
 
 #endif
+*/

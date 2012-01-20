@@ -14,13 +14,6 @@
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
-				<Linker>
-					<Add option="-l sfml-system" />
-					<Add option="-l sfml-window" />
-					<Add option="-l sfml-graphics" />
-					<Add option="-l sfml-audio" />
-					<Add option="-l Box2D" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/GravityCore" prefix_auto="1" extension_auto="1" />
@@ -29,38 +22,43 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="`freetype-config --cflags`" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-l sfml-system" />
-					<Add option="-l sfml-window" />
-					<Add option="-l sfml-graphics" />
-					<Add option="-l sfml-audio" />
-					<Add option="-l Box2D" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="audio/music/background.ogg" />
+		<Linker>
+			<Add option="-lGL" />
+			<Add option="-lGLU" />
+			<Add option="-lGLEW" />
+			<Add option="-lglfw" />
+			<Add option="-lBox2D" />
+			<Add option="`freetype-config --libs`" />
+		</Linker>
 		<Unit filename="contactlistener.cxx" />
 		<Unit filename="contactlistener.hxx" />
 		<Unit filename="core.cxx" />
 		<Unit filename="core.hxx" />
 		<Unit filename="creditsstate.cxx" />
 		<Unit filename="creditsstate.hxx" />
+		<Unit filename="event.cxx" />
 		<Unit filename="fixturetype.cxx" />
+		<Unit filename="fontbase.cxx" />
+		<Unit filename="fontbase.hxx" />
 		<Unit filename="gamecore.cxx" />
 		<Unit filename="gamecore.hxx" />
-		<Unit filename="img/player/jumpr.png" />
-		<Unit filename="img/player/runr.png" />
-		<Unit filename="img/player/standr.png" />
 		<Unit filename="main.cxx" />
 		<Unit filename="maingamestate.cxx" />
 		<Unit filename="maingamestate.hxx" />
 		<Unit filename="mainmenustate.cxx" />
 		<Unit filename="mainmenustate.hxx" />
+		<Unit filename="menubase.cxx" />
+		<Unit filename="menubase.hxx" />
 		<Unit filename="pausemenustate.cxx" />
 		<Unit filename="pausemenustate.hxx" />
 		<Unit filename="player.cxx" />

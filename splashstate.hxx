@@ -1,12 +1,11 @@
 /*
  *  Lead Coder:     Taylor C. Richberger
  */
-
+/*
 #ifndef SPLASH_STATE_HXX
 #define SPLASH_STATE_HXX
 
 #include <vector>
-#include <SFML/Graphics.hpp>
 
 #include "gamecore.hxx"
 #include "state.hxx"
@@ -39,3 +38,4 @@ class SplashState : public State
 };
 
 #endif
+*/

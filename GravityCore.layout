@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="contactlistener.cxx" open="1" top="0" tabpos="14">
+	<File name="contactlistener.cxx" open="0" top="0" tabpos="14">
 		<Cursor position="4175" topLine="63" />
 	</File>
 	<File name="contactlistener.hxx" open="0" top="0" tabpos="1">
 		<Cursor position="245" topLine="0" />
 	</File>
-	<File name="core.cxx" open="1" top="0" tabpos="8">
-		<Cursor position="160" topLine="64" />
+	<File name="core.cxx" open="1" top="0" tabpos="9">
+		<Cursor position="1566" topLine="48" />
 	</File>
-	<File name="core.hxx" open="1" top="0" tabpos="7">
-		<Cursor position="431" topLine="6" />
+	<File name="core.hxx" open="1" top="0" tabpos="10">
+		<Cursor position="127" topLine="0" />
 	</File>
-	<File name="creditsstate.cxx" open="1" top="0" tabpos="9">
-		<Cursor position="2245" topLine="80" />
+	<File name="creditsstate.cxx" open="1" top="0" tabpos="4">
+		<Cursor position="50" topLine="0" />
 	</File>
-	<File name="creditsstate.hxx" open="0" top="0" tabpos="19">
-		<Cursor position="346" topLine="0" />
+	<File name="creditsstate.hxx" open="1" top="0" tabpos="5">
+		<Cursor position="50" topLine="0" />
+	</File>
+	<File name="event.cxx" open="0" top="0" tabpos="0">
+		<Cursor position="426" topLine="0" />
 	</File>
 	<File name="fixturetype.cxx" open="0" top="0" tabpos="17">
 		<Cursor position="194" topLine="0" />
 	</File>
-	<File name="gamecore.cxx" open="1" top="0" tabpos="10">
-		<Cursor position="2424" topLine="123" />
+	<File name="gamecore.cxx" open="0" top="0" tabpos="10">
+		<Cursor position="329" topLine="12" />
 	</File>
-	<File name="gamecore.hxx" open="1" top="0" tabpos="11">
-		<Cursor position="1228" topLine="19" />
+	<File name="gamecore.hxx" open="0" top="0" tabpos="11">
+		<Cursor position="577" topLine="10" />
 	</File>
-	<File name="main.cxx" open="1" top="0" tabpos="15">
-		<Cursor position="461" topLine="0" />
+	<File name="main.cxx" open="0" top="0" tabpos="15">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="maingamestate.cxx" open="1" top="0" tabpos="2">
-		<Cursor position="1193" topLine="6" />
+	<File name="maingamestate.cxx" open="1" top="1" tabpos="6">
+		<Cursor position="10017" topLine="364" />
 	</File>
-	<File name="maingamestate.hxx" open="1" top="0" tabpos="1">
-		<Cursor position="1736" topLine="54" />
+	<File name="maingamestate.hxx" open="0" top="0" tabpos="1">
+		<Cursor position="1595" topLine="12" />
 	</File>
-	<File name="mainmenustate.cxx" open="1" top="1" tabpos="13">
-		<Cursor position="2482" topLine="103" />
+	<File name="mainmenustate.cxx" open="1" top="0" tabpos="12">
+		<Cursor position="2255" topLine="68" />
 	</File>
 	<File name="mainmenustate.hxx" open="0" top="0" tabpos="3">
 		<Cursor position="235" topLine="0" />
@@ -49,25 +52,25 @@
 	<File name="pausemenustate.hxx" open="0" top="0" tabpos="4">
 		<Cursor position="500" topLine="0" />
 	</File>
-	<File name="player.cxx" open="1" top="0" tabpos="3">
-		<Cursor position="7856" topLine="289" />
+	<File name="player.cxx" open="1" top="0" tabpos="7">
+		<Cursor position="3413" topLine="241" />
 	</File>
-	<File name="player.hxx" open="1" top="0" tabpos="6">
-		<Cursor position="1254" topLine="44" />
+	<File name="player.hxx" open="1" top="0" tabpos="1">
+		<Cursor position="131" topLine="42" />
 	</File>
-	<File name="shape.cxx" open="1" top="0" tabpos="4">
-		<Cursor position="165" topLine="0" />
+	<File name="shape.cxx" open="1" top="0" tabpos="8">
+		<Cursor position="2890" topLine="122" />
 	</File>
-	<File name="shape.hxx" open="1" top="0" tabpos="5">
-		<Cursor position="459" topLine="18" />
+	<File name="shape.hxx" open="1" top="0" tabpos="11">
+		<Cursor position="478" topLine="2" />
 	</File>
-	<File name="splashstate.cxx" open="0" top="0" tabpos="22">
-		<Cursor position="2070" topLine="67" />
+	<File name="splashstate.cxx" open="1" top="0" tabpos="3">
+		<Cursor position="50" topLine="0" />
 	</File>
-	<File name="splashstate.hxx" open="0" top="0" tabpos="5">
-		<Cursor position="516" topLine="0" />
+	<File name="splashstate.hxx" open="1" top="0" tabpos="2">
+		<Cursor position="908" topLine="0" />
 	</File>
-	<File name="state.hxx" open="1" top="0" tabpos="12">
-		<Cursor position="1632" topLine="21" />
+	<File name="state.hxx" open="0" top="0" tabpos="12">
+		<Cursor position="261" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

@@ -74,25 +74,6 @@ bool Player::Create(float x, float y, float halfWidth, float halfHeight, float m
     bodyFixture = body->CreateFixture(bodyFixtureDef);
     footboxFixture = body->CreateFixture(footboxFixtureDef);
 
-    renderBody = sf::Shape::Rectangle(0.0f, 0.0f, halfWidth * 2.0f, halfHeight * 2.0f, sf::Color(0, 0, 255, 100), 2.0f, sf::Color::Red);
-    renderBody.SetOrigin(halfWidth, halfHeight);
-    renderBody.EnableOutline(false);
-    renderBody.EnableFill(true);
-
-    renderFootbox = sf::Shape::Rectangle(0.0f, 0.0, halfWidth * 2.0f, (halfHeight / 10.0f) * 2.0f, sf::Color(0, 255, 0, 100), 2.0f, sf::Color::Green);
-    renderFootbox.SetOrigin(halfWidth, (halfHeight / 10.0f));
-    renderFootbox.EnableOutline(false);
-    renderFootbox.EnableFill(true);
-
-    standR.LoadFromFile("img/player/standr.png");
-    runR.LoadFromFile("img/player/runr.png");
-    jumpR.LoadFromFile("img/player/jumpr.png");
-
-    sprite.SetTexture(standR);
-    sprite.SetOrigin(32, 32);
-    subRect.Height = 64;
-    subRect.Width = 64;
-
     delete bodyDef;
     delete bodyFixtureDef;
     delete footboxFixtureDef;
@@ -129,37 +110,18 @@ void Player::Process()
     switch (movementStatus)
     {
         case left:
-            sprite.FlipX(true);
             if (!jumping)
             {
                 ApplyRelativeHorizontalMotion(-5);
-                sprite.SetTexture(runR);
-                if (spriteTimer.GetElapsedTime() > 700)
-                {
-                     spriteTimer.Reset();
-                }
-                subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
             }
             break;
         case right:
-            sprite.FlipX(false);
             if (!jumping)
             {
                 ApplyRelativeHorizontalMotion(5);
-                sprite.SetTexture(runR);
-                if (spriteTimer.GetElapsedTime() > 700)
-                {
-                     spriteTimer.Reset();
-                }
-                subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
             }
             break;
         case none:
-            if (!jumping)
-            {
-                subRect.Left = 0;
-                sprite.SetTexture(standR);
-            }
             break;
         default:
             break;
@@ -167,45 +129,25 @@ void Player::Process()
 
     if (jumping)
     {
-        sprite.SetTexture(jumpR);
-        if (spriteTimer.GetElapsedTime() < 600)
-        {
-            subRect.Left = (spriteTimer.GetElapsedTime() / 100) * 64;
-        } else
-        {
-            subRect.Left = 5 * 64;
-        }
     }
 }
 
-void Player::Render(float scaleFactor, sf::RenderWindow* window)
+void Player::Render()
 {
-    renderBody.SetScale(scaleFactor, scaleFactor);
-    renderBody.SetOutlineThickness(2 / scaleFactor);
-    renderBody.SetPosition(
-        body->GetWorldPoint(((b2PolygonShape*)bodyFixture->GetShape())->m_centroid).x * scaleFactor,
-        body->GetWorldPoint(((b2PolygonShape*)bodyFixture->GetShape())->m_centroid).y * scaleFactor);
-    renderBody.SetRotation(body->GetAngle() * 180.0f / 3.1415926535);
+    glPushMatrix();
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
+    glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
+    glScalef(halfWidth, halfHeight, 1.0f);
 
-    renderFootbox.SetScale(scaleFactor, scaleFactor);
-    renderFootbox.SetOutlineThickness(2 / scaleFactor);
-    // Gets the shape of the fixture, casts it to b2PolygonShape*, and recieves the
-    //+m_centroid member, then translates it to the world's point, and scales it
-    renderFootbox.SetPosition(
-        body->GetWorldPoint(((b2PolygonShape*)footboxFixture->GetShape())->m_centroid).x * scaleFactor,
-        body->GetWorldPoint(((b2PolygonShape*)footboxFixture->GetShape())->m_centroid).y * scaleFactor);
-    renderFootbox.SetRotation(body->GetAngle() * 180.0f / 3.1415926535);
+    glBegin(GL_QUADS);
+        glVertex2f(-1.0f, -1.0f);
+        glVertex2f(1.0f, -1.0f);
+        glVertex2f(1.0f, 1.0f);
+        glVertex2f(-1.0f, 1.0f);
+    glEnd();
 
-    sprite.SetSubRect(subRect);
-    sprite.SetScale(scaleFactor / subRect.Width * 1.8, scaleFactor / subRect.Height * 1.8);
-    sprite.SetPosition(
-        body->GetWorldPoint(((b2PolygonShape*)bodyFixture->GetShape())->m_centroid).x * scaleFactor,
-        body->GetWorldPoint(((b2PolygonShape*)bodyFixture->GetShape())->m_centroid).y * scaleFactor);
-    sprite.SetRotation(body->GetAngle() * 180.0f / 3.1415926535);
-
-    //window->Draw(renderBody);
-    //window->Draw(renderFootbox);
-    window->Draw(sprite);
+    glPopMatrix();
 }
 
 void Player::Pause()
@@ -257,7 +199,6 @@ void Player::StopMoving()
 
 void Player::Jump()
 {
-    spriteTimer.Reset();
     ApplyRelativeImpulse(0, -10);
     jumping = true;
 }

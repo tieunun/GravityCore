@@ -12,56 +12,66 @@ MainMenuState::MainMenuState(GameCore* game)
     this->game = game;
 }
 
-void MainMenuState::Initiate()
+MainMenuState::~MainMenuState()
 {
-    current = 0;
-
-    std::vector<std::string> menuItems;
-
-    menuItems.push_back("Start Game");
-    //menuItems.push_back("Options");
-    menuItems.push_back("Credits");
-    menuItems.push_back("Exit");
-
-    for (unsigned int i = 0; i < menuItems.size(); i++)
-    {
-        displayItems.push_back(sf::Text());
-        displayItems.back().SetString(menuItems[i]);
-        displayItems.back().SetPosition(50, i * 50);
-    }
 }
 
-void MainMenuState::Cleanup()
+void MainMenuState::Create()
+{
+
+    glDisable(GL_LIGHTING);
+
+    current = 0;
+
+    menuItems.push_back("Start game");
+    //menuItems.push_back("Options");
+    //menuItems.push_back("Credits");
+    menuItems.push_back("Exit");
+}
+
+void MainMenuState::Destroy()
 {
 }
 
 void MainMenuState::Pause()
 {
+    glPushAttrib(GL_COLOR_BUFFER_BIT | GL_LIGHTING_BIT | GL_ENABLE_BIT);
 }
 
 void MainMenuState::Resume()
 {
+    glPopAttrib();
 }
 
-void MainMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
+void MainMenuState::HandleEvents(GLFWEvent* event)
 {
-    switch (event->Type)
+    switch (event->type)
     {
-        case sf::Event::KeyPressed:
-            switch (event->Key.Code)
+        case GLFWEvent::KEY:
+            if (event->state == GLFW_PRESS)
             {
-                case sf::Keyboard::Up:
-                    PreviousItem();
-                    break;
-                case sf::Keyboard::Down:
-                    NextItem();
-                    break;
-                case sf::Keyboard::Return:
-                    SelectCurrent();
-                    break;
-                default:
-                    break;
+                switch (event->key)
+                {
+                    case GLFW_KEY_UP:
+                        PreviousItem();
+                        break;
+                    case GLFW_KEY_DOWN:
+                        NextItem();
+                        break;
+                    case GLFW_KEY_ENTER:
+                        SelectCurrent();
+                        break;
+                    default:
+                        break;
+                }
             }
+            break;
+        case GLFWEvent::RESIZE:
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glViewport(0, 0, event->width, event->height);
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
             break;
         default:
             break;
@@ -70,47 +80,25 @@ void MainMenuState::HandleEvents(sf::Event* event, sf::RenderWindow* window)
 
 void MainMenuState::Process(float frameTime)
 {
-    for (unsigned int i = 0; i < displayItems.size(); i++)
+}
+
+void MainMenuState::Render()
+{
+    for (i = 0; i < menuItems.size(); i++)
     {
-        // Hilight current item as green, and all others as white
-        if (i == current)
+        static unsigned int horizPixels;
+        horizPixels = 20;
+        if (current == i)
         {
-            displayItems[i].SetColor(sf::Color::Green);
+            glColor3f(1.0f, 1.0f, 1.0f);
         } else
         {
-            displayItems[i].SetColor(sf::Color::White);
+            glColor3f(0.3f, 0.3f, 0.3f);
         }
-    }
-}
-
-void MainMenuState::Render(sf::RenderWindow* window)
-{
-    window->SetView(window->GetDefaultView());
-    for (unsigned int i = 0; i < displayItems.size(); i++)
-    {
-        window->Draw(displayItems[i]);
-    }
-}
-
-void MainMenuState::NextItem()
-{
-    if (current < (displayItems.size() - 1))
-    {
-        current++;
-    } else
-    {
-        current = 0;
-    }
-}
-
-void MainMenuState::PreviousItem()
-{
-    if (current > 0)
-    {
-        current--;
-    } else
-    {
-        current = (displayItems.size() - 1);
+        for (j = 0; j < menuItems[i].length(); j++)
+        {
+            DrawString(menuItems[i], 20, 200 + (32 * i), 32);
+        }
     }
 }
 
@@ -120,14 +108,11 @@ void MainMenuState::SelectCurrent()
     {
         // Start Game
         case 0:
+            SendResizeEvent();
             PushState(new MainGameState(game));
             break;
-        // Options
-        case 1:
-            PushState(new CreditsState(game));
-            break;
         // Exit
-        case 2:
+        case 1:
             PopState();
             break;
         default:
@@ -136,4 +121,3 @@ void MainMenuState::SelectCurrent()
 }
 
 #endif
-

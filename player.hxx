@@ -6,7 +6,7 @@
 #define PLAYER_HXX
 
 #include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
+#include <GL/gl.h>
 #include <vector>
 #include <iostream>
 
@@ -40,18 +40,6 @@ class Player
         // The force of gravity, recalculated and reapplied each frame.
         b2Vec2 gravitationalForce;
 
-        // The SFML constraints for rendering
-        sf::Shape renderBody;
-        sf::Shape renderFootbox;
-
-        sf::Sprite sprite;
-        sf::Texture standR;
-        sf::Texture runR;
-        sf::Texture jumpR;
-        sf::IntRect subRect;
-
-        sf::Clock spriteTimer;
-
         float halfWidth;
         float halfHeight;
 
@@ -70,7 +58,7 @@ class Player
         void Destroy(b2World* world);
 
         void Process();
-        void Render(float timeLapse, sf::RenderWindow* window);
+        void Render();
 
         void Pause();
         void Resume();

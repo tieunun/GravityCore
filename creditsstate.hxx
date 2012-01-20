@@ -1,7 +1,7 @@
 /*
  *  Lead Coder:     Taylor C. Richberger
  */
-
+/*
 #ifndef CREDITS_STATE_HXX
 #define CREDITS_STATE_HXX
 
@@ -34,3 +34,4 @@ class CreditsState : public State
 };
 
 #endif
+*/

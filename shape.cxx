@@ -28,6 +28,7 @@ void Shape::Cleanup()
 
 bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World* world)
 {
+    circle = true;
     this->radius = radius;
     this->dynamic = dynamic;
     b2BodyDef* bodyDef = new b2BodyDef();
@@ -55,8 +56,6 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::White, 2.0f, sf::Color::White);
-    renderShape.EnableOutline(false);
 
     delete (bodyDef);
     delete (fixtureDef);
@@ -66,6 +65,7 @@ bool Shape::CreateAsCircle(float x, float y, float radius, bool dynamic, b2World
 
 bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeight, float angle, bool dynamic, b2World* world)
 {
+    circle = false;
     this->halfWidth = halfWidth;
     this->halfHeight = halfHeight;
     this->dynamic = dynamic;
@@ -89,10 +89,6 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
 
-    renderShape = sf::Shape::Rectangle(0, 0, 2.0f * halfWidth, 2.0f * halfHeight, sf::Color::White, 2.0, sf::Color::White);
-    renderShape.SetOrigin(halfWidth, halfHeight);
-    renderShape.EnableOutline(false);
-
     delete (bodyDef);
     delete (fixtureDef);
     delete (shape);
@@ -101,6 +97,7 @@ bool Shape::CreateAsRectangle(float x, float y, float halfWidth, float halfHeigh
 
 bool Shape::CreateAsExit(float x, float y, float radius, b2World* world)
 {
+    circle = true;
     this->radius = radius;
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->position.Set(x, y);
@@ -121,9 +118,6 @@ bool Shape::CreateAsExit(float x, float y, float radius, b2World* world)
 
     body = world->CreateBody(bodyDef);
     fixture = body->CreateFixture(fixtureDef);
-
-    renderShape = sf::Shape::Circle(0.0f, 0.0f, radius, sf::Color::Green, 2.0f, sf::Color::Green);
-    renderShape.EnableOutline(false);
 
     delete (bodyDef);
     delete (fixtureDef);
@@ -166,13 +160,29 @@ void Shape::Process()
 {
 }
 
-void Shape::Render(float scaleFactor, sf::RenderWindow* window)
+void Shape::Render()
 {
-    renderShape.SetScale(scaleFactor, scaleFactor);
-    renderShape.SetOutlineThickness(2 / scaleFactor);
-    renderShape.SetPosition(body->GetPosition().x * scaleFactor, body->GetPosition().y * scaleFactor);
-    renderShape.SetRotation(body->GetAngle() * 180.0f / PI);
-    window->Draw(renderShape);
+    glPushMatrix();
+    glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
+    glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
+    if (circle)
+    {
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glScalef(radius, radius, radius);
+    } else
+    {
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glScalef(halfWidth, halfHeight, 1.0f);
+    }
+
+    glBegin(GL_QUADS);
+        glVertex2f(-1.0f, -1.0f);
+        glVertex2f(1.0f, -1.0f);
+        glVertex2f(1.0f, 1.0f);
+        glVertex2f(-1.0f, 1.0f);
+    glEnd();
+
+    glPopMatrix();
 }
 
 void Shape::Pause()
