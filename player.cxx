@@ -39,7 +39,7 @@ bool Player::Initiate()
     std::ifstream input;
     glGenVertexArrays(VAOCOUNT, VAO);
 
-    input.open("models/blankman/0.ply", std::ifstream::in);
+    input.open("models/blankman/stand0.ply", std::ifstream::in);
     if (input.is_open())
     {
         input >> inString;
@@ -96,7 +96,7 @@ bool Player::Initiate()
             {
                 input >> inString;
                 std::stringstream(inString) >> tempFloat;
-                vertices.push_back(tempFloat / 17.1f);
+                vertices.push_back(tempFloat);
             }
             for (unsigned int j = 0; j < 3; j++)
             {
@@ -289,10 +289,7 @@ void Player::Render()
         glColor3f(1.0f, 1.0f, 1.0f);
         glTranslatef(body->GetPosition().x, body->GetPosition().y, 0.0f);
         glRotatef(body->GetAngle() * 180.0f / PI, 0.0f, 0.0f, 1.0f);
-        //glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
         glMultMatrixf(rotationMatrix);
-        //glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-        //glScalef(halfHeight, halfHeight, halfHeight);
         glMultMatrixf(scaleMatrix);
         glDrawElements(GL_TRIANGLES, indexCount[MAN], GL_UNSIGNED_INT, NULL);
     glPopMatrix();
